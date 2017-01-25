@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {browserHistory} from 'react-router'
+import {loginIssue, signinIssue} from './warnings'
 
 const reducer = (state=null, action) => {
   switch(action.type) {
@@ -22,7 +23,10 @@ export const login = (username, password) =>
         dispatch(whoami())
         browserHistory.push('/gallery')
       })
-      .catch(() => dispatch(whoami()))   
+      .catch(() => {
+        dispatch(whoami())
+        dispatch(loginIssue())
+      })   
 
 export const signup = (firstName, lastName, birthday, email, password) =>
   dispatch => 
@@ -31,7 +35,10 @@ export const signup = (firstName, lastName, birthday, email, password) =>
       dispatch(login())
       browserHistory.push('/gallery')
     })
-    .catch(() => dispatch(whoami()))   
+    .catch(() => {
+      dispatch(whoami())
+      dispatch(signinIssue())
+    })   
 
 export const logout = () =>
   dispatch =>

@@ -1,4 +1,5 @@
 import React from 'react'
+import {Alert} from 'react-bootstrap';
 
 export class Login extends React.Component {
   constructor(props){
@@ -42,6 +43,13 @@ export class Login extends React.Component {
               <span>OR</span>
             </div>
           </div>
+          <div>
+          { this.props.warnings.loginError ? 
+            (<Alert bsStyle="warning">
+              <strong>Oh no!</strong> Looks like your email or password is incorrect. Try again!
+            </Alert>) : null
+          }
+          </div>
           <div className="form-group">
             <label>Email Address</label>
             <input className="form-control" 
@@ -73,9 +81,10 @@ import {login} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
 
-function mapStateToProps(){
+function mapStateToProps(state){
   return {
-
+    user: state.auth,
+    warnings: state.warnings
   }
 }
 
