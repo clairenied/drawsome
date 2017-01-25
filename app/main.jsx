@@ -12,20 +12,12 @@ import WhoAmI from './components/WhoAmI'
 import Navbar from './components/Navbar'
 
 //containers
+import AppContainer from './containers/AppContainer'
 import ChatboxContainer from './containers/ChatboxContainer'
 import ComposeExquisiteCorpseContainer from './containers/ComposeExquisiteCorpseContainer'
 import ComposeMasterpieceContainer from './containers/ComposeMasterpieceContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import PublicGalleryContainer from './containers/PublicGalleryContainer'
-
-const AppContainer = connect(
-  ({ auth }) => ({ user: auth })
-) (
-  ({ user, children }) =>
-    <div>
-      {children}
-    </div>
-)
 
 render (
   <Provider store={store}>

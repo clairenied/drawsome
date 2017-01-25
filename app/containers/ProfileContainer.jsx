@@ -9,7 +9,6 @@ export default class ProfileContainer extends Component {
   render(){
     return(
       <div>
-        <Navbar />
         <div className="page-header">
           <h1>Danielle Katz</h1>
         </div>
