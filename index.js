@@ -45,11 +45,11 @@ module.exports = {
   get isProduction() {
     return process.env.NODE_ENV === 'production'
   },
-  get baseUrl() {
-    return env.BASE_URL || `http://localhost:${PORT}`
-  },
   get port() {
     return env.PORT || 1337
+  },
+  get baseUrl() {
+    return env.BASE_URL || `http://localhost:1337`
   },
   package: pkg,
   env,
