@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
+import {connect} from 'react-redux'
 
 const Navbar = (props) => {
+  console.log(props.user)
   return (
     <div>
       <nav className="navbar navbar-default">
@@ -20,9 +22,24 @@ const Navbar = (props) => {
                     <input type="text" className="form-control" placeholder="Search"/>
                   </div>
                 </form>
-                <li><Link to="/chat">Chat</Link></li>
+                {props.user &&
+                  <li><Link to="/chat">Chat</Link></li>
+                }
+                {props.user &&
                 <li><Link to="/create-masterpiece">New Masterpiece</Link></li>
+                }
+                {props.user &&
                 <li><Link to="profile">My Profile</Link></li>
+                }
+                {props.user &&
+                <li><Link to="#">Logout</Link></li>
+                }
+                {!props.user &&
+                <li><Link to="/login">Login</Link></li>
+                }
+                {!props.user &&
+                <li><Link to="/signup">Signup</Link></li>
+                }
               </ul>
             </div>
           </div>
@@ -32,4 +49,10 @@ const Navbar = (props) => {
   )
 }
 
-export default Navbar
+function mapStateToProps(state){
+  return {
+    user: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(Navbar)
