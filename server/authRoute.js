@@ -6,6 +6,8 @@ const User = require('APP/db/models/user')
 const OAuth = require('APP/db/models/oauth')
 const auth = require('express').Router()
 
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const secrets = require('APP/secrets')
 
 /*************************
  * Auth strategies
@@ -48,16 +50,17 @@ OAuth.setupStrategy({
 
 // Google needs the GOOGLE_CONSUMER_SECRET AND GOOGLE_CONSUMER_KEY
 // environment variables.
-OAuth.setupStrategy({
-  provider: 'google',
-  strategy: require('passport-google-oauth').Strategy,
-  config: {
-    consumerKey: env.GOOGLE_CONSUMER_KEY,
-    consumerSecret: env.GOOGLE_CONSUMER_SECRET,
-    callbackURL: `${app.rootUrl}/api/auth/login/google`,
-  },
-  passport
-})
+
+// OAuth.setupStrategy({
+//   provider: 'google',
+//   strategy: require('passport-google-oauth').Strategy,
+//   config: {
+//     consumerKey: secrets.GOOGLE_CONSUMER_KEY,
+//     consumerSecret: secrets.GOOGLE_CONSUMER_SECRET,
+//     callbackURL: `${app.rootUrl}/api/auth/login/google`,
+//   },
+//   passport
+// })
 
 // Github needs the GITHUB_CLIENT_ID AND GITHUB_CLIENT_SECRET
 // environment variables.
@@ -94,6 +97,42 @@ passport.deserializeUser(
       })
   }
 )
+
+// sign in with google:
+
+auth.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+
+passport.use(
+  new GoogleStrategy({
+    clientID: secrets.GOOGLE_CONSUMER_KEY,
+    clientSecret: secrets.GOOGLE_CONSUMER_SECRET,
+    callbackURL: `${app.baseUrl}/api/auth/login/google`
+  },
+  function(token, refreshToken, profile, done){
+    console.log('THIS IS INFO - WE WANT TO FIND FIRST AND LAST NAME', profile)
+    var info = {
+      name: profile.displayName,
+      email: profile.emails[0].value
+    };
+    User.findOrCreate({
+      where: {googleId: profile.id},
+      defaults: info
+    })
+    .spread(function(user){
+      done(null, user)
+    })
+    .catch(done)
+  })
+)
+
+// handle the callback after Google has authenticated the user
+auth.get('/login/google',
+  passport.authenticate('google', {
+    successRedirect: '/',
+    failureRedirect: '/login' 
+  })
+);
+
 
 passport.use(new (require('passport-local').Strategy) (
   (email, password, done) => {
