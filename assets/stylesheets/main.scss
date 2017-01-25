@@ -1,3 +1,14 @@
 body {
   font-family: 'Work Sans', sans-serif;
+  a {
+    color: #ff5602;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: #ff5602;
+    text-decoration: none;
+  }
+  .online {
+    color: #ff0274;
+  }
 }

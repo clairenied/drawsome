@@ -1,5 +1,16 @@
 body {
   font-family: 'Work Sans', sans-serif; }
+  body a {
+    color: #ff5602;
+    text-decoration: underline; }
+  body a:hover {
+    color: #ff5602;
+    text-decoration: none; }
+  body .online {
+    color: #ff0274; }
+
+.navbar a {
+  text-decoration: none; }
 
 .custom-navbar-default {
   background-color: #ffffff;
@@ -12,3 +23,44 @@ body {
 
 .custom-navbar-logo-orange {
   color: #ff5602; }
+
+.big-doodle {
+  margin-bottom: 4rem; }
+
+.big-doodle-img {
+  webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  margin-top: 20px; }
+
+.img-card {
+  margin: 0 0 4rem 0;
+  padding: 2rem;
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+
+.img-card-comment {
+  margin: 0 0 4rem 0; }
+
+hr.divider-rule {
+  border-top: 4px solid #ff0274; }
+
+.chat-app-container {
+  height: 70vh;
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+
+.chat-sidebar-container {
+  padding: 0 2rem;
+  height: 70vh;
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+
+.masterpiece-container {
+  height: 70vh;
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
