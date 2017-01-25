@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Link from 'react-router'
+import { Link } from 'react-router'
 
 const Navbar = (props) => {
   return (
@@ -20,8 +20,9 @@ const Navbar = (props) => {
                     <input type="text" className="form-control" placeholder="Search"/>
                   </div>
                 </form>
-                <li><a href="#">New Masterpiece</a></li>
-                <li><a href="#">My Profile</a></li>
+                <li><Link to="/chat">Chat</Link></li>
+                <li><Link to="/create-masterpiece">New Masterpiece</Link></li>
+                <li><Link to="profile">My Profile</Link></li>
               </ul>
             </div>
           </div>

@@ -8,24 +8,19 @@ import store from './store'
 
 //components
 import Login from './components/Login'
+import Signup from './components/Signup'
 import WhoAmI from './components/WhoAmI'
 import Navbar from './components/Navbar'
 
 //containers
-import ChatboxContainer from './containers/ChatboxContainer'
+import AppContainer from './containers/AppContainer'
 import ComposeExquisiteCorpseContainer from './containers/ComposeExquisiteCorpseContainer'
 import ComposeMasterpieceContainer from './containers/ComposeMasterpieceContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import PublicGalleryContainer from './containers/PublicGalleryContainer'
-
-const AppContainer = connect(
-  ({ auth }) => ({ user: auth })
-) (
-  ({ user, children }) =>
-    <div>
-      {children}
-    </div>
-)
+import SingleMasterpieceViewContainer from './containers/SingleMasterpieceViewContainer'
+import ChatPageContainer from './containers/ChatPageContainer'
+import MasterpieceContainer from './containers/MasterpieceContainer'
 
 
 render (
@@ -33,8 +28,13 @@ render (
     <Router history={browserHistory}>
       <Route path="/" component={AppContainer}>
         <IndexRedirect to="/gallery" />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
         <Route path="/gallery" component={PublicGalleryContainer} />
+        <Route path="/masterpiece" component={SingleMasterpieceViewContainer} />
         <Route path="/profile" component={ProfileContainer} />
+        <Route path="/chat" component={ChatPageContainer}/>
+        <Route path="/create-masterpiece" component={MasterpieceContainer}/>
       </Route>
     </Router>
   </Provider>,

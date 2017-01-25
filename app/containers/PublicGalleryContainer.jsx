@@ -29,9 +29,8 @@ componentDidMount(){
     console.log("SHAPE", this.state.shape)
     return(
       <div className="container">
-        <div className="page-header">
-          <h1>Your Gallery</h1>
-        </div>
+        <h1>Your Gallery</h1>
+        <hr className="divider-rule"/>
         <div className="row">
           <div>
             <Doodle drawing={this.state.shape} />
