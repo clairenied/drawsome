@@ -8,6 +8,7 @@ import store from './store'
 
 //components
 import Login from './components/Login'
+import Signup from './components/Signup'
 import WhoAmI from './components/WhoAmI'
 import Navbar from './components/Navbar'
 
@@ -24,6 +25,8 @@ render (
     <Router history={browserHistory}>
       <Route path="/" component={AppContainer}>
         <IndexRedirect to="/gallery" />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
         <Route path="/gallery" component={PublicGalleryContainer} />
         <Route path="/profile" component={ProfileContainer} />
       </Route>

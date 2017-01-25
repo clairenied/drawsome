@@ -1,4 +1,6 @@
 import axios from 'axios'
+import {browserHistory} from 'react-router'
+import {loginIssue, signinIssue} from './warnings'
 
 const reducer = (state=null, action) => {
   switch(action.type) {
@@ -17,8 +19,26 @@ export const login = (username, password) =>
   dispatch =>
     axios.post('/api/auth/local/login',
       {username, password})
-      .then(() => dispatch(whoami()))
-      .catch(() => dispatch(whoami()))      
+      .then(() => {
+        dispatch(whoami())
+        browserHistory.push('/gallery')
+      })
+      .catch(() => {
+        dispatch(whoami())
+        dispatch(loginIssue())
+      })   
+
+export const signup = (firstName, lastName, birthday, email, password) =>
+  dispatch => 
+    axios.post('/api/users', {firstName, lastName, birthday, email, password})
+    .then(() => {
+      dispatch(login())
+      browserHistory.push('/gallery')
+    })
+    .catch(() => {
+      dispatch(whoami())
+      dispatch(signinIssue())
+    })   
 
 export const logout = () =>
   dispatch =>
