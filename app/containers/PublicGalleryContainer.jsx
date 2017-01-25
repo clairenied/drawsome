@@ -1,11 +1,32 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 
 //components
 import Doodle from '../components/Doodle'
 
 export default class PublicGalleryContainer extends Component {
+ constructor(props) {
+    super(props);
+    this.state = {
+      shape : ""
+    }
+    
+  }
+
+componentDidMount(){
+  console.log("ANYTHINGGGG!!")
+    axios.get('/api/users/shape')
+      .then(res => {
+
+         this.setState({
+      shape: res.data[0].firstName
+    });
+      })
+      .catch(err => console.log(err));
+}
 
   render(){
+    console.log("SHAPE", this.state.shape)
     return(
       <div className="container">
         <div className="page-header">
@@ -13,7 +34,7 @@ export default class PublicGalleryContainer extends Component {
         </div>
         <div className="row">
           <div>
-            <Doodle />
+            <Doodle drawing={this.state.shape} />
             <Doodle />
             <Doodle />
             <Doodle />
