@@ -21,5 +21,4 @@ Drawing.belongsTo(Drawing, { as: 'commentDrawing'})
 User.hasMany(Version)
 Version.belongsTo(User)
 
-
 module.exports = {User}
