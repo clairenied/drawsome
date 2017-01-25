@@ -6,7 +6,7 @@ const db = require('APP/db')
 
 const User = db.define('users', {
   firstName: { 
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
    
   }, 
   lastName: { 
