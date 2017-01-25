@@ -22,6 +22,7 @@ import SingleMasterpieceViewContainer from './containers/SingleMasterpieceViewCo
 import ChatPageContainer from './containers/ChatPageContainer'
 import MasterpieceContainer from './containers/MasterpieceContainer'
 
+
 render (
   <Provider store={store}>
     <Router history={browserHistory}>

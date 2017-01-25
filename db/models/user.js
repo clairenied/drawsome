@@ -7,11 +7,11 @@ const db = require('APP/db')
 const User = db.define('users', {
   firstName: { 
     type: Sequelize.STRING,
-    allowNull: false,
+   
   }, 
   lastName: { 
     type: Sequelize.STRING,
-    allowNull: false,
+
   }, 
   birthday: Sequelize.DATE, 
   email: {
