@@ -88,7 +88,9 @@ passport.deserializeUser(
     debug('will deserialize user.id=%d', id)
     User.findById(id)
       .then(user => {
-        debug('deserialize did ok user.id=%d', user.id)
+        if(user){
+          debug('deserialize did ok user.id=%d', user.id)
+        }
         done(null, user)
       })
       .catch(err => {
@@ -109,9 +111,9 @@ passport.use(
     callbackURL: `${app.baseUrl}/api/auth/login/google`
   },
   function(token, refreshToken, profile, done){
-    console.log('THIS IS INFO - WE WANT TO FIND FIRST AND LAST NAME', profile)
     var info = {
-      name: profile.displayName,
+      firstName: profile.name.givenName,
+      lastName: profile.name.familyName,
       email: profile.emails[0].value
     };
     User.findOrCreate({
