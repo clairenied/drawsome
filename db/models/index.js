@@ -16,9 +16,9 @@ Drawing.belongsToMany(User, { through: 'userDrawing'})
 Drawing.hasMany(Version)
 Version.belongsTo(Drawing)
 
-Drawing.belongsTo(Drawing, { as: 'commentDrawing'})
+Drawing.belongsTo(Drawing, { as: 'parentDrawing'})
 
 User.hasMany(Version)
 Version.belongsTo(User)
 
-module.exports = {User}
+module.exports = {User, Drawing, Version}
