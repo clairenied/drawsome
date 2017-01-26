@@ -2,6 +2,7 @@ import axios from 'axios'
 import {browserHistory} from 'react-router'
 import {loginIssue, signinIssue} from './warnings'
 import {setAllFriends} from './friends'
+import {setAllMasterpieces} from './drawings'
 
 const reducer = (state=null, action) => {
   switch(action.type) {
@@ -55,6 +56,10 @@ export const whoami = () =>
     axios.get('/api/auth/whoami')
       .then(response => {
         const user = response.data
+        dispatch(setAllMasterpieces(user.drawings))
+        let userDrawing = user.drawings
+        user.drawings = []
+        userDrawing.forEach(drawing => user.drawings.push(drawing.id))
         dispatch(setAllFriends(user.id))
         dispatch(authenticated(user))
       })
