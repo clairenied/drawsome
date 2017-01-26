@@ -1,6 +1,11 @@
-import axios from 'axios'
+import axios from 'axios';
+import {setAllMasterpieces} from './drawings'
 
-const reducer = (state={}, action) => {
+const initialState = {
+	drawings: []
+}
+
+const reducer = (state=initialState, action) => {
 	const nextState = Object.assign({}, state);
 	switch(action.type){
 		case GET_FRIEND:
@@ -16,6 +21,7 @@ const reducer = (state={}, action) => {
 // CONSTANTS
 
 export const GET_FRIEND = 'GET_FRIEND'
+export const SET_FRIEND_DRAWINGS = 'SET_FRIEND_DRAWINGS'
 
 
 // ACTION CREATORS
@@ -30,6 +36,7 @@ export const getFriend = (friend) => {
 export const getAllFriends = (allFriends) => {
 	return dispatch => {
 		return allFriends.forEach(friend => {
+			dispatch(setAllMasterpieces(friend.drawings))
 			dispatch(getFriend(friend))
 		})
 	}

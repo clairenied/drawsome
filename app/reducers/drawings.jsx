@@ -1,24 +1,25 @@
 import axios from 'axios';
 const SET_MASTERPIECE = "SET_MASTERPIECE";
 
-
-export const setMasterpiece = masterpiece => ({
-    type: SET_MASTERPIECE,
-    masterpiece
-});
-
 const initialState = {};
 
 const reducer  = (state = initialState, action) => {
   const nextState = Object.assign({}, state);
   switch (action.type) {
     case SET_MASTERPIECE: 
-
-       return nextState[action.masterpiece.id] = action.masterpiece;
+      nextState[action.masterpiece.id] = action.masterpiece;
+      break;
     default: 
        return state;
   }
+  return nextState
 }
+
+export const setMasterpiece = masterpiece => ({
+    type: SET_MASTERPIECE,
+    masterpiece
+});
+
 
 export const setAllMasterpieces = (masterpieces) => {
 	return dispatch => {
