@@ -14,10 +14,9 @@ export default class PublicGalleryContainer extends Component {
   }
 
 componentDidMount(){
-  console.log("ANYTHINGGGG!!")
+
     axios.get('/api/users/shape')
       .then(res => {
-
          this.setState({
       shape: res.data[0].firstName
     });
@@ -26,14 +25,13 @@ componentDidMount(){
 }
 
   render(){
-    console.log("SHAPE", this.state.shape)
     return(
       <div className="container">
         <h1>Your Gallery</h1>
         <hr className="divider-rule"/>
         <div className="row">
           <div>
-            <Doodle drawing={this.state.shape} />
+            <Doodle />
             <Doodle />
             <Doodle />
             <Doodle />
