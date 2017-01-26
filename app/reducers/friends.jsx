@@ -27,6 +27,9 @@ export const SET_FRIEND_DRAWINGS = 'SET_FRIEND_DRAWINGS'
 // ACTION CREATORS
 
 export const getFriend = (friend) => {
+	let personDrawings = friend.drawings
+	friend.drawings = []
+	personDrawings.forEach(drawing => friend.drawings.push(drawing.id))
 	return {
 	  type: GET_FRIEND, 
 	  friend
