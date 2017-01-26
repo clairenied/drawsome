@@ -9,7 +9,7 @@ const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 const User = db.model('users')
 const Drawing = db.model('drawing')
-
+const Version = db.model('version')
 
 
 router.get('/', forbidden('only admins can list users'), (req, res, next) => {
@@ -32,7 +32,7 @@ router.get('/:id', mustBeLoggedIn, (req, res, next) => {
 
 router.get('/:id/friends', mustBeLoggedIn, (req, res, next) => {
 	return User.findById(req.params.id,{
-		include: [{model: User, as: 'friend', include: [Drawing]}]
+		include: [{model: User, as: 'friend', include: [{model: Drawing, include:[Version, {model: Drawing, as:'commentDrawing'}]}]}]
 	})
 	.then((user) => {
 		res.json(user)
