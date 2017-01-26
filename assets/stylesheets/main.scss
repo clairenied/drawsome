@@ -1,14 +1,17 @@
+@import "color";
+
 body {
   font-family: 'Work Sans', sans-serif;
   a {
-    color: #ff5602;
+    color: $drawsome-orange;
     text-decoration: underline;
   }
   a:hover {
-    color: #ff5602;
+    color: $drawsome-orange;
     text-decoration: none;
+    cursor: pointer;
   }
   .online {
-    color: #ff0274;
+    color: $drawsome-pink;
   }
 }

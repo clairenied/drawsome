@@ -2,17 +2,17 @@
   margin-bottom: 4rem; }
 
 .big-doodle-img {
-  webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  margin-top: 20px; }
-
-.img-card {
-  margin: 0 0 4rem 0;
-  padding: 2rem;
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+
+.img-card {
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  margin: 0 0 4rem 0;
+  padding: 2rem; }
 
 .img-card-comment {
   margin: 0 0 4rem 0; }

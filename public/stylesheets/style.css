@@ -5,7 +5,8 @@ body {
     text-decoration: underline; }
   body a:hover {
     color: #ff5602;
-    text-decoration: none; }
+    text-decoration: none;
+    cursor: pointer; }
   body .online {
     color: #ff0274; }
 
@@ -41,17 +42,17 @@ body {
   margin-bottom: 4rem; }
 
 .big-doodle-img {
-  webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  margin-top: 20px; }
-
-.img-card {
-  margin: 0 0 4rem 0;
-  padding: 2rem;
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+
+.img-card {
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  margin: 0 0 4rem 0;
+  padding: 2rem; }
 
 .img-card-comment {
   margin: 0 0 4rem 0; }
@@ -60,23 +61,70 @@ hr.divider-rule {
   border-top: 4px solid #ff0274; }
 
 .chat-app-container {
-  height: 70vh;
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  height: 70vh; }
 
 .chat-sidebar-container {
-  padding: 0 2rem;
-  height: 70vh;
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  padding: 0 2rem;
+  height: 70vh; }
 
 .masterpiece-container {
-  height: 70vh;
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  width: 450px;
+  height: 450px;
+  margin: 20px auto; }
+
+.palette {
+  margin-top: 20px; }
+  .palette .red {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #ff0000; }
+  .palette .yellow {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #ffff00; }
+  .palette .blue {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #0000ff; }
+  .palette .green {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #00ff00; }
+  .palette .black {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #000000; }
+  .palette .white {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #ffffff; }
 
 .login-form {
   margin: 0 auto;

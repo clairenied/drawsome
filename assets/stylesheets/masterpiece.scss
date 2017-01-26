@@ -1,6 +1,42 @@
+@import "color";
+
+@mixin palettestyles {
+  @include shadow;
+  height: 36px;
+  margin: 10px 0;
+}
+
 .masterpiece-container {
-  height: 70vh;
-  -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.35);
-  -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.35);
+  @include shadow;
+  width: 450px;
+  height: 450px;
+  margin: 20px auto;
+}
+
+.palette {
+  margin-top: 20px;
+  .red {
+    @include palettestyles;
+    background-color: #ff0000;
+  }
+  .yellow {
+    @include palettestyles;
+    background-color: #ffff00;
+  }
+  .blue {
+    @include palettestyles;
+    background-color: #0000ff;
+  }
+  .green {
+    @include palettestyles;
+    background-color: #00ff00;
+  }
+  .black {
+    @include palettestyles;
+    background-color: #000000;
+  }
+  .white {
+    @include palettestyles;
+    background-color: #ffffff;
+  }
 }
