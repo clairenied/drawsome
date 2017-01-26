@@ -2,11 +2,31 @@
 
 .chat-app-container {
   @include shadow;
-  height: 70vh;
+  margin: 20px 0;
+  height: 300px;
+  width: 300px;
 }
 
 .chat-sidebar-container {
   @include shadow;
-  padding: 0 2rem;
-  height: 70vh;
+  width: 24rem;
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 600px;
+  z-index: 99;
+  .title {
+    padding: 1rem 1rem 1rem 3rem;
+    background-color: $drawsome-pink;
+    color: #ffffff;
+  }
+  .close {
+    opacity: 0.75;
+    color: #ffffff;
+    float: right;
+  }
+  .close:hover {
+    opacity: 0.5;
+  }
 }

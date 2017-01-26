@@ -2,11 +2,28 @@
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  height: 70vh; }
+  margin: 20px 0;
+  height: 300px;
+  width: 300px; }
 
 .chat-sidebar-container {
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  padding: 0 2rem;
-  height: 70vh; }
+  width: 24rem;
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 600px;
+  z-index: 99; }
+  .chat-sidebar-container .title {
+    padding: 1rem 1rem 1rem 3rem;
+    background-color: #ff0274;
+    color: #ffffff; }
+  .chat-sidebar-container .close {
+    opacity: 0.75;
+    color: #ffffff;
+    float: right; }
+  .chat-sidebar-container .close:hover {
+    opacity: 0.5; }
