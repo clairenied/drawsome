@@ -8,7 +8,7 @@ const Version = db.define('version', {
     allowNull: false,
   },
   versionData: {
-    type: Sequelize.JSON,
+    type: Sequelize.TEXT,
   }
 }, {})
 
