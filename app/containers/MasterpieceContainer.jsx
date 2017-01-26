@@ -82,22 +82,22 @@ export default class MasterpieceContainer extends React.Component {
         <div className="col-xs-12">
           <h1>Now editing: Your masterpiece</h1>
         </div>
-        <div className="col-xs-3 col-sm-3">
+        <div className="col-xs-12 col-sm-4">
           <hr className="divider-rule"/>
-          <h3>Size: {this.state.paperSettings.strokeWidth}</h3>
-          <span><h3><a onClick={this.biggerBrushSize}>+</a>&emsp;/&emsp;<a onClick={this.smallerBrushSize}>-</a></h3></span>
-          <h3>Opacity: {this.state.paperSettings.opacity.toFixed(1)}</h3>
-          <span><h3><a onClick={this.moreOpaque}>+</a>&emsp;/&emsp;<a onClick={this.lessOpaque}>-</a></h3></span>
+          <span><h3>Size:&ensp;{this.state.paperSettings.strokeWidth}&ensp;<a onClick={this.biggerBrushSize}>+</a>/<a onClick={this.smallerBrushSize}>-</a></h3></span>
+          <span><h3>Opacity:&ensp;{this.state.paperSettings.opacity.toFixed(1)}&ensp;<a onClick={this.moreOpaque}>+</a>/<a onClick={this.lessOpaque}>-</a></h3></span>
           <div className="palette">
             <a onClick={() => this.changeColor('red')}><div className="red"></div></a>
+            <a onClick={() => this.changeColor('#ff5602')}><div className="orange"></div></a>
             <a onClick={() => this.changeColor('yellow')}><div className="yellow"></div></a>
-            <a onClick={() => this.changeColor('blue')}><div className="blue"></div></a>
             <a onClick={() => this.changeColor('#00ff00')}><div className="green"></div></a>
+            <a onClick={() => this.changeColor('blue')}><div className="blue"></div></a>
+            <a onClick={() => this.changeColor('#8500ff')}><div className="purple"></div></a>
             <a onClick={() => this.changeColor('black')}><div className="black"></div></a>
-            <a onClick={() => this.changeColor('white')}><div className="white"></div></a>
+            <a onClick={() => this.changeColor('white')}><div className="white"></div></a>    
           </div>
         </div>  
-        <div className="col-xs-9 col-sm-9">
+        <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
             <canvas width="450" height="450" ref={(elem) => this.canvas = elem}></canvas>
           </div>

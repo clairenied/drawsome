@@ -13,6 +13,10 @@
 .custom-navbar-logo-orange {
   color: #ff5602; }
 
+.user-dropdown-btn {
+  background-color: #ffffff;
+  color: #ffffff; }
+
 .user-dropdown {
   vertical-align: center;
   position: relative;

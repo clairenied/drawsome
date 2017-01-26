@@ -9,20 +9,21 @@ class Navbar extends Component {
   
   renderLogout(){
     return(
-      <ul className="nav navbar-nav navbar-right">
+      <div className="nav navbar-default custom-navbar-default">
         <form className="navbar-form navbar-left">
           <div className="form-group">
             <input type="text" className="form-control" placeholder="Search"/>
           </div>
         </form>
-          <li><Link to="/chat">Chat</Link></li>
-          <li><Link to="/create-masterpiece">New Masterpiece</Link></li>
+        <ul className="nav navbar-nav navbar-right">
           <li>
-            <div id="welcomeName">Welcome, {this.props.user.firstName}</div>
+            <div id="welcomeName">Hello {this.props.user.firstName}!</div>
           </li>
+          <li><Link to="/chat"><span className="glyphicon glyphicon-comment"></span></Link></li>
+          <li><Link to="/create-masterpiece"><span className="glyphicon glyphicon-file"></span></Link></li>
           <li>
             <div className="user-dropdown">
-              <DropdownButton title={<span className="glyphicon glyphicon-user"></span>} id={`dropdown-basic-1`}>
+              <DropdownButton title={<span className="glyphicon glyphicon-user"></span>} id={`dropdown-basic-1`} className="btn-default">
                 <MenuItem eventKey="1" href="/profile">
                   My Profile
                 </MenuItem>
@@ -32,8 +33,9 @@ class Navbar extends Component {
                 </MenuItem>
               </DropdownButton>
             </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     );
 
   }
@@ -53,8 +55,8 @@ class Navbar extends Component {
           <div className="custom-navbar-default">
             <div className="container-fluid">
               <div className="navbar-header">
-                <Link className="navbar-brand" to="/gallery">
-                  <span className="custom-navbar-logo-pink"><b>Draw</b></span><span className="custom-navbar-logo-orange"><b>Some</b></span>
+                <Link id="custom-navbar-brand" className="navbar-brand" to="/gallery">
+                  <span className="custom-navbar-logo-pink"><b>Draw</b></span><span className="custom-navbar-logo-orange"><b>some</b></span>
                 </Link>
               </div>
 

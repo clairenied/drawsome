@@ -19,17 +19,25 @@
     @include palettestyles;
     background-color: #ff0000;
   }
+  .orange {
+    @include palettestyles;
+    background-color: $drawsome-orange;
+  }
   .yellow {
     @include palettestyles;
     background-color: #ffff00;
+  }
+  .green {
+    @include palettestyles;
+    background-color: #00ff00;
   }
   .blue {
     @include palettestyles;
     background-color: #0000ff;
   }
-  .green {
+  .purple {
     @include palettestyles;
-    background-color: #00ff00;
+    background-color: #8500ff;
   }
   .black {
     @include palettestyles;
