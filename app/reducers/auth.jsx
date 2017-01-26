@@ -43,7 +43,10 @@ export const signup = (firstName, lastName, birthday, email, password) =>
 export const logout = () =>
   dispatch =>
     axios.post('/api/auth/logout')
-      .then(() => dispatch(whoami()))
+      .then(() => {
+        dispatch(whoami())
+        browserHistory.push('/login')
+      })
       .catch(() => dispatch(whoami()))
 
 export const whoami = () =>
