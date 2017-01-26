@@ -8,6 +8,7 @@ const router = express.Router()
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 const User = db.model('users')
+const Drawing = db.model('drawing')
 
 
 
@@ -26,6 +27,16 @@ router.post('/', (req, res, next) => {
 router.get('/:id', mustBeLoggedIn, (req, res, next) => { 
 	User.findById(req.params.id)
 	.then(user => res.json(user))
+	.catch(next)
+})
+
+router.get('/:id/friends', mustBeLoggedIn, (req, res, next) => {
+	return User.findById(req.params.id,{
+		include: [{model: User, as: 'friend', include: [Drawing]}]
+	})
+	.then((user) => {
+		res.json(user)
+	})
 	.catch(next)
 })
 

@@ -13,17 +13,17 @@ export default class PublicGalleryContainer extends Component {
     
   }
 
-componentDidMount(){
-  console.log("ANYTHINGGGG!!")
-    axios.get('/api/users/shape')
-      .then(res => {
+// componentDidMount(){
+//   console.log("ANYTHINGGGG!!")
+//     axios.get('/api/users/shape')
+//       .then(res => {
 
-         this.setState({
-      shape: res.data[0].firstName
-    });
-      })
-      .catch(err => console.log(err));
-}
+//          this.setState({
+//       shape: res.data[0].firstName
+//     });
+//       })
+//       .catch(err => console.log(err));
+// }
 
   render(){
     console.log("SHAPE", this.state.shape)

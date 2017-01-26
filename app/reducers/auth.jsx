@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {browserHistory} from 'react-router'
 import {loginIssue, signinIssue} from './warnings'
+import {setAllFriends} from './friends'
 
 const reducer = (state=null, action) => {
   switch(action.type) {
@@ -54,6 +55,7 @@ export const whoami = () =>
     axios.get('/api/auth/whoami')
       .then(response => {
         const user = response.data
+        dispatch(setAllFriends(user.id))
         dispatch(authenticated(user))
       })
       .catch(failed => dispatch(authenticated(null)))
