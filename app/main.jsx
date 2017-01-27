@@ -25,10 +25,6 @@ import { getMasterpieces } from './reducers/drawings';
 
 
 
-const getMasterpiecesOnEnter = function() {
-store.dispatch(getMasterpieces());
-}
-
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -36,7 +32,7 @@ render (
         <IndexRedirect to="/gallery" />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/gallery" component={PublicGalleryContainer} onEnter={getMasterpiecesOnEnter} />
+        <Route path="/gallery" component={PublicGalleryContainer} />
         <Route path="/masterpiece" component={SingleMasterpieceViewContainer} />
         <Route path="/profile" component={ProfileContainer} />
         <Route path="/chat" component={ChatPageContainer}/>
