@@ -8,7 +8,7 @@ class PaperCanvas extends React.Component {
         paper.project.importJSON(this.props.json);
     }
     render() {
-        return <canvas width="1000" height="500" ref={(elem) => this.canvas = elem}></canvas>
+        return <canvas width="500" height="500" ref={(elem) => this.canvas = elem}></canvas>
     }
 }
 
