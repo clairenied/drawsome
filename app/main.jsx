@@ -23,12 +23,6 @@ import ChatPageContainer from './containers/ChatPageContainer'
 import MasterpieceContainer from './containers/MasterpieceContainer'
 import { getMasterpieces } from './reducers/drawings';
 
-
-
-// const getMasterpiecesOnEnter = function() {
-// store.dispatch(getMasterpieces());
-// }
-
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
