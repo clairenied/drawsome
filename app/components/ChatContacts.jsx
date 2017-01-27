@@ -7,7 +7,7 @@ class ChatContacts extends React.Component {
     super(props);
 
     this.state = {
-      showChatSidebar: true,
+      showChatSidebar: false,
     }
 
     this.toggleShowChatSidebar = this.toggleShowChatSidebar.bind(this)

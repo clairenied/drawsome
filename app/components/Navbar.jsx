@@ -6,7 +6,6 @@ import {DropdownButton, MenuItem} from 'react-bootstrap'
 
 class Navbar extends Component {
 
-  
   renderLogout(){
     return(
       <div className="nav navbar-default custom-navbar-default">
