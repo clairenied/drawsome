@@ -11,10 +11,16 @@ body {
     text-decoration: none;
     cursor: pointer; }
   body .app-container {
-    z-index: 50; }
+    z-index: 50;
+    margin-top: 8rem; }
 
-.navbar a {
-  text-decoration: none; }
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1000; }
+  .navbar a {
+    text-decoration: none; }
 
 .custom-navbar-default {
   background-color: #ffffff;

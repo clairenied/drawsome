@@ -11,4 +11,5 @@ body {
     text-decoration: none;
     cursor: pointer; }
   body .app-container {
-    z-index: 50; }
+    z-index: 50;
+    margin-top: 8rem; }
