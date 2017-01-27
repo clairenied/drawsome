@@ -10,26 +10,28 @@ class ProfileContainer extends Component {
     console.log(this.props.user)
     return(
       <div className="container">
-        <h1>Art By: {this.props.user && this.props.user.firstName} {this.props.user && this.props.user.lastName}</h1>
-        <div className="row">
-          <div>
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
-            <BigDoodle />
+        <div className="col-xs-12">
+          <h1>Art By: {this.props.user && this.props.user.firstName} {this.props.user && this.props.user.lastName}</h1>
+          <div className="row">
+            <div>
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+              <BigDoodle />
+            </div>
           </div>
         </div>
       </div>

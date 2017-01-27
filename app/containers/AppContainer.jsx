@@ -3,6 +3,7 @@ import {connect, Provider} from 'react-redux'
 
 import Navbar from '../components/Navbar'
 import ChatContacts from '../components/ChatContacts'
+import ChatBox from '../components/ChatBox'
 
 const AppContainer = connect(
   ({ auth }) => ({ user: auth })
@@ -11,7 +12,14 @@ const AppContainer = connect(
     <div>
       <Navbar />
       <ChatContacts />
-      {children}
+      <div className="chatbox-pen">
+        <ChatBox />
+        <ChatBox />
+        <ChatBox />
+      </div>
+      <div className="app-container">
+        {children}
+      </div>
     </div>
 )
 

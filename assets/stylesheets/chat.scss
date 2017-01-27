@@ -7,26 +7,79 @@
   width: 300px;
 }
 
-.chat-sidebar-container {
+.chatbox-pen {
+  height: 25rem;
+  z-index: 1000;
+  position: fixed;
+  bottom: 0;
+  display: inline;
+  float: left;
+}
+
+.chat-sidebar-container-contents {
   @include shadow;
-  width: 24rem;
+  z-index: 98;
   background-color: #ffffff;
   position: fixed;
   bottom: 0;
-  left: 0;
-  height: 600px;
+  right: 1rem;
+  width: 20rem;  
+  height: 50rem;
+  display: block;
+  padding: 2rem 2rem 4rem 2rem;
+  overflow: auto;
+}
+
+.title {
+  @include shadow;
+  bottom: 0;
+  right: 1rem;
+  width: 20rem;
   z-index: 99;
-  .title {
-    padding: 1rem 1rem 1rem 3rem;
-    background-color: $drawsome-pink;
-    color: #ffffff;
-  }
-  .close {
-    opacity: 0.75;
-    color: #ffffff;
-    float: right;
-  }
-  .close:hover {
-    opacity: 0.5;
-  }
+  position: fixed;
+  cursor: pointer;
+  padding: 0.5rem 1rem 0.5rem 2rem;
+  background-color: $drawsome-pink;
+  color: #ffffff;
+}
+
+.chat-box-container {
+  @include shadow;
+  position: absolute;
+  z-index: 98;
+  background-color: #ffffff;
+  display: inline-block;
+  width: 20rem;  
+  height: 25rem;
+}
+
+.chat-box-title {
+  @include shadow;
+  position: absolute;
+  width: 20rem;
+  z-index: 99;
+  cursor: pointer;
+  padding: 0.5rem 1rem 0.5rem 2rem;
+  background-color: $drawsome-pink;
+  color: #ffffff;
+  bottom: 0;
+}
+
+.chat-box-wrapper {
+  float: left;
+  margin: 0 1rem;
+  width: 20rem;
+  height: 25rem;
+}
+
+.close, .close:hover {
+  float: right;
+  color: #ffffff;
+  opacity: 0.5;
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.online {
+  color: $drawsome-pink;
 }
