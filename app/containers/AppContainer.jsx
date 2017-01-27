@@ -6,9 +6,9 @@ import ChatContacts from '../components/ChatContacts'
 import ChatBox from '../components/ChatBox'
 
 const AppContainer = connect(
-  ({ auth }) => ({ user: auth })
+  ({ auth, users }) => ({ user: auth, users: users })
 ) (
-  ({ user, children }) =>
+  ({ user, users, children }) =>
     <div>
       <Navbar />
       <ChatContacts />

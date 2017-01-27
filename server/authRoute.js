@@ -4,6 +4,8 @@ const passport = require('passport')
 
 const User = require('APP/db/models/user')
 const OAuth = require('APP/db/models/oauth')
+const Drawing = require('APP/db/models/drawing')
+const Version = require('APP/db/models/version')
 const auth = require('express').Router()
 
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -86,7 +88,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(
   (id, done) => {
     debug('will deserialize user.id=%d', id)
-    User.findById(id)
+    User.findById(id, {include: [{model: Drawing, include: [Version]}]})
       .then(user => {
         if(user){
           debug('deserialize did ok user.id=%d', user.id)

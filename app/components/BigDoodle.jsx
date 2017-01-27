@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router'
 
 const BigDoodle = (props) => {
+  let drawing = props.drawing
   return (
     <div className="row big-doodle">
       <div className="big-doodle-border">
         <div className="col-xs-12">
           <div className="col-xs-12 col-md-4">
             <hr className="divider-rule"/>
-            <h3>Image Title</h3>
+            <h3>{drawing && drawing.name}</h3>
             <h3><Link to="/profile">Danielle Katz,</Link> <Link to="/profile">Mike Purgatori,</Link> <Link to="/profile">Zeke Nierenberg</Link></h3>
           </div>
           <Link to="/masterpiece">

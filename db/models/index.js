@@ -12,13 +12,12 @@ User.belongsToMany(User, { as: 'friend', through: 'friendTable'})
 
 User.belongsToMany(Drawing, { through: 'userDrawing'})
 Drawing.belongsToMany(User, { through: 'userDrawing'})
+Drawing.belongsTo(Drawing, {as: 'parentDrawing'})
 
 Drawing.hasMany(Version)
 Version.belongsTo(Drawing)
 
-Drawing.belongsTo(Drawing, { as: 'commentDrawing'})
-
 User.hasMany(Version)
 Version.belongsTo(User)
 
-module.exports = {User}
+module.exports = {User, Drawing, Version}

@@ -3,8 +3,7 @@ const db = require('APP/db')
 
 const Drawing = db.define('drawing', {
   name: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   type: {
     type: Sequelize.ENUM("corpse-head", "corpse-body", "corpse-feet", "chat", "masterpiece", "comment"),
