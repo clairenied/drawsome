@@ -10,12 +10,6 @@ let Drawing = require('./models/index').Drawing;
 let data = {
 
   users: [{
-      firstName: "Danielle",
-      lastName: "Katz",
-      birthday: "1993-04-27",
-      email: "danielle@email.com",
-      password: "danielle"
-  },{
       firstName: "Philip",
       lastName: "Marlowe",
       birthday: "1924-02-21",
@@ -26,15 +20,9 @@ let data = {
       lastName: "Purgatori",
       birthday: null,
       email: "mpurgatori@gmail.com",
-  }, {
-      firstName: "Waseem",
-      lastName: "Kareem",
-      birthday: "1978-11-09",
-      email: "waseem@email.com",
-      password: "waseem"
-  }, {
-      firstName: "Claire",
-      lastName: "niederberger",
+  },{
+      firstName: "Sam",
+      lastName: "Spade",
       birthday: "1916-1-02",
       email: "sam@email.com",
       password: "sam"
@@ -232,19 +220,19 @@ db.didSync
                     versionMap[1].setDrawing(drawMap[0]),
                     versionMap[2].setDrawing(drawMap[1]),
                     versionMap[3].setDrawing(drawMap[2]),
-                    versionMap[4].setDrawing(drawMap[3]),
-                    versionMap[5].setDrawing(drawMap[3]),
-                    versionMap[6].setDrawing(drawMap[2]),
-                    versionMap[7].setDrawing(drawMap[3]),
-                    versionMap[8].setDrawing(drawMap[1]),
-                    versionMap[9].setDrawing(drawMap[0]),
-                    versionMap[10].setDrawing(drawMap[2]),
-                    versionMap[11].setDrawing(drawMap[3]),
-                    versionMap[12].setDrawing(drawMap[2]),
-                    versionMap[13].setDrawing(drawMap[0]),
-                    versionMap[14].setDrawing(drawMap[3]),
-                    versionMap[15].setDrawing(drawMap[3]),
-                    versionMap[16].setDrawing(drawMap[1]),
+                    versionMap[4].setDrawing(drawMap[4]),
+                    versionMap[5].setDrawing(drawMap[5]),
+                    versionMap[6].setDrawing(drawMap[5]),
+                    versionMap[7].setDrawing(drawMap[5]),
+                    versionMap[8].setDrawing(drawMap[6]),
+                    versionMap[9].setDrawing(drawMap[6]),
+                    versionMap[10].setDrawing(drawMap[3]),
+                    versionMap[11].setDrawing(drawMap[7]),
+                    versionMap[12].setDrawing(drawMap[8]),
+                    versionMap[13].setDrawing(drawMap[9]),
+                    versionMap[14].setDrawing(drawMap[10]),
+                    versionMap[15].setDrawing(drawMap[11]),
+                    versionMap[16].setDrawing(drawMap[12]),
                 ])
             })
     })
