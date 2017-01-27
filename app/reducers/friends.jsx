@@ -39,7 +39,7 @@ export const getFriend = (friend) => {
 
 export const getAllFriends = (allFriends) => {
 	return dispatch => {
-		return allFriends.forEach(friend => {
+		allFriends.forEach(friend => {
 			dispatch(setAllMasterpieces(friend.drawings))
 			dispatch(setAllVersions(friend.versions))
 			dispatch(getFriend(friend))
@@ -51,8 +51,10 @@ export const setAllFriends = (id) => {
 	return dispatch => {
 		return axios.get(`/api/users/${id}/friends`)
 		.then(response => {
-			console.log("FRIENDS", response.data)
-			dispatch(getAllFriends(response.data.friend))
+			console.log("FRIENDS", response.data.friend)
+			if(response.data.friend){
+				dispatch(getAllFriends(response.data.friend))
+			}
 		})
 		.catch((err)=> console.log(err))
 	}
