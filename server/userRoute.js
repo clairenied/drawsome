@@ -33,7 +33,7 @@ router.get('/:id', mustBeLoggedIn, (req, res, next) => {
 router.get('/:id/friends', mustBeLoggedIn, (req, res, next) => {
 	return User.findById(req.params.id,{
 
-	include: [{model: User, as: 'friend', include: [{model: Drawing, include:[Version, {model: Drawing, as : "parentDrawing"}]}]}]
+	include: [{model: User, as: 'friend', include: [{model: Version},{model: Drawing, include:[Version, {model: Drawing, as : "parentDrawing"}]}]}]
 
 	})
 	.then((user) => {
