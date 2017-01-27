@@ -11,30 +11,6 @@ class ProfileContainer extends Component {
     let user = this.props.user
     return(
       <div className="container">
-<<<<<<< HEAD
-        <div className="col-xs-12">
-          <h1>Art By: {this.props.user && this.props.user.firstName} {this.props.user && this.props.user.lastName}</h1>
-          <div className="row">
-            <div>
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-              <BigDoodle />
-            </div>
-=======
         <h1>Art By: {user && user.firstName} {user && user.lastName}</h1>
         <div className="row">
           <div>
@@ -53,7 +29,6 @@ class ProfileContainer extends Component {
               </div>
               : null
             }
->>>>>>> master
           </div>
         </div>
       </div>
