@@ -23,8 +23,6 @@ import ChatPageContainer from './containers/ChatPageContainer'
 import MasterpieceContainer from './containers/MasterpieceContainer'
 import { getMasterpieces } from './reducers/drawings';
 
-
-
 render (
   <Provider store={store}>
     <Router history={browserHistory}>

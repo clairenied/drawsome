@@ -17,8 +17,7 @@ Drawing.belongsTo(Drawing, {as: 'parentDrawing'})
 Drawing.hasMany(Version)
 Version.belongsTo(Drawing)
 
-
 User.hasMany(Version)
 Version.belongsTo(User)
 
-module.exports = {User}
+module.exports = {User, Drawing, Version}

@@ -15,10 +15,15 @@ const reducer  = (state = initialState, action) => {
   return nextState
 }
 
-export const setMasterpiece = masterpiece => ({
+export const setMasterpiece = masterpiece => {
+  let drawingVersions = masterpiece.versions 
+  masterpiece.versions = []
+  drawingVersions.forEach(version => masterpiece.versions.push(version.id))
+  return {
     type: SET_MASTERPIECE,
     masterpiece
-});
+  }
+};
 
 
 export const setAllMasterpieces = (masterpieces) => {

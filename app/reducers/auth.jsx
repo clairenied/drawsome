@@ -2,6 +2,7 @@ import axios from 'axios'
 import {browserHistory} from 'react-router'
 import {loginIssue, signinIssue} from './warnings'
 import {setAllFriends} from './friends'
+import {setAllMasterpieces} from './drawings'
 
 const reducer = (state=null, action) => {
   switch(action.type) {
@@ -32,10 +33,12 @@ export const login = (username, password) =>
 export const signup = (firstName, lastName, birthday, email, password) =>
   dispatch => 
     axios.post('/api/users', {firstName, lastName, birthday, email, password})
-    .then(() => {
-      dispatch(login())
+    .then((res) => {
+      console.log(res)
+      dispatch(login(res.data.email, res.data.password))
       browserHistory.push('/gallery')
     })
+    .then(()=> dispatch(whoami()))
     .catch(() => {
       dispatch(whoami())
       dispatch(signinIssue())
@@ -55,7 +58,13 @@ export const whoami = () =>
     axios.get('/api/auth/whoami')
       .then(response => {
         const user = response.data
-        dispatch(setAllFriends(user.id))
+        if(user.drawings){
+          dispatch(setAllMasterpieces(user.drawings))
+          let userDrawing = user.drawings
+          user.drawings = []
+          userDrawing.forEach(drawing => user.drawings.push(drawing.id))
+          dispatch(setAllFriends(user.id))
+        }
         dispatch(authenticated(user))
       })
       .catch(failed => dispatch(authenticated(null)))
