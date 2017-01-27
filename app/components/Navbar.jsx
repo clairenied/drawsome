@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {logout} from '../reducers/auth'
 import {DropdownButton, MenuItem} from 'react-bootstrap'
 
-class Navbar extends Component {
+export class Navbar extends Component {
 
   renderLogout(){
     return(
@@ -75,7 +75,8 @@ class Navbar extends Component {
 
 function mapStateToProps(state){
   return {
-    user: state.auth
+    user: state.auth,
+    users: state.users
   }
 }
 

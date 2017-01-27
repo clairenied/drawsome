@@ -4,6 +4,7 @@ const router = express.Router()
 
 const Drawing = db.model('drawing')
 const Version = db.model('version')
+const User = db.model('users')
 
 
 
@@ -25,8 +26,17 @@ router.post('/', (req, res, next) => {
 	.catch(next);
 })
 
-router.get('/', (req, res, next) => {
-
+router.get('/masterpieces', (req, res, next) => {
+	
+	// User.findAll({
+	// 	where : {
+	// 		friend_id : user_id
+	// 	}
+	// })
+	res.json({
+		name: "drawing",
+		type: "masterpieces"
+	})
 })
 
 module.exports = router;

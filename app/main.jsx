@@ -20,7 +20,7 @@ import ProfileContainer from './containers/ProfileContainer'
 import PublicGalleryContainer from './containers/PublicGalleryContainer'
 import SingleMasterpieceViewContainer from './containers/SingleMasterpieceViewContainer'
 import MasterpieceContainer from './containers/MasterpieceContainer'
-
+import { getMasterpieces } from './reducers/drawings';
 
 render (
   <Provider store={store}>
