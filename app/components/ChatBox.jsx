@@ -23,7 +23,6 @@ class ChatBox extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.state)
     let path 
 
     paper.setup(this.canvas)
@@ -34,6 +33,7 @@ class ChatBox extends React.Component {
     }
 
     paper.view.onMouseDrag = (event) => {
+      console.log('drag happens')
       path.add(event.point);
     }
   }
@@ -45,20 +45,20 @@ class ChatBox extends React.Component {
 
   render(){    
     return (
-      <span className="chat-box-wrapper">
+      <div className="chat-box-wrapper">
         <div onClick={this.toggleShowChat} className="chat-box-title">
           <span>Danielle Katz</span><span className="close glyphicon glyphicon-remove"></span>
         </div>
         { this.state.showChat ? 
-          <span>
+          <div>
             <div className="chat-box-container">
               <canvas width="200" height="250" ref={(elem) => this.canvas = elem}></canvas>
             </div>
-          </span> 
+          </div>
           : 
-          <span></span> 
+          <div></div> 
         }      
-      </span>
+      </div>
     )
   }
 }

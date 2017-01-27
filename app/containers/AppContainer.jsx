@@ -11,8 +11,8 @@ const AppContainer = connect(
   ({ user, users, children }) =>
     <div>
       <Navbar />
-      <ChatContacts />
       <div className="chatbox-pen">
+        <ChatContacts />
         <ChatBox />
         <ChatBox />
         <ChatBox />

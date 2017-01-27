@@ -20,30 +20,30 @@ class ChatContacts extends React.Component {
 
   render(){    
     return (
-      <div>
+      <div className="chat-box-wrapper">
         <div onClick={this.toggleShowChatSidebar} className="title">
           <span>My Contacts</span><span className="close">&mdash;</span>
         </div>
         { this.state.showChatSidebar ? 
           <div className="chat-sidebar-container-contents">
-          <p><b>Danielle Katz</b></p>
-          <p><b>Danielle Katz</b></p>
-          <p><b>Danielle Katz</b></p>
-          <p><b>Danielle Katz</b></p>
-          <p><b>Danielle Katz</b></p>
-          <p>Danielle Katz</p>
-          <p>Danielle Katz</p>
-          <p>Danielle Katz</p>
-          <p>Danielle Katz</p>
-          <p>Danielle Katz</p>
-          <p>Danielle Katz</p>
-          <p>Danielle Katz</p>
-          <p>Danielle Katz</p>
-          <p>Danielle Katz</p>
-          <p>Danielle Katz</p>
-          <p>Danielle Katz</p>
-          <p>Danielle Katz</p>
-          <p>Danielle Katz</p>
+          <p className="online"><b>Danielle Katz</b></p>
+          <p className="online"><b>Danielle Katz</b></p>
+          <p className="online"><b>Danielle Katz</b></p>
+          <p className="online"><b>Danielle Katz</b></p>
+          <p className="online"><b>Danielle Katz</b></p>
+          <p className="online">Danielle Katz</p>
+          <p className="online">Danielle Katz</p>
+          <p className="online">Danielle Katz</p>
+          <p className="online">Danielle Katz</p>
+          <p className="online">Danielle Katz</p>
+          <p className="online">Danielle Katz</p>
+          <p className="online">Danielle Katz</p>
+          <p className="online">Danielle Katz</p>
+          <p className="online">Danielle Katz</p>
+          <p className="online">Danielle Katz</p>
+          <p className="online">Danielle Katz</p>
+          <p className="online">Danielle Katz</p>
+          <p className="online">Danielle Katz</p>
           </div> 
           : 
           <div></div>}      
