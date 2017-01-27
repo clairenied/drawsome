@@ -15,6 +15,12 @@ let data = {
       birthday: "1993-04-27",
       email: "danielle@email.com",
       password: "danielle"
+  },{
+      firstName: "Philip",
+      lastName: "Marlowe",
+      birthday: "1924-02-21",
+      email: "phil@email.com",
+      password: "phil"
   }, {
       firstName: "Michael",
       lastName: "Purgatori",
@@ -29,9 +35,15 @@ let data = {
   }, {
       firstName: "Claire",
       lastName: "niederberger",
+      birthday: "1916-1-02",
+      email: "sam@email.com",
+      password: "sam"
+  }, {
+      firstName: "Peter",
+      lastName: "Gunn",
       birthday: "1995-08-01",
-      email: "claire@email.com",
-      password: "claire"
+      email: "peter@email.com",
+      password: "peter"
   }],
 
     drawing: [{ //User 0
