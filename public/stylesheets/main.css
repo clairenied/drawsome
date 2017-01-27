@@ -1,5 +1,8 @@
 body {
+  background-color: #eeeeee;
   font-family: 'Work Sans', sans-serif; }
+  body .container {
+    max-width: 1020px; }
   body a {
     color: #ff5602;
     text-decoration: underline; }
@@ -7,5 +10,6 @@ body {
     color: #ff5602;
     text-decoration: none;
     cursor: pointer; }
-  body .online {
-    color: #ff0274; }
+  body .app-container {
+    z-index: 50;
+    margin-top: 8rem; }

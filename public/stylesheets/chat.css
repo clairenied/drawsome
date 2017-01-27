@@ -2,11 +2,83 @@
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  height: 70vh; }
+  margin: 20px 0;
+  height: 300px;
+  width: 300px; }
 
-.chat-sidebar-container {
+.chatbox-pen {
+  height: 25rem;
+  z-index: 1000;
+  position: fixed;
+  bottom: 0;
+  display: inline;
+  float: left; }
+
+.chat-sidebar-container-contents {
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  padding: 0 2rem;
-  height: 70vh; }
+  z-index: 98;
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  right: 1rem;
+  width: 20rem;
+  height: 50rem;
+  display: block;
+  padding: 2rem 2rem 4rem 2rem;
+  overflow: auto; }
+
+.title {
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  bottom: 0;
+  right: 1rem;
+  width: 20rem;
+  z-index: 99;
+  position: fixed;
+  cursor: pointer;
+  padding: 0.5rem 1rem 0.5rem 2rem;
+  background-color: #ff0274;
+  color: #ffffff; }
+
+.chat-box-container {
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  position: absolute;
+  z-index: 98;
+  background-color: #ffffff;
+  display: inline-block;
+  width: 20rem;
+  height: 25rem; }
+
+.chat-box-title {
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  position: absolute;
+  width: 20rem;
+  z-index: 99;
+  cursor: pointer;
+  padding: 0.5rem 1rem 0.5rem 2rem;
+  background-color: #ff0274;
+  color: #ffffff;
+  bottom: 0; }
+
+.chat-box-wrapper {
+  float: left;
+  margin: 0 1rem;
+  width: 20rem;
+  height: 25rem; }
+
+.close, .close:hover {
+  float: right;
+  color: #ffffff;
+  opacity: 0.5;
+  font-size: 1.25rem;
+  margin: 0.5rem 0; }
+
+.online {
+  color: #ff0274; }

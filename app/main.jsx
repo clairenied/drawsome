@@ -19,7 +19,6 @@ import ComposeMasterpieceContainer from './containers/ComposeMasterpieceContaine
 import ProfileContainer from './containers/ProfileContainer'
 import PublicGalleryContainer from './containers/PublicGalleryContainer'
 import SingleMasterpieceViewContainer from './containers/SingleMasterpieceViewContainer'
-import ChatPageContainer from './containers/ChatPageContainer'
 import MasterpieceContainer from './containers/MasterpieceContainer'
 import { getMasterpieces } from './reducers/drawings';
 
@@ -33,7 +32,6 @@ render (
         <Route path="/gallery" component={PublicGalleryContainer} />
         <Route path="/masterpiece" component={SingleMasterpieceViewContainer} />
         <Route path="/profile" component={ProfileContainer} />
-        <Route path="/chat" component={ChatPageContainer}/>
         <Route path="/create-masterpiece" component={MasterpieceContainer}/>
       </Route>
     </Router>
