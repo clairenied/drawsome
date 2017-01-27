@@ -10,28 +10,28 @@ let Drawing = require('./models/index').Drawing;
 let data = {
 
   users: [{
-      firstname: "Danielle",
-      lastname: "Katz",
-      birthday: "1993-04-27",
-      email: "danielle@email.com",
-      password: "danielle"
+      firstname: "Philip",
+      lastname: "Marlowe",
+      birthday: "1924-02-21",
+      email: "phil@email.com",
+      password: "phil"
   }, {
       firstname: "Michael",
       lastname: "Purgatori",
       birthday: null,
       email: "mpurgatori@gmail.com",
   }, {
-      firstname: "Waseem",
-      lastname: "Kareem",
-      birthday: "1978-11-09",
-      email: "waseem@email.com",
-      password: "waseem"
+      firstname: "Sam",
+      lastname: "Spade",
+      birthday: "1916-1-02",
+      email: "sam@email.com",
+      password: "sam"
   }, {
-      firstname: "Claire",
-      lastname: "niederberger",
+      firstname: "Peter",
+      lastname: "Gunn",
       birthday: "1995-08-01",
-      email: "claire@email.com",
-      password: "claire"
+      email: "peter@email.com",
+      password: "peter"
   }],
 
     drawing: [{ //User 0
