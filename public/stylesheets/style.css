@@ -5,7 +5,8 @@ body {
     text-decoration: underline; }
   body a:hover {
     color: #ff5602;
-    text-decoration: none; }
+    text-decoration: none;
+    cursor: pointer; }
   body .online {
     color: #ff0274; }
 
@@ -24,6 +25,39 @@ body {
 .custom-navbar-logo-orange {
   color: #ff5602; }
 
+nav .btn-default {
+  background-color: #ffffff;
+  background-image: none;
+  color: #ff0274;
+  border: none;
+  box-shadow: none;
+  font-size: 1.75rem; }
+
+nav .btn-default:hover {
+  color: #ff0274;
+  border: none;
+  box-shadow: none;
+  font-size: 1.75rem; }
+
+nav .form-group {
+  width: 100%;
+  background-color: #ffffff;
+  background-image: none; }
+
+nav .navbar-brand, nav .navbar-brand:hover {
+  background-color: #ffffff;
+  background-image: none;
+  box-shadow: none; }
+
+nav .glyphicon-comment, nav .glyphicon-comment:hover, nav .glyphicon-file, nav .glyphicon-file:hover {
+  color: #ff0274;
+  font-size: 1.75rem; }
+
+nav .navbar-default {
+  background-color: #ffffff;
+  background-image: none;
+  box-shadow: none; }
+
 .user-dropdown {
   vertical-align: center;
   position: relative;
@@ -35,23 +69,24 @@ body {
   position: relative;
   padding-top: 15px;
   padding-right: 10px;
-  color: #777; }
+  color: #000000;
+  font-weight: 500; }
 
 .big-doodle {
   margin-bottom: 4rem; }
 
 .big-doodle-img {
-  webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  margin-top: 20px; }
-
-.img-card {
-  margin: 0 0 4rem 0;
-  padding: 2rem;
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+
+.img-card {
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  margin: 0 0 4rem 0;
+  padding: 2rem; }
 
 .img-card-comment {
   margin: 0 0 4rem 0; }
@@ -60,23 +95,84 @@ hr.divider-rule {
   border-top: 4px solid #ff0274; }
 
 .chat-app-container {
-  height: 70vh;
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  height: 70vh; }
 
 .chat-sidebar-container {
-  padding: 0 2rem;
-  height: 70vh;
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  padding: 0 2rem;
+  height: 70vh; }
 
 .masterpiece-container {
-  height: 70vh;
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35); }
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  width: 450px;
+  height: 450px;
+  margin: 20px auto; }
+
+.palette {
+  margin-top: 20px; }
+  .palette .red {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #ff0000; }
+  .palette .orange {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #ff5602; }
+  .palette .yellow {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #ffff00; }
+  .palette .green {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #00ff00; }
+  .palette .blue {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #0000ff; }
+  .palette .purple {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #8500ff; }
+  .palette .black {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #000000; }
+  .palette .white {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    height: 36px;
+    margin: 10px 0;
+    background-color: #ffffff; }
 
 .login-form {
   margin: 0 auto;
