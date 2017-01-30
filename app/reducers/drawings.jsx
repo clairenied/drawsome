@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {setAllVersions} from './versions'
 const SET_MASTERPIECE = "SET_MASTERPIECE";
 
 const initialState = {};
@@ -8,6 +9,13 @@ const reducer  = (state = initialState, action) => {
   switch (action.type) {
     case SET_MASTERPIECE: 
       nextState[action.masterpiece.id] = action.masterpiece;
+      break;
+    default: 
+       return state;
+  }
+    switch (action.type) {
+    case SET_PROFILEMASTERPIECE: 
+      nextState[action.masterpiece.id] = action.profilemasterpiece;
       break;
     default: 
        return state;
@@ -34,16 +42,6 @@ export const setAllMasterpieces = (masterpieces) => {
 	}
 }
 
-
-export const getMasterpieces = function(){
- return dispatch => {
-  axios.get('/api/drawings/masterpieces')
-    .then(masterpieces => {
-      dispatch(addMasterpieces(masterpieces.data))
-    })
-    .catch(err => console.log(err));
- }
-}
 
 
 

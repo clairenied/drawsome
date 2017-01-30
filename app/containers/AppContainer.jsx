@@ -2,6 +2,8 @@ import React from 'react'
 import {connect, Provider} from 'react-redux'
 
 import Navbar from '../components/Navbar'
+import ChatContacts from '../components/ChatContacts'
+import ChatBox from '../components/ChatBox'
 
 const AppContainer = connect(
   ({ auth, users }) => ({ user: auth, users: users })
@@ -9,7 +11,15 @@ const AppContainer = connect(
   ({ user, users, children }) =>
     <div>
       <Navbar />
-      {children}
+      <ChatContacts />
+      <div className="chatbox-pen">
+        <ChatBox />
+        <ChatBox />
+        <ChatBox />
+      </div>
+      <div className="app-container">
+        {children}
+      </div>
     </div>
 )
 

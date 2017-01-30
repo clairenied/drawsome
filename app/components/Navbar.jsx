@@ -6,7 +6,6 @@ import {DropdownButton, MenuItem} from 'react-bootstrap'
 
 export class Navbar extends Component {
 
-  
   renderLogout(){
     return(
       <div className="nav navbar-default custom-navbar-default">
@@ -19,7 +18,6 @@ export class Navbar extends Component {
           <li>
             <div id="welcomeName">Hello {this.props.user.firstName}!</div>
           </li>
-          <li><Link to="/chat"><span className="glyphicon glyphicon-comment"></span></Link></li>
           <li><Link to="/create-masterpiece"><span className="glyphicon glyphicon-file"></span></Link></li>
           <li>
             <div className="user-dropdown">

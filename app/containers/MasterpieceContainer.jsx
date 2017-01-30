@@ -57,7 +57,6 @@ export default class MasterpieceContainer extends React.Component {
     if(currentSettings.opacity < 1){
       const greaterOpacity = currentSettings.opacity + 0.1
       this.setState(Object.assign(currentSettings, { opacity: greaterOpacity }))
-      console.log(currentSettings)
     }
   }
 
@@ -66,14 +65,17 @@ export default class MasterpieceContainer extends React.Component {
     if(currentSettings.opacity > 0.1){
       const lessOpacity = currentSettings.opacity - 0.1
       this.setState(Object.assign(currentSettings, { opacity: lessOpacity }))
-      console.log(currentSettings)
     }
   }
 
   changeColor(color){
-    console.log(color)
     const currentSettings = this.state.paperSettings
     this.setState(Object.assign(currentSettings, { strokeColor: color }))
+  }
+
+  saveDrawing(e){
+    e.preventDefault()
+    console.log(paper.project.exportJSON())
   }
 
   render(){
@@ -101,6 +103,7 @@ export default class MasterpieceContainer extends React.Component {
           <div className="masterpiece-container">
             <canvas width="450" height="450" ref={(elem) => this.canvas = elem}></canvas>
           </div>
+          <button type="button" id="save-button" className="btn btn-secondary" onClick={this.saveDrawing.bind(this)}>Save</button>
         </div> 
       </div>
     )
