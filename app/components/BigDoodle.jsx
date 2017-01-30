@@ -3,6 +3,9 @@ import { Link } from 'react-router'
 
 const BigDoodle = (props) => {
   let drawing = props.drawing
+  //   console.log("DRAWING IN BIG DOODLE COMPONENT", drawing)
+  // let mostRecent;
+  // drawing.type!=="comment" ? mostRecent = Math.max(...drawing.versions) : null;
   return (
     <div className="row big-doodle">
       <div className="big-doodle-border">

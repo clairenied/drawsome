@@ -51,7 +51,6 @@ export const setAllFriends = (id) => {
 	return dispatch => {
 		return axios.get(`/api/users/${id}/friends`)
 		.then(response => {
-			console.log("FRIENDS", response.data.friend)
 			if(response.data.friend){
 				dispatch(getAllFriends(response.data.friend))
 			}
