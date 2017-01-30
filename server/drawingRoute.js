@@ -26,13 +26,24 @@ router.post('/', (req, res, next) => {
     likes: 0
   })
   .then(drawing => {
-    Version.create({
-      drawing_id: drawing.id,
-      versionNumber: 1,
-      versionData: req.body.json
-    })
+    // drawing.setUser(req.body.userId)
+    return Promise.all([
+      drawing,
+      Version.create({
+        drawing_id: drawing.id,
+        user_id: req.body.userId,
+        versionNumber: 1,
+        versionData: req.body.json
+      })
+    ])
   })
-  .then(version=> res.json(version))
+  .then(data => {
+    return Drawing.findById(data[0].dataValues.id, {include: [{model: Version}]}) 
+  })
+  .then(drawing => {
+    console.log(drawing)
+    res.json(drawing)
+  })
   .catch(next);
 })
 
@@ -60,7 +71,7 @@ router.post('/:id', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   Drawing.findById(req.params.id)
   .then(drawing => {
-    Version.findAll({
+    return Version.findAll({
       where: {drawing_id: drawing.id}
     })
   })

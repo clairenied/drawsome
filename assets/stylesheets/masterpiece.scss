@@ -16,8 +16,14 @@
 
 #save-button {
   background-color: $drawsome-pink;
-  float: right;
   color: white;
+  margin-left: 1rem;
+}
+
+#post-button {
+  background-color: $drawsome-orange;
+  color: white;
+  margin-left: 1rem;
 }
 
 .palette {
