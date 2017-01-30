@@ -24,14 +24,16 @@ componentDidMount(){
     //   .catch(err => console.log(err));
 }
 
+
   render(){
+    console.log("PROPS", this.props)
     return(
       <div className="container">
         <h1>Your Gallery</h1>
         <hr className="divider-rule"/>
         <div className="row">
           <div>
-            <Doodle />
+            <Doodle profile/>
             <Doodle />
             <Doodle />
             <Doodle />
