@@ -13,13 +13,6 @@ const reducer  = (state = initialState, action) => {
     default: 
        return state;
   }
-    switch (action.type) {
-    case SET_PROFILEMASTERPIECE: 
-      nextState[action.masterpiece.id] = action.profilemasterpiece;
-      break;
-    default: 
-       return state;
-  }
   return nextState
 }
 
@@ -33,10 +26,10 @@ export const setMasterpiece = masterpiece => {
   }
 };
 
-
 export const setAllMasterpieces = (masterpieces) => {
 	return dispatch => {
     return masterpieces.forEach(masterpiece => {
+      dispatch(setAllVersions(masterpiece.versions))
     	dispatch(setMasterpiece(masterpiece));
     });
 	}

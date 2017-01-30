@@ -14,7 +14,7 @@ class PublicGalleryContainer extends Component {
     
   }
   render(){
-    console.log("PROPS", this.props)
+  
     return(
       <div className="container">
         <h1>Your Gallery</h1>
@@ -25,7 +25,7 @@ class PublicGalleryContainer extends Component {
             this.props.drawings && this.props.drawings.map((drawing) =>{
               let version = this.props.versions[Math.max(...drawing.versions)]
               return (
-                <Doodle key={drawing.id} drawing={drawing} version={version} />
+                <Doodle key={drawing.id} drawing={drawing} version={version} user={this.props.user} />
               )
             })
             }
