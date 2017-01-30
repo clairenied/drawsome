@@ -16,10 +16,10 @@ let data = {
       email: "phil@email.com",
       password: "phil"
   }, {
-      firstName: "Michael",
-      lastName: "Purgatori",
+      firstName: "Jason",
+      lastName: "Hammer",
       birthday: null,
-      email: "mpurgatori@gmail.com",
+      email: "hammer@email.com",
   },{
       firstName: "Sam",
       lastName: "Spade",
