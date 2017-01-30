@@ -13,13 +13,6 @@ const reducer  = (state = initialState, action) => {
     default: 
        return state;
   }
-    switch (action.type) {
-    case SET_PROFILEMASTERPIECE: 
-      nextState[action.masterpiece.id] = action.profilemasterpiece;
-      break;
-    default: 
-       return state;
-  }
   return nextState
 }
 

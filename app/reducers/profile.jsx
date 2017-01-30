@@ -42,3 +42,5 @@ export const getProfile = (id) => {
 		.catch((err)=> console.log(err))
 	}
 }
+
+export default reducer
