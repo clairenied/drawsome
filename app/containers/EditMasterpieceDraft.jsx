@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import paper from 'paper'
-import {createMasterpieceDraft} from '../reducers/drawings'
+import {createMasterpieceDraft, getMasterpieceDraft} from '../reducers/drawings'
 
-import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
-export default class MasterpieceContainer extends React.Component {
+class EditMasterpieceDraft extends Component {
 
   constructor(props){
     super(props)
     
     this.state = {
+      path: {},
       paperSettings: {
         strokeWidth: 10,
         strokeCap: 'round',
@@ -21,28 +21,26 @@ export default class MasterpieceContainer extends React.Component {
       name: ''
     }
 
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.onMouseDrag = this.onMouseDrag.bind(this)
     this.biggerBrushSize = this.biggerBrushSize.bind(this)
     this.smallerBrushSize = this.smallerBrushSize.bind(this)
     this.moreOpaque = this.moreOpaque.bind(this)
     this.lessOpaque = this.lessOpaque.bind(this)
     this.changeColor = this.changeColor.bind(this)
-    this.onInitialize = this.onInitialize.bind(this)
   }
 
-  onInitialize(paperScope) {
-    paperScope.install(this);
-    this.path = new this.Path(this.state.paperSettings);
-  }
+  componentDidMount() {
+    this.props.getMasterpieceDraft(this.props.selectedMasterpiece);
+    let path
+    
+    paper.setup(this.canvas)
+    
+    paper.view.onMouseDown = (event) => {
+      path = new paper.Path(this.state.paperSettings);
+    }
 
-  onMouseDown(event, currentPaper){
-    this.path = new this.Path(this.state.paperSettings);
-  }
-
-  onMouseDrag(event, currentPaper) {
-    this.path.add(event.point);
-    this.path.smooth({ type: 'continuous' })
+    paper.view.onMouseDrag = (event) => {
+      path.add(event.point);
+    }
   }
 
   biggerBrushSize(){
@@ -91,10 +89,11 @@ export default class MasterpieceContainer extends React.Component {
   }
 
   render(){
+    let currentDrawing = this.props.drawings[this.props.selectedMasterpiece]
     return(
       <div className="container">
         <div className="col-xs-12">
-          <h1>Now editing: Your masterpiece</h1>
+          <h1>Now editing: {currentDrawing && currentDrawing.name}</h1>
         </div>
         <div className="col-xs-12 col-sm-4">
           <hr className="divider-rule"/>
@@ -113,25 +112,10 @@ export default class MasterpieceContainer extends React.Component {
         </div>  
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
-            <ActivePaperCanvas
-              onInitialize={this.onInitialize}
-              onMouseDown={this.onMouseDown}
-              onMouseDrag={this.onMouseDrag} 
-              />
+            <canvas width="450" height="450" ref={(elem) => this.canvas = elem}></canvas>
             <p></p>
-            <form className="form-inline" onSubmit={this.saveDrawing.bind(this)}>
-              <div className="form-group">
-                <label>Masterpiece Title:  </label>
-                <input type="name" 
-                  className="form-control" 
-                  placeholder="Masterpiece Title" 
-                  value={this.state.name}
-                  onChange={this.updateName.bind(this)}
-                />
-              </div>
-              <button type="submit" className="btn btn-secondary" id="save-button">Save</button>
-              <button type="post" className="btn btn-secondary" id="post-button">Post</button>
-            </form>
+            <button type="submit" onClick={this.saveDrawing.bind(this)} className="btn btn-secondary" id="save-button">Save</button>
+            <button type="post" className="btn btn-secondary" id="post-button">Post</button>
           </div>
         </div> 
       </div>
@@ -145,8 +129,10 @@ export default class MasterpieceContainer extends React.Component {
 
 function mapStateToProps(state){
   return {
-    user: state.auth
+    user: state.auth,
+    drawings: state.drawings,
+    selected: state.selected
   }
 }
 
-export default connect(mapStateToProps, {createMasterpieceDraft})(MasterpieceContainer)
+export default connect(mapStateToProps, {createMasterpieceDraft, getMasterpieceDraft})(EditMasterpieceDraft)

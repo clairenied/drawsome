@@ -18,7 +18,18 @@ import ProfileContainer from './containers/ProfileContainer'
 import PublicGalleryContainer from './containers/PublicGalleryContainer'
 import SingleMasterpieceViewContainer from './containers/SingleMasterpieceViewContainer'
 import MasterpieceContainer from './containers/MasterpieceContainer'
-import { getMasterpieces } from './reducers/drawings';
+import EditMasterpieceDraft from './containers/EditMasterpieceDraft'
+import {setSelectedMasterpiece} from './reducers/selected.jsx'
+
+const loadProfileOnEnter = function (nextRouterState) {
+  const profileId = nextRouterState.params.id;
+  store.dispatch(getArtistById(profileId));
+};
+
+const setSelectedMasterpieceOnEnter = function(nextRouterState){
+  const masterpieceId = Number(nextRouterState.params.id);
+  store.dispatch(setSelectedMasterpiece(masterpieceId))
+}
 
 render (
   <Provider store={store}>
@@ -29,8 +40,9 @@ render (
         <Route path="/signup" component={Signup} />
         <Route path="/gallery" component={PublicGalleryContainer} />
         <Route path="/masterpiece" component={SingleMasterpieceViewContainer} />
-        <Route path="/profile" component={ProfileContainer} />
+        <Route path="/profile/:id" component={ProfileContainer} onEnter={loadProfileOnEnter}/>
         <Route path="/create-masterpiece" component={MasterpieceContainer}/>
+        <Route path="/edit-masterpiece/:id" component={EditMasterpieceDraft} onEnter={setSelectedMasterpieceOnEnter}/>
       </Route>
     </Router>
   </Provider>,

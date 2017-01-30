@@ -7,6 +7,16 @@
   margin: 20px auto;
   background-color: #ffffff; }
 
+#save-button {
+  background-color: #ff0274;
+  color: white;
+  margin-left: 1rem; }
+
+#post-button {
+  background-color: #ff5602;
+  color: white;
+  margin-left: 1rem; }
+
 .palette {
   margin-top: 20px; }
   .palette .red {

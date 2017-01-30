@@ -6,37 +6,78 @@ const Drawing = db.model('drawing')
 const Version = db.model('version')
 const User = db.model('users')
 
-
-
-
 router.get('/', (req, res, next) => {
-	Version.findAll({
-		where: {
-			user_id: req.user.id
-		},
-		include: [{model: Drawing}]
-	})
-	.then( drawings => res.send(drawings))
-	.catch(next)
+  Version.findAll({
+    where: {
+      user_id: req.user.id
+    },
+    include: [{model: Drawing}]
+  })
+  .then( drawings => res.send(drawings))
+    .catch(next)
 })
 
 router.post('/', (req, res, next) => {
-	Drawing.create(req.body)
-	.then(drawing => res.send(drawing))
-	.catch(next);
+  return Drawing.create({
+    name: req.body.name, 
+    type: "masterpiece",
+    canEdit: true,
+    private: true,
+    likes: 0
+  })
+  .then(drawing => {
+    return Promise.all([
+      drawing.setUsers([req.body.userId]),
+      Version.create({
+        drawing_id: drawing.id,
+        user_id: req.body.userId,
+        versionNumber: 1,
+        versionData: req.body.json
+      })
+    ])
+  })
+  .then(data => {
+    console.log('DATA VALS',data[0][0][0])
+    return Drawing.findById(data[0][0][0].dataValues.drawing_id, {include: [{model: Version}]}) 
+  })
+  .then(drawing => {
+    console.log(drawing)
+    res.json(drawing)
+  })
+  .catch(next);
 })
 
-router.get('/masterpieces', (req, res, next) => {
-	
-	// User.findAll({
-	// 	where : {
-	// 		friend_id : user_id
-	// 	}
-	// })
-	res.json({
-		name: "drawing",
-		type: "masterpieces"
-	})
+router.post('/:id', (req, res, next) => {
+  Drawing.findById(req.params.id)
+  .then(drawing => {
+    Version.findAll({
+      where: {drawing_id: drawing.id}
+    })
+  })
+  .then(versionData => {
+    versionData.sort(function(a,b){
+      return a.versionNumber - b.versionNumber
+    })
+    Version.create({
+      drawing_id: req.params.id,
+      versionNumber: versionData[0].versionNumber + 1,
+      versionData: req.body.json
+    })
+  })
+  .then(version => res.json(version))
+  .catch(next);
+})
+
+router.get('/:id', (req, res, next) => {
+  return Version.findAll({
+    where: {drawing_id: req.params.id}
+  })
+  .then(versionData => {
+    versionData.sort(function(a,b){
+      return a.versionNumber - b.versionNumber
+    })
+    res.json(versionData[0])
+  })
 })
 
 module.exports = router;

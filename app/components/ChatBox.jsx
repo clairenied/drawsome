@@ -9,7 +9,7 @@ class ChatBox extends React.Component {
     super(props);
 
     this.state = {
-      showChat: true,
+      showChat: false,
       paperSettings: {
         strokeWidth: 10,
         strokeCap: 'round',

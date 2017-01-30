@@ -5,17 +5,20 @@ import { Link } from 'react-router'
 //components
 import BigDoodle from '../components/BigDoodle'
 
-class ProfileContainer extends Component {
 
+class ProfileContainer extends Component {
   render(){
-    let user = this.props.user
+ console.log("PROPSSSS", this.props)
+  let friendID = this.props.profileID
+
+    
     return(
       <div className="container">
-        <h1>Art By: {user && user.firstName} {user && user.lastName}</h1>
+        <h1>Art By: {friends && friends[friendID].firstName} {friend && friend[friendID].lastName}</h1>
         <div className="row">
           <div>
             {
-              user && user.drawings && user.drawings.map(dID => {
+              friend && friend.drawings && friend.drawings.map(dID => {
                 return (
                   <BigDoodle key={dID} drawing={this.props.drawings[dID]}/>
                 )
@@ -36,10 +39,13 @@ class ProfileContainer extends Component {
   }
 }
 
-function mapStateToProps(state){
-  return {
+function mapStateToProps(state, ownProps){
+  let profileID = ownProps.params.ID;
+    return {
     user: state.auth,
-    drawings: state.drawings
+    profileID: profileID,
+    masterpieces: Object.values(state.drawings).filter(drawing => drawing.type === "masterpiece"),
+    comments: Object.values(state.drawings).filter(drawing => drawing.type === "comments"),
   }
 }
 

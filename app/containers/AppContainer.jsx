@@ -13,9 +13,9 @@ const AppContainer = connect(
       <Navbar />
       <div className="chatbox-pen">
         <ChatContacts />
-        <ChatBox key="1"/>
-        <ChatBox key="2"/>
-        <ChatBox key="3"/>
+        <ChatBox/>
+        <ChatBox/>
+        <ChatBox/>
       </div>
       <div className="app-container">
         {children}
