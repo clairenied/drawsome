@@ -13,8 +13,8 @@ class PublicGalleryContainer extends Component {
     }
     
   }
-
   render(){
+    console.log("PROPS", this.props)
     return(
       <div className="container">
         <h1>Your Gallery</h1>

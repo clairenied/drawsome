@@ -13,6 +13,13 @@ const reducer  = (state = initialState, action) => {
     default: 
        return state;
   }
+    switch (action.type) {
+    case SET_PROFILEMASTERPIECE: 
+      nextState[action.masterpiece.id] = action.profilemasterpiece;
+      break;
+    default: 
+       return state;
+  }
   return nextState
 }
 
@@ -35,16 +42,6 @@ export const setAllMasterpieces = (masterpieces) => {
 	}
 }
 
-
-export const getMasterpieces = function(){
- return dispatch => {
-  axios.get('/api/drawings/masterpieces')
-    .then(masterpieces => {
-      dispatch(addMasterpieces(masterpieces.data))
-    })
-    .catch(err => console.log(err));
- }
-}
 
 
 

@@ -19,9 +19,12 @@ import ComposeMasterpieceContainer from './containers/ComposeMasterpieceContaine
 import ProfileContainer from './containers/ProfileContainer'
 import PublicGalleryContainer from './containers/PublicGalleryContainer'
 import SingleMasterpieceViewContainer from './containers/SingleMasterpieceViewContainer'
-import ChatPageContainer from './containers/ChatPageContainer'
 import MasterpieceContainer from './containers/MasterpieceContainer'
-import { getMasterpieces } from './reducers/drawings';
+
+const loadProfileOnEnter = function (nextRouterState) {
+  const profileId = nextRouterState.params.id;
+  store.dispatch(getArtistById(profileId));
+};
 
 render (
   <Provider store={store}>
@@ -32,8 +35,7 @@ render (
         <Route path="/signup" component={Signup} />
         <Route path="/gallery" component={PublicGalleryContainer} />
         <Route path="/masterpiece" component={SingleMasterpieceViewContainer} />
-        <Route path="/profile" component={ProfileContainer} />
-        <Route path="/chat" component={ChatPageContainer}/>
+        <Route path="/profile/:id" component={ProfileContainer} onEnter={loadProfileOnEnter}/>
         <Route path="/create-masterpiece" component={MasterpieceContainer}/>
       </Route>
     </Router>
