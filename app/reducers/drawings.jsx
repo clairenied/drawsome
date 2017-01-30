@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {setAllVersions} from './versions'
 import {browserHistory} from 'react-router'
+import {setSelectedMasterpiece, setSelectedVersion} from './selected.jsx'
 
 const initialState = {};
 
@@ -48,6 +49,7 @@ export const createMasterpieceDraft = (userId, name, json) => {
     axios.post('/api/drawings/', {userId, name, json})
     .then(drawing => {
       dispatch(setMasterpiece(drawing.data))
+      dispatch(setSelectedMasterpiece(drawing.data))
       browserHistory.push(`/edit-masterpiece/${drawing.data.id}`)
     })
     .catch(err => console.log('there was an error saving the masterpiece', err))
@@ -63,7 +65,9 @@ export const saveNewMasterpieceDraft = (id) => {
 export const getMasterpieceDraft = (id) => {
   return dispatch => {
     axios.get(`/api/drawings/${id}`)
-    .then(drawing => console.log(drawing.data))
+    .then(drawing => {
+      dispatch(setSelectedVersion(drawing.data))
+    })
   }
 }
 

@@ -18,7 +18,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  Drawing.create({
+  return Drawing.create({
     name: req.body.name, 
     type: "masterpiece",
     canEdit: true,
@@ -26,9 +26,8 @@ router.post('/', (req, res, next) => {
     likes: 0
   })
   .then(drawing => {
-    // drawing.setUser(req.body.userId)
     return Promise.all([
-      drawing,
+      drawing.setUsers([req.body.userId]),
       Version.create({
         drawing_id: drawing.id,
         user_id: req.body.userId,
@@ -38,7 +37,8 @@ router.post('/', (req, res, next) => {
     ])
   })
   .then(data => {
-    return Drawing.findById(data[0].dataValues.id, {include: [{model: Version}]}) 
+    console.log('DATA VALS',data[0][0][0])
+    return Drawing.findById(data[0][0][0].dataValues.drawing_id, {include: [{model: Version}]}) 
   })
   .then(drawing => {
     console.log(drawing)
@@ -69,11 +69,8 @@ router.post('/:id', (req, res, next) => {
 })
 
 router.get('/:id', (req, res, next) => {
-  Drawing.findById(req.params.id)
-  .then(drawing => {
-    return Version.findAll({
-      where: {drawing_id: drawing.id}
-    })
+  return Version.findAll({
+    where: {drawing_id: req.params.id}
   })
   .then(versionData => {
     versionData.sort(function(a,b){
