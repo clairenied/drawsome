@@ -17,8 +17,7 @@ class EditMasterpieceDraft extends Component {
         strokeJoin: 'round',
         strokeColor: 'black',
         opacity: 1,
-      },
-      name: ''
+      }
     }
 
     this.biggerBrushSize = this.biggerBrushSize.bind(this)
@@ -29,10 +28,14 @@ class EditMasterpieceDraft extends Component {
   }
 
   componentDidMount() {
-    this.props.getMasterpieceDraft(this.props.selectedMasterpiece);
     let path
     
     paper.setup(this.canvas)
+
+    // if(this.props.selected.version){
+    //   paper.project.importJSON(this.props.selected.version.versionData)
+      
+    // }
     
     paper.view.onMouseDown = (event) => {
       path = new paper.Path(this.state.paperSettings);
@@ -42,6 +45,7 @@ class EditMasterpieceDraft extends Component {
       path.add(event.point);
     }
   }
+
 
   biggerBrushSize(){
     const currentSettings = this.state.paperSettings
@@ -89,7 +93,8 @@ class EditMasterpieceDraft extends Component {
   }
 
   render(){
-    let currentDrawing = this.props.drawings[this.props.selectedMasterpiece]
+    let currentDrawing = this.props.selectedMasterpiece
+    console.log('PROPSDATA', this.props)
     return(
       <div className="container">
         <div className="col-xs-12">
@@ -123,15 +128,11 @@ class EditMasterpieceDraft extends Component {
   }
 }
 
-// MasterpieceContainer.propTypes = {
-//     json: React.PropTypes.array.isRequired,
-// }
-
-function mapStateToProps(state){
+function mapStateToProps(state, props){
   return {
     user: state.auth,
     drawings: state.drawings,
-    selected: state.selected
+    selectedMasterpiece: state.drawings[Number(props.params.id)]
   }
 }
 

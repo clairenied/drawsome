@@ -7,7 +7,7 @@ const rootReducer = combineReducers({
   drawings: require('./drawings.jsx').default,
   versions: require('./versions.jsx').default,
   profile: require('./profile.jsx').default,
-  selected: require('./selected.jsx').default
+  // selected: require('./selected.jsx').default
 })
 
 export default rootReducer
