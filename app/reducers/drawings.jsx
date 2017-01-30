@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {setAllVersions} from './versions'
 const SET_MASTERPIECE = "SET_MASTERPIECE";
 
 const initialState = {};
