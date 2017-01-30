@@ -13,6 +13,12 @@
   margin: 20px auto;
 }
 
+#save-button {
+  background-color: $drawsome-pink;
+  float: right;
+  color: white;
+}
+
 .palette {
   margin-top: 20px;
   .red {

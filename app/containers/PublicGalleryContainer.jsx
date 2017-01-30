@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
 import axios from 'axios'
 
 //components
 import Doodle from '../components/Doodle'
 
-export default class PublicGalleryContainer extends Component {
+class PublicGalleryContainer extends Component {
  constructor(props) {
     super(props);
     this.state = {
@@ -13,17 +14,6 @@ export default class PublicGalleryContainer extends Component {
     
   }
 
-componentDidMount(){
-
-    // axios.get('/api/users/shape')
-    //   .then(res => {
-    //      this.setState({
-    //   shape: res.data[0].firstName
-    // });
-    //   })
-    //   .catch(err => console.log(err));
-}
-
   render(){
     return(
       <div className="container">
@@ -31,26 +21,28 @@ componentDidMount(){
         <hr className="divider-rule"/>
         <div className="row">
           <div>
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
-            <Doodle />
+            {
+            this.props.drawings && this.props.drawings.map((drawing) =>{
+              let version = this.props.versions[Math.max(...drawing.versions)]
+              return (
+                <Doodle key={drawing.id} drawing={drawing} version={version} />
+              )
+            })
+            }
           </div>
         </div>
       </div>
     )
   }
 }
+
+function mapStateToProps(state){
+  return {
+    user: state.auth,
+    drawings:  Object.values(state.drawings).filter(drawing => drawing.type === "masterpiece"),
+    friends: state.friends,
+    versions: state.versions
+  }
+}
+
+export default connect(mapStateToProps)(PublicGalleryContainer)

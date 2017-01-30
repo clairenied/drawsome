@@ -60,13 +60,5 @@ export const setAllFriends = (id) => {
 	}
 }
 
-// export const getUser = () => {
-// 	return dispatch => {
-// 		return axios.get('/api/auth/whoami')
-// 		.then(res => {
-// 			dispatch(setAllFriends(res.data.id))
-// 		})
-// 	}
-// }
 
 export default reducer

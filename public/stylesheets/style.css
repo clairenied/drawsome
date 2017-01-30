@@ -94,6 +94,10 @@ nav .navbar-default {
 hr.divider-rule {
   border-top: 4px solid #ff0274; }
 
+doodle-container {
+  max-width: 100%;
+  height: auto; }
+
 .chat-app-container {
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
@@ -114,6 +118,11 @@ hr.divider-rule {
   width: 450px;
   height: 450px;
   margin: 20px auto; }
+
+#save-button {
+  background-color: #ff0274;
+  float: right;
+  color: white; }
 
 .palette {
   margin-top: 20px; }
