@@ -29,7 +29,7 @@ class EditMasterpieceDraft extends Component {
   }
 
   componentDidMount() {
-    this.props.getMasterpieceDraft(45);
+    this.props.getMasterpieceDraft(this.props.selectedMasterpiece);
     let path
     
     paper.setup(this.canvas)
@@ -89,10 +89,11 @@ class EditMasterpieceDraft extends Component {
   }
 
   render(){
+    let currentDrawing = this.props.drawings[this.props.selectedMasterpiece]
     return(
       <div className="container">
         <div className="col-xs-12">
-          <h1>Now editing: Your masterpiece</h1>
+          <h1>Now editing: {currentDrawing && currentDrawing.name}</h1>
         </div>
         <div className="col-xs-12 col-sm-4">
           <hr className="divider-rule"/>
@@ -128,7 +129,9 @@ class EditMasterpieceDraft extends Component {
 
 function mapStateToProps(state){
   return {
-    user: state.auth
+    user: state.auth,
+    drawings: state.drawings,
+    selected: state.selected
   }
 }
 
