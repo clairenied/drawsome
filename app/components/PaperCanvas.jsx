@@ -4,8 +4,7 @@ import paper from 'paper';
 class PaperCanvas extends React.Component {
 
     componentDidMount() {
-        paper.setup(this.canvas);
-        paper.project.importJSON(this.props.json);
+        paper.project.importJSON(this.props.json)
     }
     render() {
         return <canvas ref={(elem) => this.canvas = elem}></canvas>

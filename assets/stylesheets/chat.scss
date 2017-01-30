@@ -8,68 +8,67 @@
 }
 
 .chatbox-pen {
-  height: 25rem;
   z-index: 1000;
+  pointer-events: none !important;
+  display: flex;
+  width: 100vw;
   position: fixed;
   bottom: 0;
-  display: inline;
-  float: left;
+  margin-bottom: 0;
+  ul, li {
+    list-style: none;
+  }
 }
 
 .chat-sidebar-container-contents {
   @include shadow;
-  z-index: 98;
+  margin: 0 1rem;
+  pointer-events: auto;
   background-color: #ffffff;
-  position: fixed;
-  bottom: 0;
-  right: 1rem;
   width: 20rem;  
   height: 50rem;
   display: block;
-  padding: 2rem 2rem 4rem 2rem;
+  padding: 1rem 2rem;
   overflow: auto;
 }
 
 .title {
   @include shadow;
-  bottom: 0;
-  right: 1rem;
+  margin: 0 1rem;
+  pointer-events: auto;
   width: 20rem;
-  z-index: 99;
-  position: fixed;
   cursor: pointer;
   padding: 0.5rem 1rem 0.5rem 2rem;
-  background-color: $drawsome-pink;
+  background-color: $drawsome-orange;
   color: #ffffff;
-}
-
-.chat-box-container {
-  @include shadow;
-  position: absolute;
-  z-index: 98;
-  background-color: #ffffff;
-  display: inline-block;
-  width: 20rem;  
-  height: 25rem;
 }
 
 .chat-box-title {
   @include shadow;
-  position: absolute;
+  pointer-events: auto;
   width: 20rem;
-  z-index: 99;
+  z-index: 1000;
   cursor: pointer;
   padding: 0.5rem 1rem 0.5rem 2rem;
   background-color: $drawsome-pink;
   color: #ffffff;
-  bottom: 0;
+  align-self: flex-end;
+}
+
+.chat-box-container {
+  @include shadow;
+  display: flex;
+  pointer-events: auto;
+  z-index: 1000;
+  background-color: #ffffff;
+  width: 20rem;  
+  height: 25rem;
 }
 
 .chat-box-wrapper {
-  float: left;
   margin: 0 1rem;
-  width: 20rem;
-  height: 25rem;
+  align-self: flex-end;
+  order: 1;
 }
 
 .close, .close:hover {
@@ -81,5 +80,5 @@
 }
 
 .online {
-  color: $drawsome-pink;
+  cursor: pointer;
 }

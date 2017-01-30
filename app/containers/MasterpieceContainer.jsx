@@ -3,14 +3,14 @@ import {connect} from 'react-redux'
 import paper from 'paper'
 import {createMasterpieceDraft} from '../reducers/drawings'
 
+import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
-class MasterpieceContainer extends Component {
+export default class MasterpieceContainer extends React.Component {
 
   constructor(props){
     super(props)
     
     this.state = {
-      path: {},
       paperSettings: {
         strokeWidth: 10,
         strokeCap: 'round',
@@ -21,25 +21,28 @@ class MasterpieceContainer extends Component {
       name: ''
     }
 
+    this.onMouseDown = this.onMouseDown.bind(this)
+    this.onMouseDrag = this.onMouseDrag.bind(this)
     this.biggerBrushSize = this.biggerBrushSize.bind(this)
     this.smallerBrushSize = this.smallerBrushSize.bind(this)
     this.moreOpaque = this.moreOpaque.bind(this)
     this.lessOpaque = this.lessOpaque.bind(this)
     this.changeColor = this.changeColor.bind(this)
+    this.onInitialize = this.onInitialize.bind(this)
   }
 
-  componentDidMount() {
-    let path
-    
-    paper.setup(this.canvas)
-    
-    paper.view.onMouseDown = (event) => {
-      path = new paper.Path(this.state.paperSettings);
-    }
+  onInitialize(paperScope) {
+    paperScope.install(this);
+    this.path = new this.Path(this.state.paperSettings);
+  }
 
-    paper.view.onMouseDrag = (event) => {
-      path.add(event.point);
-    }
+  onMouseDown(event, currentPaper){
+    this.path = new this.Path(this.state.paperSettings);
+  }
+
+  onMouseDrag(event, currentPaper) {
+    this.path.add(event.point);
+    this.path.smooth({ type: 'continuous' })
   }
 
   biggerBrushSize(){
@@ -110,7 +113,11 @@ class MasterpieceContainer extends Component {
         </div>  
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
-            <canvas width="450" height="450" ref={(elem) => this.canvas = elem}></canvas>
+            <ActivePaperCanvas
+              onInitialize={this.onInitialize}
+              onMouseDown={this.onMouseDown}
+              onMouseDrag={this.onMouseDrag} 
+              />
             <p></p>
             <form className="form-inline" onSubmit={this.saveDrawing.bind(this)}>
               <div className="form-group">

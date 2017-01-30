@@ -11,11 +11,11 @@ const AppContainer = connect(
   ({ user, users, children }) =>
     <div>
       <Navbar />
-      <ChatContacts />
       <div className="chatbox-pen">
-        <ChatBox />
-        <ChatBox />
-        <ChatBox />
+        <ChatContacts />
+        <ChatBox/>
+        <ChatBox/>
+        <ChatBox/>
       </div>
       <div className="app-container">
         {children}
