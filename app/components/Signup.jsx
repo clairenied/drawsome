@@ -1,28 +1,70 @@
 import React from 'react';
 import {Alert} from 'react-bootstrap';
 
+
+
+
 export class Signup extends React.Component {
+
   constructor(props){
     super(props);
     this.state = {
+      dirtyList: {},
       firstName: '',
       lastName: '',
       birthday: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      submit:true,
     }
+    this.emailValidate = this.emailValidate.bind(this);
+    this.fieldsFilled = this.fieldsFilled.bind(this);
+    this.passwordMatch = this.passwordMatch.bind(this);
+  }
+
+  emailValidate() {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)) {
+      return (true)
+    }
+      this.setState({emailSubmit:false})
+      return (false)
+}
+  fieldsFilled() {
+    if (this.state.firstName !== '' & this.state.lastName !== '' & this.state.email !== '' & this.state.password !== ''){
+      return true
+    }
+      this.setState({nameSubmit:false})
+      return false
+  }
+
+  passwordMatch() {
+    if (this.state.password === this.state.confirmPassword){
+      return true
+    }
+    return false
   }
 
   signupUser(e){
     e.preventDefault();
-    this.props.signup(this.state.firstName, this.state.lastName, this.state.birthday, this.state.email, this.state.password)
+    if(this.fieldsFilled() && this.emailValidate() && this.passwordMatch()){
+      this.props.signup(this.state.firstName, this.state.lastName, this.state.birthday, this.state.email, this.state.password)
+    }
+    this.setState({submit:false})
   }
 
   updateInput(field, e){
     this.setState({
-      [field]: e.target.value
+      [field]: e.target.value,
+      dirtyList: {
+        ...this.state.dirtyList,
+        [field]: true
+      }
     })
+  }
+
+  showRequiredMessage(field) {
+    return this.state.dirtyList[field] && !this.state[field]
   }
 
   render(){
@@ -47,69 +89,105 @@ export class Signup extends React.Component {
               <span>OR</span>
             </div>
           </div>
-          { this.props.warnings.signinError ? 
+          { this.props.warnings.signinError ?
             (<Alert bsStyle="warning">
-              <strong>Oh no!</strong> Looks like there was an issue creating your account. Try again!
+              <strong>That email is already registered. Use a different one or login</strong>
             </Alert>) : null
           }
           <div className="form-group">
             <label>First Name</label>
-            <input className="form-control" 
-              name="firstName" 
-              placeholder="first name" 
+            <input className="form-control"
+              name="firstName"
+              placeholder="first name"
               value={this.state.firstName}
-              onChange={this.updateInput.bind(this, 'firstName')} 
+              onChange={this.updateInput.bind(this, 'firstName')}
             />
           </div>
+          { this.showRequiredMessage('firstName') ?
+            <p style={{color:'red'}}>First name required.</p>
+          :
+            null
+          }
           <div className="form-group">
             <label>Last Name</label>
-            <input className="form-control" 
-              name="lastName" 
-              placeholder="last name" 
+            <input className="form-control"
+              name="lastName"
+              placeholder="last name"
               value={this.state.lastName}
-              onChange={this.updateInput.bind(this, 'lastName')} 
+              onChange={this.updateInput.bind(this, 'lastName')}
             />
           </div>
+          { this.showRequiredMessage('lastName') ?
+            <p style={{color:'red'}}>Last name required.</p>
+          :
+            null
+          }
           <div className="form-group">
             <label>Birthday</label>
-            <input className="form-control" 
-              name="birthday" 
+            <input className="form-control"
+              name="birthday"
               type="date"
               value={this.state.birthday}
-              onChange={this.updateInput.bind(this, 'birthday')} 
+              onChange={this.updateInput.bind(this, 'birthday')}
             />
           </div>
+          { this.showRequiredMessage('birthday') ?
+            <p style={{color:'red'}}>Birthday required.</p>
+          :
+            null
+          }
           <div className="form-group">
             <label>Email Address</label>
-            <input className="form-control" 
-              name="email" 
-              placeholder="email" 
+            <input className="form-control"
+              name="email"
+              placeholder="email"
               value={this.state.email}
-              onChange={this.updateInput.bind(this, 'email')} 
+              onChange={this.updateInput.bind(this, 'email')}
             />
           </div>
+          { this.showRequiredMessage('email') ?
+            <p style={{color:'red'}}>Valid email required.</p>
+          :
+            null
+          }
           <div className="form-group">
             <label>Password</label>
-            <input className="form-control" 
+            <input className="form-control"
               name="password"
-              type="password" 
-              placeholder="password" 
+              type="password"
+              placeholder="password"
               value={this.state.password}
-              onChange={this.updateInput.bind(this, 'password')} 
+              onChange={this.updateInput.bind(this, 'password')}
             />
           </div>
+          { this.showRequiredMessage('password') ?
+            <p style={{color:'red'}}>Password must be at least 8 characters.</p>
+          :
+            null
+          }
           <div className="form-group">
             <label>Confirm Password</label>
-            <input className="form-control" 
+            <input className="form-control"
               name="password"
-              type="password" 
-              placeholder="confirm password" 
+              type="password"
+              placeholder="confirm password"
               value={this.state.confirmPassword}
-              onChange={this.updateInput.bind(this, 'confirmPassword')} 
+              onChange={this.updateInput.bind(this, 'confirmPassword')}
             />
           </div>
-          <button type="submit" className="btn btn-default">Signup & Login</button>
-        </form> 
+          { this.showRequiredMessage('confirmPassword') & this.state.confirmPassword !== this.state.password ?
+            <p style={{color:'red'}}>Field must match Password.</p>
+          :
+            null
+          }
+            <button type="submit" className="btn btn-default">Signup & Login</button>
+        </form>
+        {
+         !this.state.submit ?
+          <p style={{color:'red'}}>Please make sure all fields are filled, email is valid & passwords match.</p>
+        :
+          null
+        }
       </div>
     );
   }
