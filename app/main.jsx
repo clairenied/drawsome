@@ -20,6 +20,7 @@ import ProfileContainer from './containers/ProfileContainer'
 import PublicGalleryContainer from './containers/PublicGalleryContainer'
 import SingleMasterpieceViewContainer from './containers/SingleMasterpieceViewContainer'
 import MasterpieceContainer from './containers/MasterpieceContainer'
+import EditMasterpieceDraft from './containers/EditMasterpieceDraft'
 
 const loadProfileOnEnter = function (nextRouterState) {
   const profileId = nextRouterState.params.id;
@@ -37,6 +38,7 @@ render (
         <Route path="/masterpiece" component={SingleMasterpieceViewContainer} />
         <Route path="/profile/:id" component={ProfileContainer} onEnter={loadProfileOnEnter}/>
         <Route path="/create-masterpiece" component={MasterpieceContainer}/>
+        <Route path="/edit-masterpiece/:id" component={EditMasterpieceDraft} />
       </Route>
     </Router>
   </Provider>,

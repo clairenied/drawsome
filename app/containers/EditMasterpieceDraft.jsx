@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import paper from 'paper'
-import {createMasterpieceDraft} from '../reducers/drawings'
+import {createMasterpieceDraft, getMasterpieceDraft} from '../reducers/drawings'
 
 
-class MasterpieceContainer extends Component {
+class EditMasterpieceDraft extends Component {
 
   constructor(props){
     super(props)
@@ -29,6 +29,7 @@ class MasterpieceContainer extends Component {
   }
 
   componentDidMount() {
+    this.props.getMasterpieceDraft(45);
     let path
     
     paper.setup(this.canvas)
@@ -112,19 +113,8 @@ class MasterpieceContainer extends Component {
           <div className="masterpiece-container">
             <canvas width="450" height="450" ref={(elem) => this.canvas = elem}></canvas>
             <p></p>
-            <form className="form-inline" onSubmit={this.saveDrawing.bind(this)}>
-              <div className="form-group">
-                <label>Masterpiece Title:  </label>
-                <input type="name" 
-                  className="form-control" 
-                  placeholder="Masterpiece Title" 
-                  value={this.state.name}
-                  onChange={this.updateName.bind(this)}
-                />
-              </div>
-              <button type="submit" className="btn btn-secondary" id="save-button">Save</button>
-              <button type="post" className="btn btn-secondary" id="post-button">Post</button>
-            </form>
+            <button type="submit" onClick={this.saveDrawing.bind(this)} className="btn btn-secondary" id="save-button">Save</button>
+            <button type="post" className="btn btn-secondary" id="post-button">Post</button>
           </div>
         </div> 
       </div>
@@ -142,4 +132,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {createMasterpieceDraft})(MasterpieceContainer)
+export default connect(mapStateToProps, {createMasterpieceDraft, getMasterpieceDraft})(EditMasterpieceDraft)
