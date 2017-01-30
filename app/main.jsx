@@ -14,8 +14,6 @@ import Navbar from './components/Navbar'
 
 //containers
 import AppContainer from './containers/AppContainer'
-import ComposeExquisiteCorpseContainer from './containers/ComposeExquisiteCorpseContainer'
-import ComposeMasterpieceContainer from './containers/ComposeMasterpieceContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import PublicGalleryContainer from './containers/PublicGalleryContainer'
 import SingleMasterpieceViewContainer from './containers/SingleMasterpieceViewContainer'

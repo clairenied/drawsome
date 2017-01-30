@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
-
 import paper from 'paper'
+
+import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
 class ChatBox extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      showChat: false,
-      path: {},
+      showChat: true,
       paperSettings: {
         strokeWidth: 10,
         strokeCap: 'round',
@@ -19,45 +19,49 @@ class ChatBox extends React.Component {
       }
     }
 
+    this.onInitialize = this.onInitialize.bind(this)
+    this.onMouseDown = this.onMouseDown.bind(this)
+    this.onMouseDrag = this.onMouseDrag.bind(this)
     this.toggleShowChat = this.toggleShowChat.bind(this)
   }
 
-  componentDidMount() {
-    let path 
-
-    paper.setup(this.canvas)
-    
-    paper.view.onMouseDown = (event) => {
-      console.log('i happen')
-      path = new paper.Path(this.state.paperSettings);
-    }
-
-    paper.view.onMouseDrag = (event) => {
-      console.log('drag happens')
-      path.add(event.point);
-    }
+  onInitialize(paperScope) {
+    paperScope.install(this);
+    this.path = new this.Path(this.state.paperSettings);
   }
 
   toggleShowChat(){
+    console.log('I have been clicked!')
     let oppositeState = (!this.state.showChat)
     this.setState({ showChat: oppositeState })
   }
 
-  render(){    
+  onMouseDown(event, currentPaper){
+    this.path = new this.Path(this.state.paperSettings);
+  }
+
+  onMouseDrag(event, currentPaper) {
+    this.path.add(event.point);
+    this.path.smooth({ type: 'continuous' })
+  }
+
+  render(){ 
     return (
       <div className="chat-box-wrapper">
         <div onClick={this.toggleShowChat} className="chat-box-title">
           <span>Danielle Katz</span><span className="close glyphicon glyphicon-remove"></span>
         </div>
-        { this.state.showChat ? 
-          <div>
-            <div className="chat-box-container">
-              <canvas width="200" height="250" ref={(elem) => this.canvas = elem}></canvas>
-            </div>
+        <div>     
+          <div className={ this.state.showChat ? "chat-box-container" : "hidden" }>   
+            <ActivePaperCanvas
+              onInitialize={this.onInitialize}
+              onMouseDown={this.onMouseDown}
+              onMouseDrag={this.onMouseDrag}
+              width="200"
+              height="250"
+              />
           </div>
-          : 
-          <div></div> 
-        }      
+        </div>
       </div>
     )
   }
