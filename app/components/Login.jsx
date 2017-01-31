@@ -44,7 +44,7 @@ export class Login extends React.Component {
             </div>
           </div>
           <div>
-          { this.props.warnings.loginError ? 
+          { this.props.warnings.loginError ?
             (<Alert bsStyle="warning">
               <strong>Oh no!</strong> Looks like your email or password is incorrect. Try again!
             </Alert>) : null
@@ -52,25 +52,25 @@ export class Login extends React.Component {
           </div>
           <div className="form-group">
             <label>Email Address</label>
-            <input className="form-control" 
-              name="email" 
-              placeholder="Email" 
+            <input className="form-control"
+              name="email"
+              placeholder="Email"
               value={this.state.email}
-              onChange={this.updateInput.bind(this, 'email')} 
+              onChange={this.updateInput.bind(this, 'email')}
             />
           </div>
           <div className="form-group">
             <label>Password</label>
-            <input className="form-control" 
+            <input className="form-control"
               name="password"
-              type="password" 
-              placeholder="Password" 
+              type="password"
+              placeholder="Password"
               value={this.state.password}
-              onChange={this.updateInput.bind(this, 'password')} 
+              onChange={this.updateInput.bind(this, 'password')}
             />
           </div>
           <button type="submit" className="btn btn-default">Login</button>
-        </form> 
+        </form>
       </div>
     );
   }

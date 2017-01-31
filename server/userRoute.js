@@ -24,7 +24,19 @@ router.post('/', (req, res, next) => {
 	.catch(next)
 })
 
-router.get('/:id', mustBeLoggedIn, (req, res, next) => { 
+router.get('/search/:name', mustBeLoggedIn, (req, res, next) => {
+	User.findAll({
+		where: {
+			firstName: {
+				$Like: req.params.name
+			}
+		}
+	})
+	.then(names => console.log('HERES SOME NAMES THAT PROBABLY ARE NOT COMING BACK',names))
+	.catch(next)
+})
+
+router.get('/:id', mustBeLoggedIn, (req, res, next) => {
 	User.findById(req.params.id)
 	.then(user => res.json(user))
 	.catch(next)
@@ -45,6 +57,3 @@ router.get('/:id/friends', mustBeLoggedIn, (req, res, next) => {
 
 
 module.exports = router;
-
-
-
