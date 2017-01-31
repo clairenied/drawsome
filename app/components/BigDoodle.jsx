@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
+import PaperCanvas from './PaperCanvas.jsx'
 
 const BigDoodle = (props) => {
   console.log("PROPSSS", props)
   let masterpiece = props.masterpiece;
   let profile = props.profile.profile;
-  //   console.log("DRAWING IN BIG DOODLE COMPONENT", drawing)
-  // let mostRecent;
-  // drawing.type!=="comment" ? mostRecent = Math.max(...drawing.versions) : null;
+  let masterpieceVersion = masterpiece.versions;
+ 
   return (
     <div className="row big-doodle">
       <div className="big-doodle-border">
@@ -19,9 +19,9 @@ const BigDoodle = (props) => {
           </div>
           <Link to="/masterpiece">
             <div className="col-xs-12 col-md-8">
-              <img 
-                className="img-responsive big-doodle-img"
-                src="https://acdn.architizer.com/thumbnails-PRODUCTION/b0/61/b06105f2382b1e9f4bb8766c0c602c6f.jpg"/>
+              <div className="doodle-container">
+                <PaperCanvas json={masterpieceVersion[0].versionData} />
+              </div>
             </div>
           </Link>
         </div>

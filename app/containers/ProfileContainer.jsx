@@ -19,6 +19,7 @@ class ProfileContainer extends Component {
           <div>
           {
               profile.masterpieces && profile.masterpieces.map(masterpiece => {
+
                 return (
                   <BigDoodle masterpiece={masterpiece} profile={profile} key={masterpiece.id}/>
                 )
@@ -45,8 +46,9 @@ function mapStateToProps(state, ownProps){
   if (state.profile.drawings) {
     masterpieces = Object.values(state.profile.drawings).filter(drawing => drawing.type === "masterpiece");
     comments = Object.values(state.profile.drawings).filter(drawing => drawing.type === "comment");
+   
   }
-  console.log("MASTERPIECES", masterpieces)
+
     return {
     profile: state.profile, 
     comments,

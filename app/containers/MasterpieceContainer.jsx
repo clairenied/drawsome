@@ -5,7 +5,7 @@ import {createMasterpieceDraft} from '../reducers/drawings'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
-export default class MasterpieceContainer extends React.Component {
+export class MasterpieceContainer extends React.Component {
 
   constructor(props){
     super(props)
