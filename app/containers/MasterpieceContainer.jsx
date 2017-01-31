@@ -5,7 +5,7 @@ import {createMasterpieceDraft} from '../reducers/drawings'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
-export default class MasterpieceContainer extends React.Component {
+class MasterpieceContainer extends React.Component {
 
   constructor(props){
     super(props)
@@ -138,10 +138,6 @@ export default class MasterpieceContainer extends React.Component {
     )
   }
 }
-
-// MasterpieceContainer.propTypes = {
-//     json: React.PropTypes.array.isRequired,
-// }
 
 function mapStateToProps(state){
   return {

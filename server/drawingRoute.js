@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
     where: {
       user_id: req.user.id
     },
-    include: [{model: Drawing}]
+    include: [{ model: Drawing }]
   })
   .then( drawings => res.send(drawings))
     .catch(next)
@@ -66,6 +66,35 @@ router.post('/:id', (req, res, next) => {
   })
   .then(version => res.json(version))
   .catch(next);
+})
+
+router.get('/messages', (req, res, next) => {
+
+  Drawing.findAll({
+    where: {
+      type: "chat"
+    },
+    include: [{
+      model: Version,
+      where: {
+        user_id: req.user.id
+      }
+    }]
+  })
+  .then(drawings => res.send(drawings))
+  .catch(next)
+})
+
+router.post('/messages/:drawingId', (req, res, next) => {
+
+  Drawing.findOrCreate({
+    where: {
+      version_id: req.params.drawingId,
+      user_id: [req.user.id, req.params.friend_id]
+    }
+  })
+  .then(drawing => res.send(drawing))
+  .catch(next)
 })
 
 router.get('/:id', (req, res, next) => {
