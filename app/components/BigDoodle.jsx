@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import PaperCanvas from './PaperCanvas.jsx'
 
 const BigDoodle = (props) => {
+
   let masterpiece = props.masterpiece;
   let profile = props.profile.profile;
   let masterpieceVersion = masterpiece.versions;
