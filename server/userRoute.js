@@ -24,15 +24,15 @@ router.post('/', (req, res, next) => {
 	.catch(next)
 })
 
-router.get('/search/:name', mustBeLoggedIn, (req, res, next) => {
-	User.findAll({
+router.get('/searchbar/:name', mustBeLoggedIn, (req, res, next) => {
+	return User.findAll({
 		where: {
 			firstName: {
-				$Like: req.params.name
+				$iLike: '%'+req.params.name+'%'
 			}
 		}
 	})
-	.then(names => console.log('HERES SOME NAMES THAT PROBABLY ARE NOT COMING BACK',names))
+	.then(names => res.send(names))
 	.catch(next)
 })
 

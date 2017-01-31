@@ -8,7 +8,7 @@ export class SearchBar extends Component {
   constructor(){
     super()
     this.state = {
-      input:'',
+      input:"",
       nameArr: []
     }
     this.axiosCall = this.axiosCall.bind(this);
@@ -16,8 +16,11 @@ export class SearchBar extends Component {
   }
 
   axiosCall(name){
-    axios.get(`/api/users/search/${name}`)
-    .then(names=> this.setState({nameArr:names}))
+    axios.get(`/api/users/searchbar/${name}`)
+    .then(names => {
+      console.log('HERE IS THE NEWNAME GOD DAMNIT',names.data);
+      this.setState({ nameArr: names.data })
+    })
   }
 
 
@@ -42,7 +45,9 @@ export class SearchBar extends Component {
             onChange={ this.searchUpdate} />
           { this.state.nameArr.map(name => {
             return (
-              <div className="name" key={name}>{name}</div>
+              <div key={name.email}>
+              <Link to={`/profile/${name.id}`}>{name.fullName}</Link>
+              </div>
             )
           })}
           </div>
