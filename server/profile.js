@@ -8,9 +8,7 @@ const User = db.model('users')
 
 router.get('/:id', (req, res, next) => { 
    return User.findById(req.params.id,{
-
-	include: [{model: Version},{model: Drawing, include:[Version, {model: Drawing, as : "parentDrawing"}]}]
-
+	include: [{model: Drawing, include:[Version.scope('recent')]}]
 	})
 	.then((user) => {
 		res.json(user)
