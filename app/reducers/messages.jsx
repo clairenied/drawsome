@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
-import { setUser } from './users';
+// import { setUser } from './users';
 // import socket from '../socket';
 
 
@@ -23,7 +23,7 @@ const reducer = (state = initialState, action) => {
 const SET_MESSAGE = 'SET_MESSAGE'
 const setMessage = (message) => 
   dispatch => {
-    dispatch(setUser(message.user));
+    // dispatch(setUser(message.user));
     delete message.user;
     dispatch({
       type: SET_MESSAGE,
