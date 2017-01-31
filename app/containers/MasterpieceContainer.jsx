@@ -97,7 +97,6 @@ class MasterpieceContainer extends React.Component {
   }
 
   render(){
-    console.log(this.state.currentPaper)
     return(
       <div className="container">
         <div className="col-xs-12">

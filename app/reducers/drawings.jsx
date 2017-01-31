@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {setAllVersions} from './versions'
 import {browserHistory} from 'react-router'
-import {setSelectedMasterpiece, setSelectedVersion} from './selected.jsx'
 
 const initialState = {};
 

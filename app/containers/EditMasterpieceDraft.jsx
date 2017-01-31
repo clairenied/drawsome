@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import paper from 'paper'
-import {createMasterpieceDraft, getMasterpieceDraft, saveNewMasterpieceDraft} from '../reducers/drawings'
+import {createMasterpieceDraft, saveNewMasterpieceDraft} from '../reducers/drawings'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
@@ -119,6 +119,7 @@ class EditMasterpieceDraft extends React.Component {
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
           {this.props.selectedMasterpiece &&
+            this.props.versions &&
             <ActivePaperCanvas
               getCurrentPaper={this.getCurrentPaper}
               onInitialize={this.onInitialize}
@@ -148,8 +149,7 @@ function mapStateToProps(state, props){
     user: state.auth,
     drawings: state.drawings,
     versions: state.versions,
-    selectedMasterpiece: state.drawings[Number(props.params.id)],
-    // selectedVersion: Math.max(...state.drawings[Number(props.params.id)].versions)
+    selectedMasterpiece: state.drawings[Number(props.params.id)]
   }
 }
 
