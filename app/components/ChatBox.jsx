@@ -23,6 +23,7 @@ class ChatBox extends React.Component {
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseDrag = this.onMouseDrag.bind(this)
     this.toggleShowChat = this.toggleShowChat.bind(this)
+    this.getCurrentPaper = this.getCurrentPaper.bind(this)
   }
 
   onInitialize(paperScope) {
@@ -44,6 +45,9 @@ class ChatBox extends React.Component {
     this.path.add(event.point);
     this.path.smooth({ type: 'continuous' })
   }
+  getCurrentPaper(paper) {
+    this.setState({currentPaper: paper}) 
+  }
 
   render(){ 
     return (
@@ -57,6 +61,7 @@ class ChatBox extends React.Component {
               onInitialize={this.onInitialize}
               onMouseDown={this.onMouseDown}
               onMouseDrag={this.onMouseDrag}
+              getCurrentPaper={this.getCurrentPaper}
               width="200"
               height="250"
               />

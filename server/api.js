@@ -8,6 +8,7 @@ api
   .use('/auth', require('./authRoute'))
   .use('/users', require('./userRoute'))
   .use('/drawings', require('./drawingRoute'))
+  .use('/profile', require('./profile'))
 
 
 // No routes matched? 404.
