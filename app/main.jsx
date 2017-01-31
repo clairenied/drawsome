@@ -18,13 +18,15 @@ import ProfileContainer from './containers/ProfileContainer'
 import PublicGalleryContainer from './containers/PublicGalleryContainer'
 import SingleMasterpieceViewContainer from './containers/SingleMasterpieceViewContainer'
 import MasterpieceContainer from './containers/MasterpieceContainer'
+import {getProfile} from './reducers/profile.jsx'
+
 import EditMasterpieceDraft from './containers/EditMasterpieceDraft'
 // import {setSelectedMasterpiece} from './reducers/selected.jsx'
 import {getMasterpieceDraft} from './reducers/drawings.jsx'
 
 const loadProfileOnEnter = function (nextRouterState) {
   const profileId = nextRouterState.params.id;
-  store.dispatch(getArtistById(profileId));
+  store.dispatch(getProfile(profileId));
 };
 
 // const setSelectedMasterpieceOnEnter = function(nextRouterState){

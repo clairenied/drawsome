@@ -8,7 +8,6 @@ const rootReducer = combineReducers({
   versions: require('./versions.jsx').default,
   profile: require('./profile.jsx').default,
   messages: require('./messages.jsx').default,
-  // selected: require('./selected.jsx').default
 })
 
 export default rootReducer

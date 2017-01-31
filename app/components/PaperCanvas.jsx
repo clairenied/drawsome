@@ -4,10 +4,11 @@ import paper from 'paper';
 class PaperCanvas extends React.Component {
 
     componentDidMount() {
-        paper.project.importJSON(this.props.json)
+        paper.setup(this.canvas);
+        paper.project.importJSON(this.props.json);
     }
     render() {
-        return <canvas ref={(elem) => this.canvas = elem}></canvas>
+        return <canvas width="500" height="500" ref={(elem) => this.canvas = elem}></canvas>
     }
 }
 
