@@ -5,7 +5,7 @@ import {createMasterpieceDraft} from '../reducers/drawings'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
-export default class MasterpieceContainer extends React.Component {
+class MasterpieceContainer extends React.Component {
 
   constructor(props){
     super(props)
@@ -18,6 +18,7 @@ export default class MasterpieceContainer extends React.Component {
         strokeColor: 'black',
         opacity: 1,
       },
+      currentPaper: null,
       name: ''
     }
 
@@ -29,6 +30,8 @@ export default class MasterpieceContainer extends React.Component {
     this.lessOpaque = this.lessOpaque.bind(this)
     this.changeColor = this.changeColor.bind(this)
     this.onInitialize = this.onInitialize.bind(this)
+    this.saveDrawing = this.saveDrawing.bind(this)
+    this.getCurrentPaper = this.getCurrentPaper.bind(this)
   }
 
   onInitialize(paperScope) {
@@ -85,16 +88,20 @@ export default class MasterpieceContainer extends React.Component {
   }
 
   saveDrawing(e){
-    console.log(this.props)
     e.preventDefault()
-    this.props.createMasterpieceDraft(this.props.user.id, this.state.name, paper.project.exportJSON())
+    this.props.createMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON())
+  }
+
+  getCurrentPaper(paper) {
+    this.setState({currentPaper: paper}) 
   }
 
   render(){
+    console.log(this.state.currentPaper)
     return(
       <div className="container">
         <div className="col-xs-12">
-          <h1>Now editing: Your masterpiece</h1>
+          <h1>Now editing: {this.state.name ? this.state.name : "Your masterpiece"}</h1>
         </div>
         <div className="col-xs-12 col-sm-4">
           <hr className="divider-rule"/>
@@ -114,17 +121,18 @@ export default class MasterpieceContainer extends React.Component {
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
             <ActivePaperCanvas
+              getCurrentPaper={this.getCurrentPaper}
               onInitialize={this.onInitialize}
+              onMouseDrag={this.onMouseDrag}
               onMouseDown={this.onMouseDown}
-              onMouseDrag={this.onMouseDrag} 
               />
             <p></p>
-            <form className="form-inline" onSubmit={this.saveDrawing.bind(this)}>
+            <form className="form-inline" onSubmit={this.saveDrawing}>
               <div className="form-group">
                 <label>Masterpiece Title:  </label>
                 <input type="name" 
                   className="form-control" 
-                  placeholder="Masterpiece Title" 
+                  placeholder="Your Masterpiece" 
                   value={this.state.name}
                   onChange={this.updateName.bind(this)}
                 />

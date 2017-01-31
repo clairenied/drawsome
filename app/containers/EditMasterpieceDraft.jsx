@@ -1,51 +1,51 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import paper from 'paper'
-import {createMasterpieceDraft, getMasterpieceDraft} from '../reducers/drawings'
+import {createMasterpieceDraft, getMasterpieceDraft, saveNewMasterpieceDraft} from '../reducers/drawings'
 
+import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
-class EditMasterpieceDraft extends Component {
+class EditMasterpieceDraft extends React.Component {
 
   constructor(props){
     super(props)
     
     this.state = {
-      path: {},
       paperSettings: {
         strokeWidth: 10,
         strokeCap: 'round',
         strokeJoin: 'round',
         strokeColor: 'black',
         opacity: 1,
-      }
+      },
+      currentPaper: null
     }
 
+    this.onMouseDown = this.onMouseDown.bind(this)
+    this.onMouseDrag = this.onMouseDrag.bind(this)
     this.biggerBrushSize = this.biggerBrushSize.bind(this)
     this.smallerBrushSize = this.smallerBrushSize.bind(this)
     this.moreOpaque = this.moreOpaque.bind(this)
     this.lessOpaque = this.lessOpaque.bind(this)
     this.changeColor = this.changeColor.bind(this)
+    this.onInitialize = this.onInitialize.bind(this)
+    this.saveVersionDraft = this.saveVersionDraft.bind(this)
+    this.getCurrentPaper = this.getCurrentPaper.bind(this)
   }
 
-  componentDidMount() {
-    let path
-    
-    paper.setup(this.canvas)
-
-    // if(this.props.selected.version){
-    //   paper.project.importJSON(this.props.selected.version.versionData)
-      
-    // }
-    
-    paper.view.onMouseDown = (event) => {
-      path = new paper.Path(this.state.paperSettings);
-    }
-
-    paper.view.onMouseDrag = (event) => {
-      path.add(event.point);
-    }
+  onInitialize(paperScope) {
+    paperScope.install(this);
+    this.path = new this.Path(this.state.paperSettings);
   }
 
+  onMouseDown(event, currentPaper){
+    this.path = new this.Path(this.state.paperSettings);
+  }
+
+  onMouseDrag(event, currentPaper) {
+    this.path.add(event.point);
+    this.path.smooth({ type: 'continuous' })
+  }
 
   biggerBrushSize(){
     const currentSettings = this.state.paperSettings
@@ -86,19 +86,20 @@ class EditMasterpieceDraft extends Component {
     this.setState({name: e.target.value})
   }
 
-  saveDrawing(e){
-    console.log(this.props)
+  saveVersionDraft(e){
     e.preventDefault()
-    this.props.createMasterpieceDraft(this.props.user.id, this.state.name, paper.project.exportJSON())
+    this.props.saveNewMasterpieceDraft(this.props.params.id, this.props.user.id, this.state.currentPaper.project.exportJSON())
+  }
+
+  getCurrentPaper(paper) {
+    this.setState({currentPaper: paper}) 
   }
 
   render(){
-    let currentDrawing = this.props.selectedMasterpiece
-    console.log('PROPSDATA', this.props)
     return(
       <div className="container">
         <div className="col-xs-12">
-          <h1>Now editing: {currentDrawing && currentDrawing.name}</h1>
+          <h1>Now editing: {this.props.selectedMasterpiece && this.props.selectedMasterpiece.name}</h1>
         </div>
         <div className="col-xs-12 col-sm-4">
           <hr className="divider-rule"/>
@@ -117,10 +118,20 @@ class EditMasterpieceDraft extends Component {
         </div>  
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
-            <canvas width="450" height="450" ref={(elem) => this.canvas = elem}></canvas>
+          {this.props.selectedMasterpiece &&
+            <ActivePaperCanvas
+              getCurrentPaper={this.getCurrentPaper}
+              onInitialize={this.onInitialize}
+              onMouseDrag={this.onMouseDrag}
+              onMouseDown={this.onMouseDown}
+              json={this.props.versions[Math.max(...this.props.selectedMasterpiece.versions)].versionData}
+              />
+            }
             <p></p>
-            <button type="submit" onClick={this.saveDrawing.bind(this)} className="btn btn-secondary" id="save-button">Save</button>
-            <button type="post" className="btn btn-secondary" id="post-button">Post</button>
+            <form className="form-inline" onSubmit={this.saveVersionDraft}>
+              <button type="submit" className="btn btn-secondary" id="save-button">Save</button>
+              <button type="post" className="btn btn-secondary" id="post-button">Post</button>
+            </form>
           </div>
         </div> 
       </div>
@@ -128,12 +139,19 @@ class EditMasterpieceDraft extends Component {
   }
 }
 
+// EditMasterpieceDraft.propTypes = {
+//     json: React.PropTypes.array.isRequired,
+// }
+
 function mapStateToProps(state, props){
   return {
     user: state.auth,
     drawings: state.drawings,
-    selectedMasterpiece: state.drawings[Number(props.params.id)]
+    versions: state.versions,
+    selectedMasterpiece: state.drawings[Number(props.params.id)],
+    // selectedVersion: Math.max(...state.drawings[Number(props.params.id)].versions)
   }
 }
 
-export default connect(mapStateToProps, {createMasterpieceDraft, getMasterpieceDraft})(EditMasterpieceDraft)
+export default connect(mapStateToProps, {createMasterpieceDraft, saveNewMasterpieceDraft})(EditMasterpieceDraft)
+
