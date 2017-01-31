@@ -33,12 +33,13 @@ export const setMasterpiece = masterpiece => {
   }
 };
 
-
 export const setAllMasterpieces = (masterpieces) => {
 	return dispatch => {
     return masterpieces.forEach(masterpiece => {
+
       dispatch(setAllVersions(masterpiece.versions));
       dispatch(setMasterpiece(masterpiece));
+
     });
 	}
 }

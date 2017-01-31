@@ -7,6 +7,7 @@ import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
 class MasterpieceContainer extends React.Component {
 
+
   constructor(props){
     super(props)
     

@@ -3,49 +3,56 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router'
 
 //components
-import BigDoodle from '../components/BigDoodle'
+import BigDoodle from '../components/BigDoodle.jsx'
 
 
 class ProfileContainer extends Component {
-  render(){
- console.log("PROPSSSS", this.props)
-  let friendID = this.props.profileID
 
-    
+  render(){
+
+  let profile = this.props;
+
     return(
       <div className="container">
-        <h1>Art By: {friends && friends[friendID].firstName} {friend && friend[friendID].lastName}</h1>
+        <h1>Art By: {profile.firstName} {profile.lastName}</h1>
         <div className="row">
           <div>
-            {
-              friend && friend.drawings && friend.drawings.map(dID => {
+          {
+              profile.masterpieces && profile.masterpieces.map(masterpiece => {
+
                 return (
-                  <BigDoodle key={dID} drawing={this.props.drawings[dID]}/>
+                  <BigDoodle masterpiece={masterpiece} profile={profile} key={masterpiece.id}/>
                 )
               })
             }
-            {
-              user && !user.drawings.length ?
-              <div>
-                <hr className="divider-rule"/>
-                <h3>You don't have any art yet - create a masterpiece <Link to="/create-masterpiece">here</Link></h3>
-              </div>
-              : null
-            }
+          
           </div>
         </div>
+     
+    )
+  }
+}
+
       </div>
     )
   }
 }
 
 function mapStateToProps(state, ownProps){
-  let profileID = ownProps.params.ID;
+  let profileId = ownProps.params.id;
+  let masterpieces;
+  let comments;
+
+  if (state.profile.drawings) {
+    masterpieces = Object.values(state.profile.drawings).filter(drawing => drawing.type === "masterpiece");
+    comments = Object.values(state.profile.drawings).filter(drawing => drawing.type === "comment");
+   
+  }
+
     return {
-    user: state.auth,
-    profileID: profileID,
-    masterpieces: Object.values(state.drawings).filter(drawing => drawing.type === "masterpiece"),
-    comments: Object.values(state.drawings).filter(drawing => drawing.type === "comments"),
+    profile: state.profile, 
+    comments,
+    masterpieces
   }
 }
 
