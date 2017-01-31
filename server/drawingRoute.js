@@ -41,30 +41,33 @@ router.post('/', (req, res, next) => {
     return Drawing.findById(data[0][0][0].dataValues.drawing_id, {include: [{model: Version}]}) 
   })
   .then(drawing => {
-    console.log(drawing)
     res.json(drawing)
   })
   .catch(next);
 })
 
 router.post('/:id', (req, res, next) => {
-  Drawing.findById(req.params.id)
+  return Drawing.findById(req.params.id)
   .then(drawing => {
-    Version.findAll({
-      where: {drawing_id: drawing.id}
+    return Version.findAll({
+      where: {drawing_id: req.params.id}
     })
   })
   .then(versionData => {
     versionData.sort(function(a,b){
       return a.versionNumber - b.versionNumber
     })
-    Version.create({
+    return Version.create({
       drawing_id: req.params.id,
+      user_id: req.body.userId,
       versionNumber: versionData[0].versionNumber + 1,
       versionData: req.body.json
     })
   })
-  .then(version => res.json(version))
+  .then(version => {
+    return Drawing.findById(req.params.id, {include: [{model: Version}]})
+  })
+  .then(drawing => res.json(drawing))
   .catch(next);
 })
 
