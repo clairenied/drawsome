@@ -22,7 +22,6 @@ import EditMasterpieceDraft from './containers/EditMasterpieceDraft'
 import DraftContainer from './containers/DraftContainer'
 
 // import {setSelectedMasterpiece} from './reducers/selected.jsx'
-import {getProfile} from './reducers/profile.jsx'
 import {getMasterpieceDraft} from './reducers/drawings.jsx'
 import {getProfile} from './reducers/profile.jsx'
 import { subscribeToNewMessages } from './reducers/messages.jsx'
