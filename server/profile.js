@@ -19,7 +19,6 @@ router.get('/:id', (req, res, next) => {
 	})
 	.then((drawings) => {
 		userprofile.drawings = drawings;
-		console.log("userprofile", userprofile.drawings)
 		res.json(userprofile)
 	})
 })
