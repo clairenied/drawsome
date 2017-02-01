@@ -24,7 +24,29 @@ router.post('/', (req, res, next) => {
 	.catch(next)
 })
 
-router.get('/:id', mustBeLoggedIn, (req, res, next) => { 
+router.get('/searchbar', mustBeLoggedIn, (req, res, next) => {
+	console.log('*************************',req.query.name);
+	return User.findAll({
+		where: {
+			$or: [
+			    {
+			      firstName: {
+			        $like: '%'+req.query.name+'%'
+			      }
+			    },
+			    {
+			      lastName: {
+			        $like: '%'+req.query.name+'%'
+			      }
+			    }
+			  ]
+		}
+	})
+	.then(names => res.send(names))
+	.catch(next)
+})
+
+router.get('/:id', mustBeLoggedIn, (req, res, next) => {
 	User.findById(req.params.id)
 	.then(user => res.json(user))
 	.catch(next)
@@ -45,6 +67,3 @@ router.get('/:id/friends', mustBeLoggedIn, (req, res, next) => {
 
 
 module.exports = router;
-
-
-
