@@ -94,7 +94,6 @@ class EditMasterpieceDraft extends Component {
 
   render(){
     let currentDrawing = this.props.selectedMasterpiece
-    console.log('PROPSDATA', this.props)
     return(
       <div className="container">
         <div className="col-xs-12">

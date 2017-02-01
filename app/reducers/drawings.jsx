@@ -67,7 +67,6 @@ export const getMasterpieceDraft = (id) => {
   return dispatch => {
     return axios.get(`/api/drawings/${id}`)
     .then(drawing => {
-      console.log('DRAWING DATA',drawing.data)
       dispatch(setSelectedVersion(drawing.data))
       dispatch(setSelectedMasterpiece(drawing.data.drawing_id))
     })
