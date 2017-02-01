@@ -5,7 +5,6 @@ import PaperCanvas from './PaperCanvas.jsx'
 const BigDoodle = (props) => {
 
   let masterpiece = props.masterpiece;
-  console.log("MASTERP", masterpiece)
   let profile = props.profile.profile;
   let masterpieceVersion = masterpiece.versions;
   let comments = masterpiece.comments;
