@@ -5,15 +5,15 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const User = db.define('users', {
-  firstName: { 
-    type: Sequelize.STRING,
-   
-  }, 
-  lastName: { 
+  firstName: {
     type: Sequelize.STRING,
 
-  }, 
-  birthday: Sequelize.DATE, 
+  },
+  lastName: {
+    type: Sequelize.STRING,
+
+  },
+  birthday: Sequelize.DATE,
   email: {
     type: Sequelize.STRING,
     validate: {
@@ -29,6 +29,10 @@ const User = db.define('users', {
   password_digest: Sequelize.STRING,
 	password: Sequelize.VIRTUAL
 }, {
+  getterMethods: {
+    fullName: function()  { return this.firstName + ' ' + this.lastName }
+  },
+  
 	indexes: [{fields: ['email'], unique: true,}],
   hooks: {
     beforeCreate: setEmailAndPassword,
@@ -41,7 +45,9 @@ const User = db.define('users', {
           (err, result) =>
             err ? reject(err) : resolve(result))
         )
-    }    
+
+    }
+
   }
 })
 
