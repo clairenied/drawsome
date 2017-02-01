@@ -6,14 +6,19 @@ import { Link } from 'react-router'
 import BigDoodle from '../components/BigDoodle.jsx'
 
 
+
 class ProfileContainer extends Component {
+
+componentWillMount() {
+ 
+}
 
   render(){
   let profile = this.props;
 
     return(
       <div className="container">
-        <h1>Art By: {profile.firstName} {profile.lastName}</h1>
+        <h1>Art By: {profile.profile.fullName}</h1>
         <div className="row">
           <div>
           {
@@ -48,7 +53,7 @@ function mapStateToProps(state, ownProps){
     //comments = Object.values(state.profile.drawings).filter(drawing => drawing.type === "comment");
    
   }
-  console.log("MASTERP", masterpieces)
+
     return {
     profile: state.profile, 
     //comments,
