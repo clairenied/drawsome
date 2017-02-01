@@ -9,7 +9,6 @@ import BigDoodle from '../components/BigDoodle.jsx'
 class ProfileContainer extends Component {
 
   render(){
-    console.log("PROPFILECONTAINERPROPS", this.props)
   let profile = this.props;
 
     return(
