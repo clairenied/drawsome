@@ -7,23 +7,26 @@ class ActivePaperCanvas extends React.Component {
   }
 
   componentDidMount() {
-    let currentPaper = new paper.PaperScope()
-    currentPaper.setup(this.canvas);
+    this.currentPaper = new paper.PaperScope()
+    this.currentPaper.setup(this.canvas);
 
     if(this.props.json) {
-      currentPaper.importJSON(this.props.json);
+      this.currentPaper.importJSON(this.props.json);
     }
 
-    this.props.onInitialize(currentPaper);
+    this.props.onInitialize(this.currentPaper);
     
-    currentPaper.view.onMouseDown = (event) => {
-      currentPaper.activate();
-      this.props.onMouseDown(event, currentPaper);
+    this.currentPaper.view.onMouseDown = (event) => {
+      this.currentPaper.activate();
+      this.props.onMouseDown(event, this.currentPaper);
     }
     
-    currentPaper.view.onMouseDrag = (event) => { 
-      this.props.onMouseDrag(event, currentPaper)
+    this.currentPaper.view.onMouseDrag = (event) => { 
+      this.props.onMouseDrag(event, this.currentPaper)
     }
+
+    this.props.getCurrentPaper(this.currentPaper)
+
   }
 
   render() {
