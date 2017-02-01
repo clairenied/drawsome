@@ -37,7 +37,7 @@ let data = {
       lastName: "Niederberger",
       birthday: "1991-10-13",
       email: "clairenied@gmail.com",
-      password: "llamabutt"
+      password: "peter"
   }],
 
     drawing: [{ //User 0

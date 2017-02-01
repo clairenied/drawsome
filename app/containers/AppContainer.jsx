@@ -28,14 +28,14 @@ class AppContainer extends React.Component {
     newState[friendId] = !this.state.openMessages[friendId]
 
     this.setState({ 
-      openMessages: Object.assign(this.state.openMessages, newState) 
+      openMessages: Object.assign(newState, this.state.openMessages) 
     })
   }
 
   closeChat(friendId){
     let newState = delete this.state.openMessages[friendId]
     this.setState({
-      openMessages: Object.assign(this.state.openMessages, newState),
+      openMessages: Object.assign(newState, this.state.openMessages),
       activeMessage: '',
     })
   }
@@ -46,7 +46,7 @@ class AppContainer extends React.Component {
       friendObj[friendId] = true
 
       this.setState({ 
-        openMessages: Object.assign(this.state.openMessages, friendObj),
+        openMessages: Object.assign(friendObj, this.state.openMessages),
         activeMessage: friendId,
       })   
     }
