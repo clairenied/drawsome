@@ -24,7 +24,6 @@ const SET_MESSAGE = 'SET_MESSAGE'
 const setMessage = (message) => 
   dispatch => {
     // dispatch(setUser(message.user));
-    delete message.user;
     dispatch({
       type: SET_MESSAGE,
       message,
@@ -35,7 +34,9 @@ const setMessage = (message) =>
 export const setAllMessages = (allMessages) => {
   return dispatch => {
     return allMessages.forEach(message => {
-      dispatch(setMessage(message));
+      if(message.type === 'chat'){
+        dispatch(setMessage(message));
+      }
     });
   }
 }

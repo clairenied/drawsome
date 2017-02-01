@@ -60,7 +60,7 @@ export const whoami = () =>
       .then(response => {
         const user = response.data
         if(user.drawings){
-          dispatch(getAllMessages())
+          dispatch(setAllMessages(user.drawings))
           dispatch(setAllMasterpieces(user.drawings))
           let userDrawing = user.drawings
           user.drawings = []
