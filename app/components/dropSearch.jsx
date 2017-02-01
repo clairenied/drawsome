@@ -16,7 +16,7 @@ export class SearchBar extends Component {
   }
 
   axiosCall(name){
-    axios.get(`/api/users/searchbar/${name}`)
+    axios.get(`/api/users/searchbar/`, {params:{name}})
     .then(names => {
       console.log('HERE IS THE NEWNAME GOD DAMNIT',names.data);
       this.setState({ nameArr: names.data })
@@ -27,9 +27,12 @@ export class SearchBar extends Component {
   searchUpdate(e){
     let val = e.target.value;
     this.setState({
-      input: val
+      input: val,
+      nameArr: val ? this.state.nameArr: []
     })
-    this.axiosCall(this.state.input);
+      if(val){
+      this.axiosCall(val);
+    }
   }
 
 

@@ -24,12 +24,22 @@ router.post('/', (req, res, next) => {
 	.catch(next)
 })
 
-router.get('/searchbar/:name', mustBeLoggedIn, (req, res, next) => {
+router.get('/searchbar', mustBeLoggedIn, (req, res, next) => {
+	console.log('*************************',req.query.name);
 	return User.findAll({
 		where: {
-			firstName: {
-				$iLike: '%'+req.params.name+'%'
-			}
+			$or: [
+			    {
+			      firstName: {
+			        $like: '%'+req.query.name+'%'
+			      }
+			    },
+			    {
+			      lastName: {
+			        $like: '%'+req.query.name+'%'
+			      }
+			    }
+			  ]
 		}
 	})
 	.then(names => res.send(names))

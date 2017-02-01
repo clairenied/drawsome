@@ -32,13 +32,7 @@ const User = db.define('users', {
   getterMethods: {
     fullName: function()  { return this.firstName + ' ' + this.lastName }
   },
-  setterMethods: {
-    fullName: function(value) {
-        var names = value.split(' ');
-        this.setDataValue('firstName', names.slice(0, -1).join(' '));
-        this.setDataValue('lastName', names.slice(-1).join(' '));
-    },
-  },
+  
 	indexes: [{fields: ['email'], unique: true,}],
   hooks: {
     beforeCreate: setEmailAndPassword,
