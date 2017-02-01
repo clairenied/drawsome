@@ -7,7 +7,6 @@ import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
 class MasterpieceContainer extends React.Component {
 
-
   constructor(props){
     super(props)
     
@@ -151,10 +150,6 @@ class MasterpieceContainer extends React.Component {
     )
   }
 }
-
-// MasterpieceContainer.propTypes = {
-//     json: React.PropTypes.array.isRequired,
-// }
 
 function mapStateToProps(state){
   return {

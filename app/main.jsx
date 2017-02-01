@@ -18,22 +18,19 @@ import ProfileContainer from './containers/ProfileContainer'
 import PublicGalleryContainer from './containers/PublicGalleryContainer'
 import SingleMasterpieceViewContainer from './containers/SingleMasterpieceViewContainer'
 import MasterpieceContainer from './containers/MasterpieceContainer'
-import {getProfile} from './reducers/profile.jsx'
-
 import EditMasterpieceDraft from './containers/EditMasterpieceDraft'
+
 // import {setSelectedMasterpiece} from './reducers/selected.jsx'
+import {getProfile} from './reducers/profile.jsx'
 import {getMasterpieceDraft} from './reducers/drawings.jsx'
+import { subscribeToNewMessages } from './reducers/messages.jsx'
 
 const loadProfileOnEnter = function (nextRouterState) {
   const profileId = nextRouterState.params.id;
   store.dispatch(getProfile(profileId));
+  store.dispatch(subscribeToNewMessages())
 };
 
-// const setSelectedMasterpieceOnEnter = function(nextRouterState){
-//   const masterpieceId = Number(nextRouterState.params.id);
-  // store.dispatch(getMasterpieceDraft(masterpieceId))
-  // store.dispatch(setSelectedMasterpiece(masterpieceId))
-// }
 
 render (
   <Provider store={store}>
