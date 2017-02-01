@@ -7,7 +7,7 @@ const BigDoodle = (props) => {
   let masterpiece = props.masterpiece;
   let profile = props.profile.profile;
   let masterpieceVersion = masterpiece.versions;
- 
+  let comments = masterpiece.comments;
   return (
     <div className="row big-doodle">
       <div className="big-doodle-border">
@@ -30,9 +30,15 @@ const BigDoodle = (props) => {
             <h3>Comments:</h3>
           </div>
           <div className="col-xs-3">
-            <img 
-              className="img-responsive big-doodle-img"
-              src="https://acdn.architizer.com/thumbnails-PRODUCTION/b0/61/b06105f2382b1e9f4bb8766c0c602c6f.jpg"/>
+            { comments && comments.map(comment => {
+                return ( 
+                  <div>
+                  <h4><Link to={`/profile/${comment.users[0].id}`}>{comment.users[0].fullName}</Link></h4>
+                    <PaperCanvas json={comment.versions[0].versionData} />
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
       </div>
