@@ -29,6 +29,16 @@ class ActivePaperCanvas extends React.Component {
 
   }
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.json !== this.props.json) {
+      return new Promise((resolve, reject) => {
+        resolve(this.currentPaper.project.clear())
+      }).then((paper) => {
+        this.currentPaper.importJSON(nextProps.json);
+      })
+    }
+  }
+
   render() {
     return <canvas 
       width={this.props.width} 

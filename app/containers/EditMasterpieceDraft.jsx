@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import paper from 'paper'
 import {saveNewMasterpieceDraft, postMasterpieceFromDraft} from '../reducers/drawings'
+import DraftContainer from './DraftContainer'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
@@ -32,6 +33,10 @@ class EditMasterpieceDraft extends React.Component {
     this.saveVersionDraft = this.saveVersionDraft.bind(this)
     this.postMasterpiece = this.postMasterpiece.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
+  }
+
+  componentDidUpdate() {
+    window.scrollTo(0,0);
   }
 
   onInitialize(paperScope) {
@@ -104,12 +109,15 @@ class EditMasterpieceDraft extends React.Component {
   render(){ 
     let selectedVersion = this.props.versions[Math.max(...this.props.selectedMasterpiece.versions)] || {}
     return(
+      <div>
       <div className="container">
         <div className="col-xs-12">
-          <h1>Now editing: {this.props.selectedMasterpiece && this.props.selectedMasterpiece.name}</h1>
+          <div className="master-header">
+            <h1 className="master-h1">Now editing: </h1>
+            <h1 className="masterpiece-title">{this.props.selectedMasterpiece && this.props.selectedMasterpiece.name}</h1>
+          </div>
         </div>
         <div className="col-xs-12 col-sm-4">
-          <hr className="divider-rule"/>
           <span><h3>Size:&ensp;{this.state.paperSettings.strokeWidth}&ensp;<a onClick={this.biggerBrushSize}>+</a>/<a onClick={this.smallerBrushSize}>-</a></h3></span>
           <span><h3>Opacity:&ensp;{this.state.paperSettings.opacity.toFixed(1)}&ensp;<a onClick={this.moreOpaque}>+</a>/<a onClick={this.lessOpaque}>-</a></h3></span>
           <div className="palette">
@@ -135,11 +143,16 @@ class EditMasterpieceDraft extends React.Component {
               />
             }
             <form id="master-buttons" className="form-inline" onSubmit={this.saveVersionDraft}>
+              <button type="button" className="btn btn-secondary" id="post-button">Delete Draft</button>
               <button type="submit" className="btn btn-secondary" id="save-button">Save</button>
               <button type="button" onClick={this.postMasterpiece} className="btn btn-secondary" id="post-button">Post</button>
             </form>
           </div>
         </div> 
+      </div>
+      <div className="draft-section">
+        <DraftContainer />
+      </div>
       </div>
     )
   }
@@ -154,6 +167,7 @@ function mapStateToProps(state, props){
     user: state.auth,
     drawings: state.drawings,
     versions: state.versions,
+    drafts: Object.values(state.drawings).filter(drawing => drawing.type === "masterpiece" && drawing.private === true),
     selectedMasterpiece: Object.assign({versions: []}, state.drawings[Number(props.params.id)])
   }
 }

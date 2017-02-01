@@ -19,10 +19,12 @@ import PublicGalleryContainer from './containers/PublicGalleryContainer'
 import SingleMasterpieceViewContainer from './containers/SingleMasterpieceViewContainer'
 import MasterpieceContainer from './containers/MasterpieceContainer'
 import EditMasterpieceDraft from './containers/EditMasterpieceDraft'
+import DraftContainer from './containers/DraftContainer'
 
 // import {setSelectedMasterpiece} from './reducers/selected.jsx'
 import {getProfile} from './reducers/profile.jsx'
 import {getMasterpieceDraft} from './reducers/drawings.jsx'
+import {getProfile} from './reducers/profile.jsx'
 import { subscribeToNewMessages } from './reducers/messages.jsx'
 
 const loadProfileOnEnter = function (nextRouterState) {
@@ -44,6 +46,7 @@ render (
         <Route path="/profile/:id" component={ProfileContainer} onEnter={loadProfileOnEnter}/>
         <Route path="/create-masterpiece" component={MasterpieceContainer}/>
         <Route path="/edit-masterpiece/:id" component={EditMasterpieceDraft} />
+        <Route path="/drafts" component={DraftContainer} />
       </Route>
     </Router>
   </Provider>,
