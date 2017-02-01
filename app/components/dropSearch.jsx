@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router'
 import axios from 'axios'
-import SearchInput, {createFilter} from 'react-search-input'
 
 
 export class SearchBar extends Component {

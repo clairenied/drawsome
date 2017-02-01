@@ -6,7 +6,7 @@ class PaperCanvas extends React.Component {
     componentDidMount() {
         paper.setup(this.canvas);
         paper.project.importJSON(this.props.json);
-        paper.view.scale(0.2);
+        paper.view.scale(0.3);
 
     }
     render() {

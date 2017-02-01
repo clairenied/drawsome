@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import paper from 'paper'
+import DraftContainer from './DraftContainer'
 import {createMasterpieceDraft, postMasterpieceDraft} from '../reducers/drawings'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
@@ -35,6 +36,8 @@ class MasterpieceContainer extends React.Component {
     this.postDrawing = this.postDrawing.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
   }
+
+
 
   onInitialize(paperScope) {
     paperScope.install(this);
@@ -91,6 +94,7 @@ class MasterpieceContainer extends React.Component {
 
   saveDrawing(e){
     e.preventDefault()
+    console.log('IMPORTANT INFO',this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON())
     this.props.createMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, true)
   }
 
@@ -105,6 +109,7 @@ class MasterpieceContainer extends React.Component {
 
   render(){
     return(
+      <div>
       <div className="container">
         <div className="col-xs-12">
           <div className="master-header">
@@ -147,6 +152,10 @@ class MasterpieceContainer extends React.Component {
             </form>
           </div>
         </div> 
+      </div>
+      <div className="draft-section">
+        <DraftContainer />
+      </div>
       </div>
     )
   }

@@ -28,6 +28,12 @@
   font-size: 36px;
 }
 
+.masterpiece-title {
+  display: inline;
+  box-sizing: border-box;
+  border-bottom: 4px solid $drawsome-pink;
+}
+
 .master-h1 {
   width: 40%;
   display: inline;
@@ -53,6 +59,10 @@
 #master-buttons {
   margin-top: 10px;
   float: right;
+}
+
+.draft-section {
+  padding-top: 40px;
 }
 
 .palette {
