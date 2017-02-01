@@ -45,7 +45,9 @@ const User = db.define('users', {
           (err, result) =>
             err ? reject(err) : resolve(result))
         )
+
     }
+
   }
 })
 
