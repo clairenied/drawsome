@@ -7,13 +7,22 @@ const User = db.model('users')
 
 
 router.get('/:id', (req, res, next) => { 
+	let userprofile;
    return User.findById(req.params.id,{
 	include: [{model: Drawing, include:[Version.scope('recent')]}]
 	})
-	.then((user) => {
-		res.json(user)
+	.then((user) =>{
+		userprofile = user;
+		let userdrawings = user.drawings;
+		let promisedrawings = userdrawings.map(drawing  => drawing.getComments())
+		return Promise.all(promisedrawings)
 	})
-	.catch(next)
+	.then((drawings) => {
+		userprofile.drawings = drawings;
+		console.log("userprofile", userprofile.drawings)
+		res.json(userprofile)
+	})
 })
+	
 
 module.exports = router;
