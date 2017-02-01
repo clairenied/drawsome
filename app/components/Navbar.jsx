@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import {connect} from 'react-redux'
 import {logout} from '../reducers/auth'
 import {DropdownButton, MenuItem} from 'react-bootstrap'
+import {SearchBar} from './dropSearch.jsx'
 
 export class Navbar extends Component {
 
@@ -11,7 +12,7 @@ export class Navbar extends Component {
       <div className="nav navbar-default custom-navbar-default">
         <form className="navbar-form navbar-left">
           <div className="form-group">
-            <input type="text" className="form-control" placeholder="Search"/>
+            <SearchBar />
           </div>
         </form>
         <ul className="nav navbar-nav navbar-right">
