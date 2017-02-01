@@ -43,12 +43,15 @@
   color: #ffffff;
 }
 
+.title-name {
+  cursor: pointer;
+}
+
 .chat-box-title {
   @include shadow;
   pointer-events: auto;
   width: 20rem;
   z-index: 1000;
-  cursor: pointer;
   padding: 0.5rem 1rem 0.5rem 2rem;
   background-color: $drawsome-pink;
   color: #ffffff;
@@ -78,6 +81,7 @@
   font-size: 1.25rem;
   margin: 0.5rem 0;
 }
+
 
 .online {
   cursor: pointer;

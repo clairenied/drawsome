@@ -32,6 +32,12 @@ let data = {
       birthday: "1995-08-01",
       email: "peter@email.com",
       password: "peter"
+  },{
+      firstName: "Claire",
+      lastName: "Niederberger",
+      birthday: "1991-10-13",
+      email: "clairenied@gmail.com",
+      password: "peter"
   }],
 
     drawing: [{ //User 0
@@ -599,11 +605,77 @@ db.didSync
           return user2.addFriend(user1);
       })
 
+      .then(function() {
+          return Promise.all([
+              User.findOne({
+                  where: {
+                      id: 5
+                  }
+              }),
+              User.findOne({
+                  where: {
+                      id: 4
+                  }
+              })
+          ]);
+      })
+      .spread(function(user1, user2) {
+          return user2.addFriend(user1);
+      })
 
+      .then(function() {
+          return Promise.all([
+              User.findOne({
+                  where: {
+                      id: 5
+                  }
+              }),
+              User.findOne({
+                  where: {
+                      id: 3
+                  }
+              })
+          ]);
+      })
+      .spread(function(user1, user2) {
+          return user2.addFriend(user1);
+      })
 
+      .then(function() {
+          return Promise.all([
+              User.findOne({
+                  where: {
+                      id: 5
+                  }
+              }),
+              User.findOne({
+                  where: {
+                      id: 2
+                  }
+              })
+          ]);
+      })
+      .spread(function(user1, user2) {
+          return user2.addFriend(user1);
+      })
 
-
-
+      .then(function() {
+          return Promise.all([
+              User.findOne({
+                  where: {
+                      id: 5
+                  }
+              }),
+              User.findOne({
+                  where: {
+                      id: 1
+                  }
+              })
+          ]);
+      })
+      .spread(function(user1, user2) {
+          return user2.addFriend(user1);
+      })
 
 
     .catch(function(err) {
