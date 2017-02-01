@@ -48,7 +48,6 @@ function mapStateToProps(state, ownProps){
     //comments = Object.values(state.profile.drawings).filter(drawing => drawing.type === "comment");
    
   }
-  console.log("MASTERP", masterpieces)
     return {
     profile: state.profile, 
     //comments,
