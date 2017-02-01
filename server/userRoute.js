@@ -25,18 +25,17 @@ router.post('/', (req, res, next) => {
 })
 
 router.get('/searchbar', mustBeLoggedIn, (req, res, next) => {
-	console.log('*************************',req.query.name);
 	return User.findAll({
 		where: {
 			$or: [
 			    {
 			      firstName: {
-			        $like: '%'+req.query.name+'%'
+			        $ilike: '%'+req.query.name+'%'
 			      }
 			    },
 			    {
 			      lastName: {
-			        $like: '%'+req.query.name+'%'
+			        $ilike: '%'+req.query.name+'%'
 			      }
 			    }
 			  ]
