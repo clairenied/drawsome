@@ -7,6 +7,7 @@ const Drawing = db.define('drawing', {
   },
   type: {
     type: Sequelize.ENUM("corpse-head", "corpse-body", "corpse-feet", "chat", "masterpiece", "comment"),
+    allowNull: false
   },
   canEdit: {
     type: Sequelize.BOOLEAN,
@@ -20,6 +21,9 @@ const Drawing = db.define('drawing', {
   },
   likes: {
     type: Sequelize.INTEGER,
+    validate: {
+      min: 0
+    }
   },
 }, {})
 

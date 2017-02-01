@@ -5,11 +5,11 @@ import {createMasterpieceDraft, saveNewMasterpieceDraft} from '../reducers/drawi
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
-class EditMasterpieceDraft extends React.Component {
+export class EditMasterpieceDraft extends React.Component {
 
   constructor(props){
     super(props)
-    
+
     this.state = {
       paperSettings: {
         strokeWidth: 10,
@@ -92,7 +92,7 @@ class EditMasterpieceDraft extends React.Component {
   }
 
   getCurrentPaper(paper) {
-    this.setState({currentPaper: paper}) 
+    this.setState({currentPaper: paper})
   }
 
   render(){
@@ -113,9 +113,9 @@ class EditMasterpieceDraft extends React.Component {
             <a onClick={() => this.changeColor('blue')}><div className="blue"></div></a>
             <a onClick={() => this.changeColor('#8500ff')}><div className="purple"></div></a>
             <a onClick={() => this.changeColor('black')}><div className="black"></div></a>
-            <a onClick={() => this.changeColor('white')}><div className="white"></div></a>    
+            <a onClick={() => this.changeColor('white')}><div className="white"></div></a>
           </div>
-        </div>  
+        </div>
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
           {this.props.selectedMasterpiece &&
@@ -134,7 +134,7 @@ class EditMasterpieceDraft extends React.Component {
               <button type="post" className="btn btn-secondary" id="post-button">Post</button>
             </form>
           </div>
-        </div> 
+        </div>
       </div>
     )
   }
@@ -154,4 +154,3 @@ function mapStateToProps(state, props){
 }
 
 export default connect(mapStateToProps, {createMasterpieceDraft, saveNewMasterpieceDraft})(EditMasterpieceDraft)
-
