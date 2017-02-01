@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import paper from 'paper'
-import {createMasterpieceDraft, saveNewMasterpieceDraft} from '../reducers/drawings'
+import {saveNewMasterpieceDraft, postMasterpieceFromDraft} from '../reducers/drawings'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
@@ -30,6 +30,7 @@ class EditMasterpieceDraft extends React.Component {
     this.changeColor = this.changeColor.bind(this)
     this.onInitialize = this.onInitialize.bind(this)
     this.saveVersionDraft = this.saveVersionDraft.bind(this)
+    this.postMasterpiece = this.postMasterpiece.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
   }
 
@@ -91,11 +92,17 @@ class EditMasterpieceDraft extends React.Component {
     this.props.saveNewMasterpieceDraft(this.props.params.id, this.props.user.id, this.state.currentPaper.project.exportJSON())
   }
 
+  postMasterpiece(e){
+    e.preventDefault()
+    this.props.postMasterpieceFromDraft(this.props.params.id, this.props.user.id, this.state.currentPaper.project.exportJSON(), false)
+  }
+
   getCurrentPaper(paper) {
     this.setState({currentPaper: paper}) 
   }
 
-  render(){
+  render(){ 
+    let selectedVersion = this.props.versions[Math.max(...this.props.selectedMasterpiece.versions)] || {}
     return(
       <div className="container">
         <div className="col-xs-12">
@@ -118,20 +125,19 @@ class EditMasterpieceDraft extends React.Component {
         </div>  
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
-          {this.props.selectedMasterpiece &&
-            this.props.versions &&
+          { selectedVersion.versionData &&
             <ActivePaperCanvas
               getCurrentPaper={this.getCurrentPaper}
               onInitialize={this.onInitialize}
               onMouseDrag={this.onMouseDrag}
               onMouseDown={this.onMouseDown}
-              json={this.props.versions[Math.max(...this.props.selectedMasterpiece.versions)].versionData}
+              json={selectedVersion.versionData}
               />
             }
             <p></p>
             <form className="form-inline" onSubmit={this.saveVersionDraft}>
               <button type="submit" className="btn btn-secondary" id="save-button">Save</button>
-              <button type="post" className="btn btn-secondary" id="post-button">Post</button>
+              <button type="button" onClick={this.postMasterpiece} className="btn btn-secondary" id="post-button">Post</button>
             </form>
           </div>
         </div> 
@@ -149,9 +155,9 @@ function mapStateToProps(state, props){
     user: state.auth,
     drawings: state.drawings,
     versions: state.versions,
-    selectedMasterpiece: state.drawings[Number(props.params.id)]
+    selectedMasterpiece: Object.assign({versions: []}, state.drawings[Number(props.params.id)])
   }
 }
 
-export default connect(mapStateToProps, {createMasterpieceDraft, saveNewMasterpieceDraft})(EditMasterpieceDraft)
+export default connect(mapStateToProps, { saveNewMasterpieceDraft, postMasterpieceFromDraft})(EditMasterpieceDraft)
 

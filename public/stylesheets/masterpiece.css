@@ -7,6 +7,26 @@
   margin: 20px auto;
   background-color: #ffffff; }
 
+.master-header {
+  display: inline; }
+
+.masterpiece-input {
+  display: inline;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  border-bottom: 4px solid #ff0274;
+  margin-bottom: 10px;
+  font-size: 36px; }
+
+.master-h1 {
+  width: 40%;
+  display: inline; }
+
+#master-form {
+  display: inline;
+  box-sizing: border-box; }
+
 #save-button {
   background-color: #ff0274;
   color: white;
@@ -16,6 +36,10 @@
   background-color: #ff5602;
   color: white;
   margin-left: 1rem; }
+
+.master-buttons {
+  position: block;
+  margin-left: 38.6rem; }
 
 .palette {
   margin-top: 20px; }

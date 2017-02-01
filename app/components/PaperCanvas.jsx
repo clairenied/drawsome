@@ -12,9 +12,9 @@ class PaperCanvas extends React.Component {
     }
 }
 
-PaperCanvas.propTypes = {
-    json: React.PropTypes.array.isRequired,
-};
+// PaperCanvas.propTypes = {
+//     json: React.PropTypes.array.isRequired,
+// };
 
 export default PaperCanvas;
 
