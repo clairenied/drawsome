@@ -134,12 +134,10 @@ class MasterpieceContainer extends React.Component {
           </div>
         </div>  
         <div className="col-xs-12 col-sm-8">
-          <div className="master-buttons">
-            <form className="form-inline">
-              <button type="button" onClick={this.saveDrawing} className="btn btn-secondary" id="save-button">Save</button>
-              <button type="button" onClick={this.postDrawing} className="btn btn-secondary" id="post-button">Post</button>
-            </form>
-          </div>
+          <form id="master-buttons" className="form-inline">
+            <button type="button" onClick={this.saveDrawing} className="btn btn-secondary" id="save-button">Save</button>
+            <button type="button" onClick={this.postDrawing} className="btn btn-secondary" id="post-button">Post</button>
+          </form>
           <div className="masterpiece-container">
             <ActivePaperCanvas
               getCurrentPaper={this.getCurrentPaper}

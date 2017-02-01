@@ -37,9 +37,8 @@
   color: white;
   margin-left: 1rem; }
 
-.master-buttons {
-  position: block;
-  margin-left: 38.6rem; }
+#master-buttons {
+  margin-left: calc(100% - 21rem); }
 
 .palette {
   margin-top: 20px; }

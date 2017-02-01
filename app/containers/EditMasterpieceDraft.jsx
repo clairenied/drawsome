@@ -124,6 +124,10 @@ class EditMasterpieceDraft extends React.Component {
           </div>
         </div>  
         <div className="col-xs-12 col-sm-8">
+          <form id="master-buttons" className="form-inline">
+              <button type="button" onClick={this.saveVersionDraft} className="btn btn-secondary" id="save-button">Save</button>
+              <button type="button" onClick={this.postMasterpiece} className="btn btn-secondary" id="post-button">Post</button>
+            </form>
           <div className="masterpiece-container">
           { selectedVersion.versionData &&
             <ActivePaperCanvas
@@ -134,11 +138,6 @@ class EditMasterpieceDraft extends React.Component {
               json={selectedVersion.versionData}
               />
             }
-            <p></p>
-            <form className="form-inline" onSubmit={this.saveVersionDraft}>
-              <button type="submit" className="btn btn-secondary" id="save-button">Save</button>
-              <button type="button" onClick={this.postMasterpiece} className="btn btn-secondary" id="post-button">Post</button>
-            </form>
           </div>
         </div> 
       </div>
