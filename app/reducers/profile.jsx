@@ -19,7 +19,6 @@ const reducer = (state=initialState, action) => {
 
 
 export const setProfile = (profile) => {
-	
 	return {
 	  type: SET_PROFILE, 
 	  profile
@@ -31,6 +30,7 @@ export const getProfile = (id) => {
 		return axios.get(`/api/profile/${id}`)
 		.then(response => {
 			if(true){
+				console.log("RESPONSE", response)
 				dispatch(setProfile(response.data))
 			}
 		})
