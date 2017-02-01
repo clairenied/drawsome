@@ -26,7 +26,9 @@ const SET_MASTERPIECE = "SET_MASTERPIECE";
 export const setMasterpiece = masterpiece => {
   let drawingVersions = masterpiece.versions 
   masterpiece.versions = []
-  drawingVersions.forEach(version => masterpiece.versions.push(version.id))
+  drawingVersions.forEach(version => {
+    masterpiece.versions.push(version.id)
+  })
   return {
     type: SET_MASTERPIECE,
     masterpiece
@@ -36,7 +38,6 @@ export const setMasterpiece = masterpiece => {
 export const setAllMasterpieces = (masterpieces) => {
 	return dispatch => {
     return masterpieces.forEach(masterpiece => {
-
       dispatch(setAllVersions(masterpiece.versions));
       dispatch(setMasterpiece(masterpiece));
 
@@ -44,10 +45,11 @@ export const setAllMasterpieces = (masterpieces) => {
 	}
 }
 
-export const createMasterpieceDraft = (userId, name, json) => {
+export const createMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   return dispatch => {
-    axios.post('/api/drawings/', {userId, name, json})
+    axios.post('/api/drawings/', {userId, name, json, canEdit, priv})
     .then(drawing => {
+      dispatch(setAllVersions(drawing.data.versions))
       dispatch(setMasterpiece(drawing.data))
       browserHistory.push(`/edit-masterpiece/${drawing.data.id}`)
     })
@@ -55,16 +57,44 @@ export const createMasterpieceDraft = (userId, name, json) => {
   }
 }
 
+export const postMasterpieceDraft = (userId, name, json, canEdit, priv) => {
+  return dispatch => {
+    axios.post('/api/drawings/', {userId, name, json, canEdit, priv})
+    .then(drawing => {
+      dispatch(setAllVersions(drawing.data.versions))
+      dispatch(setMasterpiece(drawing.data))
+      browserHistory.push(`/gallery`)
+    })
+    .catch(err => console.log('there was an error posting the masterpiece', err))
+  }
+}
+
+
+
 export const saveNewMasterpieceDraft = (id, userId, json) => {
   return dispatch => {
     axios.post(`/api/drawings/${id}`, {userId, json})
     .then(drawing => {
+      dispatch(setAllVersions(drawing.data.versions))
       dispatch(setMasterpiece(drawing.data))
       browserHistory.push(`/edit-masterpiece/${drawing.data.id}`)
     })
     .catch(err => console.log('there was an error saving the masterpiece', err))
   }
 }
+
+export const postMasterpieceFromDraft = (id, userId, json, canEdit) => {
+  return dispatch => {
+    axios.put(`/api/drawings/${id}`, {userId, json, canEdit})
+    .then(drawing => {
+      dispatch(setAllVersions(drawing.data.versions))
+      dispatch(setMasterpiece(drawing.data))
+      browserHistory.push(`/gallery`)
+    })
+    .catch(err => console.log('there was an error saving the masterpiece', err))
+  }
+}
+
 
 export const getMasterpieceDraft = (id) => {
   return dispatch => {

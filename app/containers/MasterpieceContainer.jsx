@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import paper from 'paper'
-import {createMasterpieceDraft} from '../reducers/drawings'
+import {createMasterpieceDraft, postMasterpieceDraft} from '../reducers/drawings'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
@@ -32,6 +32,7 @@ class MasterpieceContainer extends React.Component {
     this.changeColor = this.changeColor.bind(this)
     this.onInitialize = this.onInitialize.bind(this)
     this.saveDrawing = this.saveDrawing.bind(this)
+    this.postDrawing = this.postDrawing.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
   }
 
@@ -90,7 +91,12 @@ class MasterpieceContainer extends React.Component {
 
   saveDrawing(e){
     e.preventDefault()
-    this.props.createMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON())
+    this.props.createMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, true)
+  }
+
+  postDrawing(e){
+    e.preventDefault()
+    this.props.postMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, false)
   }
 
   getCurrentPaper(paper) {
@@ -101,10 +107,19 @@ class MasterpieceContainer extends React.Component {
     return(
       <div className="container">
         <div className="col-xs-12">
-          <h1>Now editing: {this.state.name ? this.state.name : "Your masterpiece"}</h1>
+          <div className="master-header">
+            <h1 className="master-h1">Now editing: </h1>
+            <div id="master-form" className="form-group">
+              <input type="text" 
+                className="masterpiece-input" 
+                placeholder="Your Masterpiece" 
+                value={this.state.name}
+                onChange={this.updateName.bind(this)}
+              />
+            </div>
+          </div>
         </div>
         <div className="col-xs-12 col-sm-4">
-          <hr className="divider-rule"/>
           <span><h3>Size:&ensp;{this.state.paperSettings.strokeWidth}&ensp;<a onClick={this.biggerBrushSize}>+</a>/<a onClick={this.smallerBrushSize}>-</a></h3></span>
           <span><h3>Opacity:&ensp;{this.state.paperSettings.opacity.toFixed(1)}&ensp;<a onClick={this.moreOpaque}>+</a>/<a onClick={this.lessOpaque}>-</a></h3></span>
           <div className="palette">
@@ -126,19 +141,9 @@ class MasterpieceContainer extends React.Component {
               onMouseDrag={this.onMouseDrag}
               onMouseDown={this.onMouseDown}
               />
-            <p></p>
-            <form className="form-inline" onSubmit={this.saveDrawing}>
-              <div className="form-group">
-                <label>Masterpiece Title:  </label>
-                <input type="name" 
-                  className="form-control" 
-                  placeholder="Your Masterpiece" 
-                  value={this.state.name}
-                  onChange={this.updateName.bind(this)}
-                />
-              </div>
-              <button type="submit" className="btn btn-secondary" id="save-button">Save</button>
-              <button type="post" className="btn btn-secondary" id="post-button">Post</button>
+            <form id="master-buttons" className="form-inline">
+              <button type="button" onClick={this.saveDrawing} className="btn btn-secondary" id="save-button">Save</button>
+              <button type="button" onClick={this.postDrawing} className="btn btn-secondary" id="post-button">Post</button>
             </form>
           </div>
         </div> 
@@ -157,4 +162,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {createMasterpieceDraft})(MasterpieceContainer)
+export default connect(mapStateToProps, {createMasterpieceDraft, postMasterpieceDraft})(MasterpieceContainer)

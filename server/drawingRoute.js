@@ -21,8 +21,8 @@ router.post('/', (req, res, next) => {
   return Drawing.create({
     name: req.body.name, 
     type: "masterpiece",
-    canEdit: true,
-    private: true,
+    canEdit: req.body.canEdit,
+    private: req.body.priv,
     likes: 0
   })
   .then(drawing => {
@@ -69,6 +69,37 @@ router.post('/:id', (req, res, next) => {
   })
   .then(drawing => res.json(drawing))
   .catch(next);
+})
+
+router.put('/:id', (req, res, next) => {
+  return Version.findAll({
+    where: {drawing_id: req.params.id}
+  })
+  .then(versionData => {
+    versionData.sort(function(a,b){
+      return a.versionNumber - b.versionNumber
+    })
+    return Version.create({
+      drawing_id: req.params.id,
+      user_id: req.body.userId,
+      versionNumber: versionData[0].versionNumber + 1,
+      versionData: req.body.json
+    })
+  })
+  .then(version => {
+    return Drawing.findById(req.params.id)
+  })
+  .then(drawing => {
+    return drawing.update({
+      private: false,
+      canEdit: req.body.canEdit
+    })
+  })
+  .then(drawing => {
+    return Drawing.findById(req.params.id, {include: [{model: Version}]})
+  })
+  .then(drawing => res.json(drawing))
+  .catch(next)
 })
 
 router.get('/:id', (req, res, next) => {

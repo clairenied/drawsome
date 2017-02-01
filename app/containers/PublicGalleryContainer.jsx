@@ -39,7 +39,7 @@ class PublicGalleryContainer extends Component {
 function mapStateToProps(state){
   return {
     user: state.auth,
-    drawings:  Object.values(state.drawings).filter(drawing => drawing.type === "masterpiece"),
+    drawings:  Object.values(state.drawings).filter(drawing => drawing.type === "masterpiece" && drawing.private === false),
     friends: state.friends,
     versions: state.versions
   }
