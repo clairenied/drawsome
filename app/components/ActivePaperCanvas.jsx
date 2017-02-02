@@ -27,6 +27,8 @@ class ActivePaperCanvas extends React.Component {
 
     this.props.getCurrentPaper(this.currentPaper)
 
+
+
   }
 
   componentWillReceiveProps(nextProps){

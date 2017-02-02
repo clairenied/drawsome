@@ -23,6 +23,8 @@ class ChatBox extends React.Component {
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onMouseDrag = this.onMouseDrag.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
+    this.clearCanvas= this.clearCanvas.bind(this)
+    this.undoDraw = this.undoDraw.bind(this)
   }
 
   onInitialize(paperScope) {
@@ -43,6 +45,20 @@ class ChatBox extends React.Component {
     this.setState({currentPaper: paper}) 
   }
 
+  clearCanvas(){
+    return new Promise((resolve, reject) => resolve(this.state.currentPaper.project.clear())
+      .then(()=> this.getCurrentPaper(paper))
+    )
+  }
+
+  undoDraw(){
+    let children = this.state.currentPaper.project.activeLayer.children
+    return new Promise((resolve, reject) => resolve(removeChildren(children.length-1))
+      .then(()=> this.getCurrentPaper(paper))
+    )
+  }
+
+
   render(){ 
     return (
       <div>     
@@ -52,6 +68,8 @@ class ChatBox extends React.Component {
             onMouseDown={this.onMouseDown}
             onMouseDrag={this.onMouseDrag}
             getCurrentPaper={this.getCurrentPaper}
+            clearCanvas={this.clearCanvas}
+            undoDraw = {this.undoDraw}
             width="200"
             height="250"
             />

@@ -33,6 +33,8 @@ class EditMasterpieceDraft extends React.Component {
     this.saveVersionDraft = this.saveVersionDraft.bind(this)
     this.postMasterpiece = this.postMasterpiece.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
+    this.clearCanvas = this.clearCanvas.bind(this)
+    this.undoDraw = this.undoDraw.bind(this)
   }
 
   componentDidUpdate() {
@@ -106,6 +108,20 @@ class EditMasterpieceDraft extends React.Component {
     this.setState({currentPaper: paper}) 
   }
 
+  clearCanvas(){
+    return new Promise((resolve, reject) => resolve(this.state.currentPaper.project.clear())
+      .then(()=> this.getCurrentPaper(paper))
+    )
+  }
+
+  undoDraw(){
+    let children = this.state.currentPaper.project.activeLayer.children
+    return new Promise((resolve, reject) => resolve(this.state.currentPaper.Path.removeChildren(children.length-1))
+      .then(()=> this.getCurrentPaper(paper))
+    )
+  }
+
+
   render(){ 
     let selectedVersion = this.props.versions[Math.max(...this.props.selectedMasterpiece.versions)] || {}
     return(
@@ -140,6 +156,8 @@ class EditMasterpieceDraft extends React.Component {
               onMouseDrag={this.onMouseDrag}
               onMouseDown={this.onMouseDown}
               json={selectedVersion.versionData}
+              clearCanvas = {this.clearCanvas}
+              undoDraw = {this.undoDraw}
               />
             }
             <form id="master-buttons" className="form-inline" onSubmit={this.saveVersionDraft}>

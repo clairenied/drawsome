@@ -15,6 +15,7 @@ const Doodle = (props) => {
           <PaperCanvas json={props.version.versionData} />
         }
         </div>
+        <h2 className="doodle-name">{props.drawing.name}</h2>
         <h3> <Link to="/profile">Mike Purgatori,</Link> <Link to="/profile">Zeke Nierenberg</Link></h3>
         <h4>{props.drawing.created_at}</h4>
       </div>
