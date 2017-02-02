@@ -53,8 +53,10 @@ class ChatBox extends React.Component {
 
   undoDraw(){
     let children = this.state.currentPaper.project.activeLayer.children
-    return new Promise((resolve, reject) => resolve(removeChildren(children.length-1))
-      .then(()=> this.getCurrentPaper(paper))
+    return new Promise((resolve, reject) => resolve(this.state.currentPaper.project.activeLayer.lastChild.remove())
+      .then(()=> {
+        this.getCurrentPaper(paper)
+      })
     )
   }
 
