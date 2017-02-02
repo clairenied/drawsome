@@ -107,9 +107,15 @@ nav .navbar-default {
 hr.divider-rule {
   border-top: 4px solid #ff0274; }
 
-doodle-container {
+.doodle-container {
   margin-right: 50rem;
   height: auto; }
+
+.edit-button {
+  float: right; }
+
+.doodle-header {
+  position: inline; }
 
 .chat-app-container {
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
@@ -246,6 +252,9 @@ doodle-container {
 
 .draft-section {
   padding-top: 40px; }
+
+#clear-button {
+  margin-right: 10px; }
 
 .palette {
   margin-top: 20px; }
