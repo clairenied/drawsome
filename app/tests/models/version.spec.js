@@ -34,7 +34,7 @@ describe('version', () => {
           },
           include:[Version.scope('recent')]
         }))
-        .then(draw => expect(draw.dataValues.versions[0].dataValues.version_number).to.equal(2))
+        .then(draw => expect(draw.dataValues.versions[0].dataValues.number).to.equal(2))
      })
    })
   })

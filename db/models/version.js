@@ -17,7 +17,7 @@ const Version = db.define('version', {
 }, {
   scopes : {
     recent : {
-         order: 'version_number DESC',
+         order: 'number DESC',
          limit: 1
         }
     }
