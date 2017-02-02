@@ -34,6 +34,8 @@ class MasterpieceContainer extends React.Component {
     this.saveDrawing = this.saveDrawing.bind(this)
     this.postDrawing = this.postDrawing.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
+    this.clearCanvas = this.clearCanvas.bind(this)
+    this.undoDraw = this.undoDraw.bind(this)
   }
 
 
@@ -106,6 +108,21 @@ class MasterpieceContainer extends React.Component {
     this.setState({currentPaper: paper}) 
   }
 
+  clearCanvas(){
+    return new Promise((resolve, reject) => resolve(this.state.currentPaper.project.clear())
+      .then(()=> this.getCurrentPaper(paper))
+    )
+  }
+
+  undoDraw(){
+    let children = this.state.currentPaper.project.activeLayer.children
+    return new Promise((resolve, reject) => resolve(this.state.currentPaper.project.activeLayer.lastChild.remove())
+      .then(()=> {
+        this.getCurrentPaper(paper)
+      })
+    )
+  }
+
   render(){
     return(
       <div>
@@ -134,7 +151,9 @@ class MasterpieceContainer extends React.Component {
             <a onClick={() => this.changeColor('blue')}><div className="blue"></div></a>
             <a onClick={() => this.changeColor('#8500ff')}><div className="purple"></div></a>
             <a onClick={() => this.changeColor('black')}><div className="black"></div></a>
-            <a onClick={() => this.changeColor('white')}><div className="white"></div></a>    
+            <a onClick={() => this.changeColor('white')}><div className="white"></div></a>  
+            <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>  
+            <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button> 
           </div>
         </div>  
         <div className="col-xs-12 col-sm-8">
@@ -144,6 +163,8 @@ class MasterpieceContainer extends React.Component {
               onInitialize={this.onInitialize}
               onMouseDrag={this.onMouseDrag}
               onMouseDown={this.onMouseDown}
+              clearCanvas={this.clearCanvas}
+              undoDraw = {this.undoDraw}
               />
             <form id="master-buttons" className="form-inline">
               <button type="button" onClick={this.saveDrawing} className="btn btn-secondary" id="save-button">Save</button>
