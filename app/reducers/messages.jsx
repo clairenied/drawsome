@@ -2,7 +2,7 @@ import axios from 'axios'
 import { browserHistory } from 'react-router'
 
 // import { setUser } from './users';
-// import socket from '../socket';
+import socket from '../socket';
 
 
 const initialState = {}
