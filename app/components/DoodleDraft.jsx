@@ -10,7 +10,7 @@ const DoodleDraft = (props) => {
       <div className="img-card">
         <div className="doodle-container">
         { props.version &&
-          <PaperCanvas json={props.version.versionData} />
+          <PaperCanvas json={props.version.data} />
         }
         </div>
         <h3>{props.drawing.name}</h3>

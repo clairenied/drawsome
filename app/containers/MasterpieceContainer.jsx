@@ -95,7 +95,6 @@ class MasterpieceContainer extends React.Component {
 
   saveDrawing(e){
     e.preventDefault()
-    console.log('IMPORTANT INFO',this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON())
     this.props.createMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, true)
   }
 

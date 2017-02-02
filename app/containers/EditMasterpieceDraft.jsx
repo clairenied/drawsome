@@ -150,19 +150,18 @@ export class EditMasterpieceDraft extends React.Component {
         </div>
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
-          { selectedVersion.versionData &&
+          { selectedVersion.data &&
             <ActivePaperCanvas
               getCurrentPaper={this.getCurrentPaper}
               onInitialize={this.onInitialize}
               onMouseDrag={this.onMouseDrag}
               onMouseDown={this.onMouseDown}
-              json={selectedVersion.versionData}
+              json={selectedVersion.data}
               clearCanvas = {this.clearCanvas}
               undoDraw = {this.undoDraw}
               />
             }
             <form id="master-buttons" className="form-inline" onSubmit={this.saveVersionDraft}>
-              <button type="button" className="btn btn-secondary" id="post-button">Delete Draft</button>
               <button type="submit" className="btn btn-secondary" id="save-button">Save</button>
               <button type="button" onClick={this.postMasterpiece} className="btn btn-secondary" id="post-button">Post</button>
             </form>
