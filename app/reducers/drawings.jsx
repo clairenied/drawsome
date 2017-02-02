@@ -7,10 +7,10 @@ const initialState = {};
 const reducer  = (state = initialState, action) => {
   const nextState = Object.assign({}, state);
   switch (action.type) {
-    case SET_MASTERPIECE: 
+    case SET_MASTERPIECE:
       nextState[action.masterpiece.id] = action.masterpiece;
       break;
-    default: 
+    default:
        return state;
   }
   return nextState
@@ -24,7 +24,7 @@ const SET_MASTERPIECE = "SET_MASTERPIECE";
 //ACTION CREATORS
 
 export const setMasterpiece = masterpiece => {
-  let drawingVersions = masterpiece.versions 
+  let drawingVersions = masterpiece.versions
   masterpiece.versions = []
   drawingVersions.forEach(version => {
     masterpiece.versions.push(version.id)

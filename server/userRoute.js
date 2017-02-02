@@ -5,7 +5,7 @@ const db = require('APP/db')
 const express = require('express')
 const router = express.Router()
 
-const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
+const {mustBeLoggedIn, forbidden} = require('./auth.filters')
 
 const User = db.model('users')
 const Drawing = db.model('drawing')

@@ -2,12 +2,12 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const Version = db.define('version', {
-  version_number: {
+  number: {
     type: Sequelize.INTEGER,
     defaultValue: 1,
     allowNull: false,
   },
-  versionData: {
+  data: {
     type: Sequelize.TEXT,
   },
   read: {
@@ -17,11 +17,10 @@ const Version = db.define('version', {
 }, {
   scopes : {
     recent : {
-         order: 'version_number DESC',
+         order: 'number DESC',
          limit: 1
         }
-    },
-
+    }
 })
 
 module.exports = Version
