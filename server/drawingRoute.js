@@ -31,8 +31,8 @@ router.post('/', (req, res, next) => {
       Version.create({
         drawing_id: drawing.id,
         user_id: req.body.userId,
-        versionNumber: 1,
-        versionData: req.body.json
+        number: 1,
+        data: req.body.json
       })
     ])
   })
@@ -55,13 +55,13 @@ router.post('/:id', (req, res, next) => {
   })
   .then(versionData => {
     versionData.sort(function(a,b){
-      return a.versionNumber - b.versionNumber
+      return a.number - b.number
     })
     return Version.create({
       drawing_id: req.params.id,
       user_id: req.body.userId,
-      versionNumber: versionData[0].versionNumber + 1,
-      versionData: req.body.json
+      number: versionData[0].number + 1,
+      data: req.body.json
     })
   })
   .then(version => {
@@ -104,15 +104,15 @@ router.put('/:id', (req, res, next) => {
   })
   .then(versionData => {
     versionData.sort(function(a,b){
-      return a.versionNumber - b.versionNumber
+      return a.number - b.number
     })
     return Version.create({
       drawing_id: req.params.id,
       user_id: req.body.userId,
-      versionNumber: versionData[0].versionNumber + 1,
-      versionData: req.body.json
+      number: versionData[0].number + 1,
+      data: req.body.json
     })
-  })
+  }) 
   .then(version => {
     return Drawing.findById(req.params.id)
   })
@@ -135,7 +135,7 @@ router.get('/:id', (req, res, next) => {
   })
   .then(versionData => {
     versionData.sort(function(a,b){
-      return a.versionNumber - b.versionNumber
+      return a.number - b.number
     })
     res.json(versionData[0])
   })
