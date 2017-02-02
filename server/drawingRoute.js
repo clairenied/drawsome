@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
     where: {
       user_id: req.user.id
     },
-    include: [{model: Drawing}]
+    include: [{ model: Drawing }]
   })
   .then( drawings => res.send(drawings))
     .catch(next)
@@ -21,8 +21,8 @@ router.post('/', (req, res, next) => {
   return Drawing.create({
     name: req.body.name, 
     type: "masterpiece",
-    canEdit: true,
-    private: true,
+    canEdit: req.body.canEdit,
+    private: req.body.priv,
     likes: 0
   })
   .then(drawing => {
@@ -71,6 +71,64 @@ router.post('/:id', (req, res, next) => {
   .catch(next);
 })
 
+router.get('/messages', (req, res, next) => {
+  return Drawing.findAll({
+    where: {
+      type: "chat"
+    },
+    include: [{
+      model: Version,
+      where: {
+        user_id: req.user.id
+      }
+    }]
+  })
+  .then(drawings => res.send(drawings))
+  .catch(next)
+})
+
+router.post('/messages/:drawingId', (req, res, next) => {
+  return Drawing.findOrCreate({
+    where: {
+      version_id: req.params.drawingId,
+      user_id: [req.user.id, req.params.friend_id]
+    }
+  })
+  .then(drawing => res.send(drawing))
+  .catch(next)
+})
+
+router.put('/:id', (req, res, next) => {
+  return Version.findAll({
+    where: {drawing_id: req.params.id}
+  })
+  .then(versionData => {
+    versionData.sort(function(a,b){
+      return a.versionNumber - b.versionNumber
+    })
+    return Version.create({
+      drawing_id: req.params.id,
+      user_id: req.body.userId,
+      versionNumber: versionData[0].versionNumber + 1,
+      versionData: req.body.json
+    })
+  })
+  .then(version => {
+    return Drawing.findById(req.params.id)
+  })
+  .then(drawing => {
+    return drawing.update({
+      private: false,
+      canEdit: req.body.canEdit
+    })
+  })
+  .then(drawing => {
+    return Drawing.findById(req.params.id, {include: [{model: Version}]})
+  })
+  .then(drawing => res.json(drawing))
+  .catch(next)
+})
+
 router.get('/:id', (req, res, next) => {
   return Version.findAll({
     where: {drawing_id: req.params.id}
@@ -84,6 +142,3 @@ router.get('/:id', (req, res, next) => {
 })
 
 module.exports = router;
-
-
-

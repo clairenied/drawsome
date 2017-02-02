@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import paper from 'paper'
-import {createMasterpieceDraft, saveNewMasterpieceDraft} from '../reducers/drawings'
+import {saveNewMasterpieceDraft, postMasterpieceFromDraft} from '../reducers/drawings'
+import DraftContainer from './DraftContainer'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
@@ -30,7 +31,12 @@ export class EditMasterpieceDraft extends React.Component {
     this.changeColor = this.changeColor.bind(this)
     this.onInitialize = this.onInitialize.bind(this)
     this.saveVersionDraft = this.saveVersionDraft.bind(this)
+    this.postMasterpiece = this.postMasterpiece.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
+  }
+
+  componentDidUpdate() {
+    window.scrollTo(0,0);
   }
 
   onInitialize(paperScope) {
@@ -91,18 +97,27 @@ export class EditMasterpieceDraft extends React.Component {
     this.props.saveNewMasterpieceDraft(this.props.params.id, this.props.user.id, this.state.currentPaper.project.exportJSON())
   }
 
+  postMasterpiece(e){
+    e.preventDefault()
+    this.props.postMasterpieceFromDraft(this.props.params.id, this.props.user.id, this.state.currentPaper.project.exportJSON(), false)
+  }
+
   getCurrentPaper(paper) {
     this.setState({currentPaper: paper})
   }
 
   render(){
+    let selectedVersion = this.props.versions[Math.max(...this.props.selectedMasterpiece.versions)] || {}
     return(
+      <div>
       <div className="container">
         <div className="col-xs-12">
-          <h1>Now editing: {this.props.selectedMasterpiece && this.props.selectedMasterpiece.name}</h1>
+          <div className="master-header">
+            <h1 className="master-h1">Now editing: </h1>
+            <h1 className="masterpiece-title">{this.props.selectedMasterpiece && this.props.selectedMasterpiece.name}</h1>
+          </div>
         </div>
         <div className="col-xs-12 col-sm-4">
-          <hr className="divider-rule"/>
           <span><h3>Size:&ensp;{this.state.paperSettings.strokeWidth}&ensp;<a onClick={this.biggerBrushSize}>+</a>/<a onClick={this.smallerBrushSize}>-</a></h3></span>
           <span><h3>Opacity:&ensp;{this.state.paperSettings.opacity.toFixed(1)}&ensp;<a onClick={this.moreOpaque}>+</a>/<a onClick={this.lessOpaque}>-</a></h3></span>
           <div className="palette">
@@ -118,23 +133,26 @@ export class EditMasterpieceDraft extends React.Component {
         </div>
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
-          {this.props.selectedMasterpiece &&
-            this.props.versions &&
+          { selectedVersion.versionData &&
             <ActivePaperCanvas
               getCurrentPaper={this.getCurrentPaper}
               onInitialize={this.onInitialize}
               onMouseDrag={this.onMouseDrag}
               onMouseDown={this.onMouseDown}
-              json={this.props.versions[Math.max(...this.props.selectedMasterpiece.versions)].versionData}
+              json={selectedVersion.versionData}
               />
             }
-            <p></p>
-            <form className="form-inline" onSubmit={this.saveVersionDraft}>
+            <form id="master-buttons" className="form-inline" onSubmit={this.saveVersionDraft}>
+              <button type="button" className="btn btn-secondary" id="post-button">Delete Draft</button>
               <button type="submit" className="btn btn-secondary" id="save-button">Save</button>
-              <button type="post" className="btn btn-secondary" id="post-button">Post</button>
+              <button type="button" onClick={this.postMasterpiece} className="btn btn-secondary" id="post-button">Post</button>
             </form>
           </div>
         </div>
+      </div>
+      <div className="draft-section">
+        <DraftContainer />
+      </div>
       </div>
     )
   }
@@ -149,8 +167,9 @@ function mapStateToProps(state, props){
     user: state.auth,
     drawings: state.drawings,
     versions: state.versions,
-    selectedMasterpiece: state.drawings[Number(props.params.id)]
+    drafts: Object.values(state.drawings).filter(drawing => drawing.type === "masterpiece" && drawing.private === true),
+    selectedMasterpiece: Object.assign({versions: []}, state.drawings[Number(props.params.id)])
   }
 }
 
-export default connect(mapStateToProps, {createMasterpieceDraft, saveNewMasterpieceDraft})(EditMasterpieceDraft)
+export default connect(mapStateToProps, { saveNewMasterpieceDraft, postMasterpieceFromDraft})(EditMasterpieceDraft)

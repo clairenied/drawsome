@@ -9,6 +9,10 @@ const Version = db.define('version', {
   },
   data: {
     type: Sequelize.TEXT,
+  },
+  read: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   }
 }, {
   scopes : {

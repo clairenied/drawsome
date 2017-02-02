@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('APP/db')
+const Version = require('./version')
+const User = require('./user')
 
 const Drawing = db.define('drawing', {
   name: {
@@ -25,6 +27,19 @@ const Drawing = db.define('drawing', {
       min: 0
     }
   },
-}, {})
+},{
+    instanceMethods: {
+      getComments: function () {
+        return Drawing.findAll({
+              where: { parent_drawing_id: this.id },
+              include: [Version.scope('recent'), User]
+        })
+        .then((comments) => {
+          this.setDataValue("comments", comments)
+          return this;
+        })
+      }
+    }
+})
 
 module.exports = Drawing
