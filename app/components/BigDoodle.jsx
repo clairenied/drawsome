@@ -32,7 +32,7 @@ const BigDoodle = (props) => {
           <div className="col-xs-3">
             { comments && comments.map(comment => {
                 return ( 
-                  <div>
+                  <div key={comment.id}>
                   <h4><Link to={`/profile/${comment.users[0].id}`}>{comment.users[0].fullName}</Link></h4>
                     <PaperCanvas json={comment.versions[0].versionData} />
                   </div>
