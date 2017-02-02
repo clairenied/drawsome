@@ -10,7 +10,7 @@ const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 const User = db.model('users')
 const Drawing = db.model('drawing')
 const Version = db.model('version')
-
+const friendTable = db.model('friendTable')
 
 router.get('/', forbidden('only admins can list users'), (req, res, next) => {
 	User.findAll()
@@ -63,6 +63,29 @@ router.get('/:id/friends', mustBeLoggedIn, (req, res, next) => {
 	.catch(next)
 })
 
+router.put('/:id/friends', mustBeLoggedIn, (req, res, next) => {
+		friendTable.create({
+				user_id : req.user.id,
+				friend_id : req.params.id
+		})
+		.then((user) => {
+		res.send(user)
+		})
+		.catch(next)
+})
 
+router.delete('/:id/friends', function (req, res, next) {
+
+     friendTable.destroy({
+        where : {
+          	user_id : req.user.id,
+						friend_id : req.params.id
+        }
+      })
+			.then((user) => {
+			res.sendStatus(200)
+			})
+			.catch(next)
+});
 
 module.exports = router;

@@ -30,7 +30,6 @@ export const getProfile = (id) => {
 		return axios.get(`/api/profile/${id}`)
 		.then(response => {
 			if(true){
-				console.log("RESPONSE", response)
 				dispatch(setProfile(response.data))
 			}
 		})

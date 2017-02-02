@@ -18,10 +18,9 @@ router.get('/:id', (req, res, next) => {
 		return Promise.all(promisedrawings)
 	})
 	.then((drawings) => {
-		userprofile.drawings = drawings;
+		userprofile.setDataValue("profdrawings", drawings)
 		res.json(userprofile)
 	})
 })
 	
-
 module.exports = router;
