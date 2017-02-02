@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import DoodleDraft from '../components/DoodleDraft'
 import { Link } from 'react-router'
 
-class DraftContainer extends Component {
+export class DraftContainer extends Component {
 	constructor(props) {
     super(props);
   }
