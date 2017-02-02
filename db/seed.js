@@ -19,7 +19,8 @@ let data = {
       firstName: "Jason",
       lastName: "Hammer",
       birthday: null,
-      email: "hammer@email.com",
+      email: "jason@email.com",
+      password: "jason"
   },{
       firstName: "Sam",
       lastName: "Spade",

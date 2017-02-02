@@ -20,7 +20,7 @@ const BigDoodle = (props) => {
           <Link to="/masterpiece">
             <div className="col-xs-12 col-md-8">
               <div className="doodle-container">
-                <PaperCanvas json={masterpieceVersion[0].versionData} />
+                <PaperCanvas json={masterpieceVersion[0].data} />
               </div>
             </div>
           </Link>
@@ -34,7 +34,7 @@ const BigDoodle = (props) => {
                 return ( 
                   <div key={comment.id}>
                   <h4><Link to={`/profile/${comment.users[0].id}`}>{comment.users[0].fullName}</Link></h4>
-                    <PaperCanvas json={comment.versions[0].versionData} />
+                    <PaperCanvas json={comment.versions[0].data} />
                   </div>
                 )
               })
