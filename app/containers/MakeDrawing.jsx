@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import paper from 'paper'
-import {saveNewMasterpieceDraft, postMasterpieceFromDraft} from '../reducers/drawings'
 import DraftContainer from './DraftContainer'
+import {createMasterpieceDraft, postMasterpieceDraft, saveNewMasterpieceDraft, postMasterpieceFromDraft} from '../reducers/drawings'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
-export class EditMasterpieceDraft extends React.Component {
+class MakeDrawing extends React.Component {
 
   constructor(props){
     super(props)
-
+    
     this.state = {
       paperSettings: {
         strokeWidth: 10,
@@ -19,7 +19,8 @@ export class EditMasterpieceDraft extends React.Component {
         strokeColor: 'black',
         opacity: 1,
       },
-      currentPaper: null
+      currentPaper: null,
+      name: ''
     }
 
     this.onMouseDown = this.onMouseDown.bind(this)
@@ -30,16 +31,16 @@ export class EditMasterpieceDraft extends React.Component {
     this.lessOpaque = this.lessOpaque.bind(this)
     this.changeColor = this.changeColor.bind(this)
     this.onInitialize = this.onInitialize.bind(this)
-    this.saveVersionDraft = this.saveVersionDraft.bind(this)
-    this.postMasterpiece = this.postMasterpiece.bind(this)
+    this.saveAndCreateDrawing = this.saveAndCreateDrawing.bind(this)
+    this.postAndCreateDrawing = this.postAndCreateDrawing.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
     this.clearCanvas = this.clearCanvas.bind(this)
     this.undoDraw = this.undoDraw.bind(this)
+    this.saveVersionDraft = this.saveVersionDraft.bind(this)
+    this.postMasterpieceOfDraft = this.postMasterpieceOfDraft.bind(this)
   }
 
-  componentDidUpdate() {
-    window.scrollTo(0,0);
-  }
+
 
   onInitialize(paperScope) {
     paperScope.install(this);
@@ -94,18 +95,28 @@ export class EditMasterpieceDraft extends React.Component {
     this.setState({name: e.target.value})
   }
 
+  saveAndCreateDrawing(e){
+    e.preventDefault()
+    this.props.createMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, true)
+  }
+
+  postAndCreateDrawing(e){
+    e.preventDefault()
+    this.props.postMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, false)
+  }
+
   saveVersionDraft(e){
     e.preventDefault()
     this.props.saveNewMasterpieceDraft(this.props.params.id, this.props.user.id, this.state.currentPaper.project.exportJSON())
   }
 
-  postMasterpiece(e){
+  postMasterpieceOfDraft(e){
     e.preventDefault()
     this.props.postMasterpieceFromDraft(this.props.params.id, this.props.user.id, this.state.currentPaper.project.exportJSON(), false)
   }
 
   getCurrentPaper(paper) {
-    this.setState({currentPaper: paper})
+    this.setState({currentPaper: paper}) 
   }
 
   clearCanvas(){
@@ -123,15 +134,26 @@ export class EditMasterpieceDraft extends React.Component {
     )
   }
 
-  render(){ 
-    let selectedVersion = this.props.versions[Math.max(...this.props.selectedMasterpiece.versions)] || {}
+  render(){
     return(
       <div>
       <div className="container">
         <div className="col-xs-12">
           <div className="master-header">
             <h1 className="master-h1">Now editing: </h1>
-            <h1 className="masterpiece-title">{this.props.selectedMasterpiece && this.props.selectedMasterpiece.name}</h1>
+            {
+              this.props.selectedMasterpiece ?
+                <h1 className="masterpiece-title">{this.props.selectedMasterpiece && this.props.selectedMasterpiece.name}</h1> 
+                :
+                <div id="master-form" className="form-group">
+                  <input type="text" 
+                    className="masterpiece-input" 
+                    placeholder="Your Masterpiece" 
+                    value={this.state.name}
+                    onChange={this.updateName.bind(this)}
+                  />
+                </div>    
+            }
           </div>
         </div>
         <div className="col-xs-12 col-sm-4">
@@ -145,30 +167,27 @@ export class EditMasterpieceDraft extends React.Component {
             <a onClick={() => this.changeColor('blue')}><div className="blue"></div></a>
             <a onClick={() => this.changeColor('#8500ff')}><div className="purple"></div></a>
             <a onClick={() => this.changeColor('black')}><div className="black"></div></a>
-            <a onClick={() => this.changeColor('white')}><div className="white"></div></a>
+            <a onClick={() => this.changeColor('white')}><div className="white"></div></a>  
             <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>  
             <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button> 
           </div>
-        </div>
+        </div>  
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
-          { selectedVersion.data &&
             <ActivePaperCanvas
               getCurrentPaper={this.getCurrentPaper}
               onInitialize={this.onInitialize}
               onMouseDrag={this.onMouseDrag}
               onMouseDown={this.onMouseDown}
-              json={selectedVersion.data}
-              clearCanvas = {this.clearCanvas}
+              clearCanvas={this.clearCanvas}
               undoDraw = {this.undoDraw}
               />
-            }
             <form id="master-buttons" className="form-inline">
-              <button type="button" onClick={this.saveVersionDraft} className="btn btn-secondary" id="save-button">Save</button>
-              <button type="button" onClick={this.postMasterpiece} className="btn btn-secondary" id="post-button">Post</button>
+              <button type="button" onClick={this.saveAndCreateDrawing} className="btn btn-secondary" id="save-button">Save</button>
+              <button type="button" onClick={this.postAndCreateDrawing} className="btn btn-secondary" id="post-button">Post</button>
             </form>
           </div>
-        </div>
+        </div> 
       </div>
       <div className="draft-section">
         <DraftContainer />
@@ -178,18 +197,10 @@ export class EditMasterpieceDraft extends React.Component {
   }
 }
 
-// EditMasterpieceDraft.propTypes = {
-//     json: React.PropTypes.array.isRequired,
-// }
-
-function mapStateToProps(state, props){
+function mapStateToProps(state){
   return {
-    user: state.auth,
-    drawings: state.drawings,
-    versions: state.versions,
-    drafts: Object.values(state.drawings).filter(drawing => drawing.type === "masterpiece" && drawing.private === true),
-    selectedMasterpiece: Object.assign({versions: []}, state.drawings[Number(props.params.id)])
+    user: state.auth
   }
 }
 
-export default connect(mapStateToProps, { saveNewMasterpieceDraft, postMasterpieceFromDraft})(EditMasterpieceDraft)
+export default connect(mapStateToProps, {createMasterpieceDraft, postMasterpieceDraft, saveNewMasterpieceDraft, postMasterpieceFromDraft})(MakeDrawing)

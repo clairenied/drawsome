@@ -1,6 +1,7 @@
 import React from 'react';
 import chai, { expect, assert } from 'chai';
 import { render, shallow, mount } from 'enzyme';
+import sinon from 'sinon';
 import {EditMasterpieceDraft} from '../../containers/EditMasterpieceDraft';
 import DraftContainer from '../../containers/DraftContainer';
 import ActivePaperCanvas from '../../components/ActivePaperCanvas'
@@ -100,15 +101,15 @@ describe('<EditMasterpieceDraft />', () => {
   	expect(wrapper.find('a').at(0).text()).to.equal('+')
   	expect(wrapper.state().paperSettings.strokeWidth).to.equal(10)
   	expect(wrapper.find('a').at(0).simulate('click'))
-  	expect(wrapper.state().strokeWidth).to.equal(15)
+  	expect(wrapper.state().paperSettings.strokeWidth).to.equal(15)
 
   	expect(wrapper.find('a').at(1).text()).to.equal('-')
   	expect(wrapper.state().paperSettings.strokeWidth).to.equal(15)
   	expect(wrapper.find('a').at(1).simulate('click'))
-  	expect(wrapper.state().strokeWidth).to.equal(10)
+  	expect(wrapper.state().paperSettings.strokeWidth).to.equal(10)
 
   	expect(wrapper.find('a').at(1).simulate('click'))
-  	expect(wrapper.state().strokeWidth).to.equal(5)
+  	expect(wrapper.state().paperSettings.strokeWidth).to.equal(5)
   })
 
   it('changes the opacity state when the moreOpaque or lessOpaque buttons are pressed', () => {
@@ -124,20 +125,27 @@ describe('<EditMasterpieceDraft />', () => {
   })
 
   it('changes the strokeColor state when one of the colors are clicked', () => {
-  	wrapper = shallow(<EditMasterpieceDraft {...newProps}/>)
   	expect(wrapper.find('a').at(4).contains(<div className="red"></div>)).to.equal(true)
   	expect(wrapper.state().paperSettings.strokeColor).to.equal('black')
   	expect(wrapper.find('a').at(4).simulate('click'))
   	expect(wrapper.state().paperSettings.strokeColor).to.equal('red')
   })
 
-	xit('has an undo button that gets rid of the most recent change', () => {})  
+	it('has an undo button', () => {
+		expect(wrapper.find('button').at(1).text()).to.equal('Undo')
+	})  
 
-	xit('has a clear button that clears the canvas', () => {}) 
+	it('has a clear button', () => {
+		expect(wrapper.find('button').at(0).text()).to.equal('Clear')
+	}) 
 
-	xit('has a save button that saves the masterpiece and goes to the same route', () => {}) 
+	it('has a save button that saves the masterpiece and goes to the same route', () => {
+		expect(wrapper.find('button').at(2).text()).to.equal('Save')
+	}) 
 
-	xit('has a post button that posts the masterpiece', () => {}) 
+	it('has a post button that posts the masterpiece', () => {
+		expect(wrapper.find('button').at(3).text()).to.equal('Post')
+	}) 
 
 
   // it.only('Should run without errors', () => {
