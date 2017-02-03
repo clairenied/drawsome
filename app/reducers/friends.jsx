@@ -2,6 +2,13 @@ import axios from 'axios';
 import {setAllMasterpieces} from './drawings'
 import {setAllVersions} from './versions'
 
+const transformFriend = (friendObj)=> {
+	const chatDrawingId = friendObj.friendship.chat_drawing_id
+	friendObj.chatId = chatDrawingId
+	delete friendObj.friendship
+	return friendObj
+}
+
 const initialState = {}
 
 const reducer = (state=initialState, action) => {
@@ -33,7 +40,7 @@ export const getFriend = (friend) => {
 	personVersions.forEach(version => friend.versions.push(version.id))
 	return {
 	  type: GET_FRIEND, 
-	  friend
+	  friend: transformFriend(friend)
 	}
 }
 

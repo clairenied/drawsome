@@ -4,8 +4,6 @@ import {connect, Provider} from 'react-redux'
 import Navbar from '../components/Navbar'
 import ChatBox from '../components/ChatBox'
 
-import { postMessage } from '../reducers/messages'
-
 class AppContainer extends React.Component {
   constructor(props){
     super(props)
@@ -129,7 +127,6 @@ function mapStateToProps(state, ownProps){
   return {
     user: state.auth,
     friends: state.friends,
-    messages: state.messages,
   }
 }
 

@@ -26,57 +26,23 @@ router.get('/', (req, res, next) => {
   .catch(next)
 })
 
-router.post('/', (req, res, next) => {
-  let updatedDrawing
-  let newVersion
-  let oldVersion
-
-  return Drawing.findAll({
-    where: {
-      type: "chat",
-    },
-    include: [{
-      model: User,
-      where: {
-        id: req.body.loggedInUser,
+router.post('/', async (req, res, next) => {
+  try {
+    const drawing = await Drawing.findById(req.body.drawingId, {
+      include: {
+        model: Version.scope('recent')
       }
-    },{
-      model: Version.scope('recent'),
-    }],
-  })
-  .then(drawingsArr => {
-    console.log(drawingsArr)
-    if(drawingsArr.length){
-      updatedDrawing = drawing
-      oldVersion = updatedDrawing.versions
-    } else {
-      console.log('I AM HAPPENING!!!!!!!')
-      return Drawing.create({
-        type: "chat",
-        canEdit: true,
-        private: true,
-        likes: 0,
-      })
-      .then(drawing => updatedDrawing = drawing)
-    }
-  })
-  // .then(() => {
-  //   return updatedDrawing.findUsers([ req.body.loggedInUser, req.body.friendUser ])
-  // })
-  // .then(drawing => {
-  //   updatedDrawing = drawing
-  //   let newVersionNumber = updatedDrawing.versions && updatedDrawing.versions.length ? ++updatedDrawing.versions[0].number : 1
-  //   return Version.create({
-  //     number: newVersionNumber,
-  //     data: req.body.drawingData,
-  //     user_id: req.body.loggedInUser,
-  //   })
-  // })
-  // .then(version => {
-  //   return version.setDrawing(updatedDrawing)
-  // })
-  // .then(version => res.send(version))
-  .catch(next)
+    })
+
+    const version = await Version.create({
+      user_id: req.body.loggedInUser,
+      drawing_id: req.body.drawingId,
+      number: ++drawing.versions[0].number,
+      data: req.body.drawingData
+    })  
+
+    return res.send(version)
+  } catch(next){}
 })
 
 module.exports = router

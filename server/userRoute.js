@@ -10,6 +10,7 @@ const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 const User = db.model('users')
 const Drawing = db.model('drawing')
 const Version = db.model('version')
+const Friendship = db.model('friendship')
 
 
 router.get('/', forbidden('only admins can list users'), (req, res, next) => {
@@ -51,16 +52,28 @@ router.get('/:id', mustBeLoggedIn, (req, res, next) => {
 	.catch(next)
 })
 
-router.get('/:id/friends', mustBeLoggedIn, (req, res, next) => {
-	return User.findById(req.params.id,{
+router.get('/:id/friends', mustBeLoggedIn, async (req, res, next) => {
+	try {
+		const friendsArr = await User.findById(req.params.id,{
+			include: [{
+				model: User,
+				as: 'friend',
+				include: [{
+					model: Version,
+				},{
+					model: Drawing,
+					include: [{
+						model: Version
+					},{
+						model: Drawing,
+						as: 'parent_drawing'
+					}]
+				}]
+			}]
+		})
 
-	include: [{model: User, as: 'friend', include: [{model: Version},{model: Drawing, include:[Version, {model: Drawing, as : "parentDrawing"}]}]}]
-
-	})
-	.then((user) => {
-		res.json(user)
-	})
-	.catch(next)
+		res.json(friendsArr)
+	} catch(next){ console.error(next) }
 })
 
 
