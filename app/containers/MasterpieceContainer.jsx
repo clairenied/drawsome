@@ -10,7 +10,7 @@ class MasterpieceContainer extends React.Component {
 
   constructor(props){
     super(props)
-    
+
     this.state = {
       paperSettings: {
         strokeWidth: 10,
@@ -20,7 +20,8 @@ class MasterpieceContainer extends React.Component {
         opacity: 1,
       },
       currentPaper: null,
-      name: ''
+      name: '',
+      displayError: false
     }
 
     this.onMouseDown = this.onMouseDown.bind(this)
@@ -95,16 +96,22 @@ class MasterpieceContainer extends React.Component {
 
   saveDrawing(e){
     e.preventDefault()
-    this.props.createMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, true)
+    if (this.state.name !== ''){
+      this.props.createMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, true)
+    }
+    this.setState({displayError:true})
   }
 
   postDrawing(e){
     e.preventDefault()
-    this.props.postMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, false)
+    if (this.state.name !== ''){
+      return this.props.postMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, false)
+    }
+    this.setState({displayError:true})
   }
 
   getCurrentPaper(paper) {
-    this.setState({currentPaper: paper}) 
+    this.setState({currentPaper: paper})
   }
 
   clearCanvas(){
@@ -130,9 +137,9 @@ class MasterpieceContainer extends React.Component {
           <div className="master-header">
             <h1 className="master-h1">Now editing: </h1>
             <div id="master-form" className="form-group">
-              <input type="text" 
-                className="masterpiece-input" 
-                placeholder="Your Masterpiece" 
+              <input type="text"
+                className="masterpiece-input"
+                placeholder="Your Masterpiece"
                 value={this.state.name}
                 onChange={this.updateName.bind(this)}
               />
@@ -150,11 +157,11 @@ class MasterpieceContainer extends React.Component {
             <a onClick={() => this.changeColor('blue')}><div className="blue"></div></a>
             <a onClick={() => this.changeColor('#8500ff')}><div className="purple"></div></a>
             <a onClick={() => this.changeColor('black')}><div className="black"></div></a>
-            <a onClick={() => this.changeColor('white')}><div className="white"></div></a>  
-            <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>  
-            <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button> 
+            <a onClick={() => this.changeColor('white')}><div className="white"></div></a>
+            <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>
+            <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button>
           </div>
-        </div>  
+        </div>
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
             <ActivePaperCanvas
@@ -169,8 +176,12 @@ class MasterpieceContainer extends React.Component {
               <button type="button" onClick={this.saveDrawing} className="btn btn-secondary" id="save-button">Save</button>
               <button type="button" onClick={this.postDrawing} className="btn btn-secondary" id="post-button">Post</button>
             </form>
+            {this.state.displayError ?
+            <div style={{color:'red'}} >Please name your masterpiece.</div>
+            :null
+            }
           </div>
-        </div> 
+        </div>
       </div>
       <div className="draft-section">
         <DraftContainer />
