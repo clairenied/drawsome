@@ -1,11 +1,14 @@
 import axios from 'axios'
 import { browserHistory } from 'react-router'
-
-// import { setUser } from './users';
-// import socket from '../socket';
-
+import socket from '../socket';
 
 const initialState = {}
+
+const transformMessage = (message) => {
+  // message.users = message.users.map(user => user.id)
+  // message.versions = message.versions[0].id
+  return message
+}
 
 const reducer = (state = initialState, action) => {
   const nextState = Object.assign({}, state);
@@ -21,42 +24,44 @@ const reducer = (state = initialState, action) => {
 }
 
 const SET_MESSAGE = 'SET_MESSAGE'
-const setMessage = (message) => 
-  dispatch => {
-    // dispatch(setUser(message.user));
-    dispatch({
-      type: SET_MESSAGE,
-      message,
-    })
+const setMessage = (message) => {
+  console.log('MY MESSAGE', message)
+  return {
+    type: SET_MESSAGE,
+    message: transformMessage(message),
   }
+}
 
 
 export const setAllMessages = (allMessages) => {
   return dispatch => {
     return allMessages.forEach(message => {
-      if(message.type === 'chat'){
-        dispatch(setMessage(message));
-      }
-    });
+      dispatch(setMessage(message));
+    })
   }
 }
 
-export const subscribeToNewMessages = () =>
-  dispatch =>
+export const subscribeToNewMessages = () => {
+  console.log('SUBSCRIBED TO NEW MESSAGES')
+  return dispatch => {
     socket.on('new-message', (message) => {
-      return dispatch(setMessage(message))
-    });
+      console.log('NEW MESSAGE', message)
+      dispatch(setMessage(message))
+    })    
+  }
+}
 
-export const getAllMessages = () => {
+export const setAllServerMessages = () => {
   return dispatch => {
     return axios.get('/api/messages')
     .then(res => dispatch(setAllMessages(res.data)))
   }
 }
 
-export const postMessage = (text, loggedInUser) => {
+export const postMessage = (drawingData, loggedInUser, friendUser, drawingId) => {
+  console.log('I have been posted!', loggedInUser, friendUser, drawingId)
   return dispatch => {
-    return axios.post('/api/messages', {text, loggedInUser})
+    return axios.post('/api/messages', { drawingData, loggedInUser, friendUser, drawingId })
   }
 }
 

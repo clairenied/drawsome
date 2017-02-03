@@ -12,7 +12,7 @@ const Doodle = (props) => {
       <div className="img-card">
         <div className="doodle-container">
         { props.version &&
-          <PaperCanvas json={props.version.versionData} />
+          <PaperCanvas json={props.version.data} />
         }
         </div>
         <h3> <Link to="/profile">Mike Purgatori,</Link> <Link to="/profile">Zeke Nierenberg</Link></h3>

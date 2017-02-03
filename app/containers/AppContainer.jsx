@@ -4,14 +4,16 @@ import {connect, Provider} from 'react-redux'
 import Navbar from '../components/Navbar'
 import ChatBox from '../components/ChatBox'
 
+import { postMessage } from '../reducers/messages'
+
 class AppContainer extends React.Component {
   constructor(props){
     super(props)
 
     this.state = {
       showChatSidebar: false,
-      openMessages: {},
-      activeMessage: '',
+      openChats: {},
+      activeChat: '',
     }
 
     this.toggleShowChatSidebar = this.toggleShowChatSidebar.bind(this)
@@ -25,41 +27,43 @@ class AppContainer extends React.Component {
 
   toggleShowChat(friendId){
     let newState = {}
-    newState[friendId] = !this.state.openMessages[friendId]
+    newState[friendId] = !this.state.openChats[friendId]
 
     this.setState({ 
-      openMessages: Object.assign(newState, this.state.openMessages) 
+      openChats: Object.assign(this.state.openChats, newState) 
     })
   }
 
   closeChat(friendId){
-    let newState = delete this.state.openMessages[friendId]
+    let newState = delete this.state.openChats[friendId]
     this.setState({
-      openMessages: Object.assign(newState, this.state.openMessages),
-      activeMessage: '',
+      openChats: Object.assign(this.state.openChats, newState),
+      activeChat: '',
     })
   }
 
-  openMessageBox(friendId){
-    if ( !Object.keys(this.state.openMessages).includes(friendId) && Object.keys(this.state.openMessages).length < 3 ){
+  openChat(friendId){
+    if ( !Object.keys(this.state.openChats).includes(friendId) && Object.keys(this.state.openChats).length < 3 ){
       let friendObj = {}
       friendObj[friendId] = true
 
       this.setState({ 
-        openMessages: Object.assign(friendObj, this.state.openMessages),
-        activeMessage: friendId,
+        openChats: Object.assign(this.state.openChats, friendObj),
+        activeChat: friendId,
       })   
     }
   }
 
-  setActiveMessage(friendId){
-    this.setState({ activeMessage: friendId })
+  setActiveChat(friendId){
+    this.setState({ activeChat: friendId })
   }
 
   render(){
     return (
       <div>
         <Navbar />
+        { this.props.user ? 
+
         <div className="chatbox-pen">
           <div className="chat-box-wrapper">
             <div onClick={this.toggleShowChatSidebar} className="title">
@@ -73,7 +77,7 @@ class AppContainer extends React.Component {
                     return <p 
                         key={i} 
                         className="online"
-                        onClick={ this.openMessageBox.bind(this, friendId) }>
+                        onClick={ this.openChat.bind(this, friendId) }>
                           { friend.firstName } { friend.lastName }
                       </p>
                   })
@@ -83,10 +87,10 @@ class AppContainer extends React.Component {
               <div></div> }      
           </div>
           {
-            Object.keys(this.state.openMessages).map((friendId, i) => {
+            Object.keys(this.state.openChats).map((friendId) => {
               return (
                 <div 
-                  key={i}
+                  key={friendId}
                   className="chat-box-wrapper">
                   <div className="chat-box-title">
                     <span 
@@ -99,14 +103,20 @@ class AppContainer extends React.Component {
                       onClick={ this.closeChat.bind(this, friendId) }>
                     </span>
                   </div>
-                  <div onClick={ this.setActiveMessage.bind(this, friendId) }>
-                    <ChatBox showChat={this.state.openMessages[friendId]}/>
+                  <div onClick={ this.setActiveChat.bind(this, friendId) }>
+                    <ChatBox 
+                      showChat={ this.state.openChats[friendId] }
+                      postMessage={ this.props.postMessage }
+                      friend={ friendId }
+                      />
                   </div>
                 </div>
               )
             })
           }
-        </div>
+        </div> :
+        <div></div>
+        }
         <div className="app-container">
           {this.props.children}
         </div>
@@ -115,11 +125,20 @@ class AppContainer extends React.Component {
   }
 }
 
-function mapStateToProps(state, props){
+function mapStateToProps(state, ownProps){
   return {
-    friends: state.friends,
     user: state.auth,
+    friends: state.friends,
+    messages: state.messages,
   }
 }
 
-export default connect(mapStateToProps)(AppContainer)
+function mapDispatchToProps(dispatch, ownProps){
+  return {
+    postMessage: (drawingData, loggedInUser, friendUser, drawingId) => {
+      return dispatch(postMessage(drawingData, loggedInUser, friendUser, drawingId))
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer)

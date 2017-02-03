@@ -23,12 +23,10 @@ import EditMasterpieceDraft from './containers/EditMasterpieceDraft'
 // import {setSelectedMasterpiece} from './reducers/selected.jsx'
 import {getProfile} from './reducers/profile.jsx'
 import {getMasterpieceDraft} from './reducers/drawings.jsx'
-import { subscribeToNewMessages } from './reducers/messages.jsx'
 
 const loadProfileOnEnter = function (nextRouterState) {
   const profileId = nextRouterState.params.id;
   store.dispatch(getProfile(profileId));
-  store.dispatch(subscribeToNewMessages())
 };
 
 

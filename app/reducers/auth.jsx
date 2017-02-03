@@ -3,7 +3,7 @@ import {browserHistory} from 'react-router'
 import {loginIssue, signinIssue} from './warnings'
 import {setAllFriends} from './friends'
 import {setAllMasterpieces} from './drawings'
-import { setAllMessages } from './messages'
+import { setAllServerMessages, subscribeToNewMessages } from './messages'
 
 const reducer = (state=null, action) => {
   switch(action.type) {
@@ -60,7 +60,8 @@ export const whoami = () =>
       .then(response => {
         const user = response.data
         if(user.drawings){
-          dispatch(setAllMessages(user.drawings))
+          dispatch(subscribeToNewMessages())
+          dispatch(setAllServerMessages())
           dispatch(setAllMasterpieces(user.drawings))
           let userDrawing = user.drawings
           user.drawings = []
