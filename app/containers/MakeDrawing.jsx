@@ -182,10 +182,18 @@ class MakeDrawing extends React.Component {
               clearCanvas={this.clearCanvas}
               undoDraw = {this.undoDraw}
               />
-            <form id="master-buttons" className="form-inline">
-              <button type="button" onClick={this.saveAndCreateDrawing} className="btn btn-secondary" id="save-button">Save</button>
-              <button type="button" onClick={this.postAndCreateDrawing} className="btn btn-secondary" id="post-button">Post</button>
-            </form>
+            {
+              this.props.selectedMasterpiece ?
+                <form id="master-buttons" className="form-inline">
+                  <button type="button" onClick={this.saveVersionDraft} className="btn btn-secondary" id="save-button">Save</button>
+                  <button type="button" onClick={this.postMasterpieceOfDraft} className="btn btn-secondary" id="post-button">Post</button>
+                </form>
+              :
+                <form id="master-buttons" className="form-inline">
+                  <button type="button" onClick={this.saveAndCreateDrawing} className="btn btn-secondary" id="save-button">Save</button>
+                  <button type="button" onClick={this.postAndCreateDrawing} className="btn btn-secondary" id="post-button">Post</button>
+                </form>
+            }
           </div>
         </div> 
       </div>
@@ -197,10 +205,4 @@ class MakeDrawing extends React.Component {
   }
 }
 
-function mapStateToProps(state){
-  return {
-    user: state.auth
-  }
-}
-
-export default connect(mapStateToProps, {createMasterpieceDraft, postMasterpieceDraft, saveNewMasterpieceDraft, postMasterpieceFromDraft})(MakeDrawing)
+export default connect(null, {createMasterpieceDraft, postMasterpieceDraft, saveNewMasterpieceDraft, postMasterpieceFromDraft})(MakeDrawing)

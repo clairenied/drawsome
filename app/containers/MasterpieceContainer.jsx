@@ -5,6 +5,7 @@ import DraftContainer from './DraftContainer'
 import {createMasterpieceDraft, postMasterpieceDraft} from '../reducers/drawings'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
+import MakeDrawing from './MakeDrawing'
 
 class MasterpieceContainer extends React.Component {
 
