@@ -146,6 +146,8 @@ export class EditMasterpieceDraft extends React.Component {
             <a onClick={() => this.changeColor('#8500ff')}><div className="purple"></div></a>
             <a onClick={() => this.changeColor('black')}><div className="black"></div></a>
             <a onClick={() => this.changeColor('white')}><div className="white"></div></a>
+            <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>  
+            <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button> 
           </div>
         </div>
         <div className="col-xs-12 col-sm-8">
