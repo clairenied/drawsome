@@ -29,7 +29,7 @@ import { subscribeToNewMessages } from './reducers/messages.jsx'
 const loadProfileOnEnter = function (nextRouterState) {
   const profileId = nextRouterState.params.id;
   store.dispatch(getProfile(profileId));
-  store.dispatch(subscribeToNewMessages())
+  // store.dispatch(subscribeToNewMessages())
 };
 
 

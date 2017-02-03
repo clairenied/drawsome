@@ -41,11 +41,11 @@ export const setAllMessages = (allMessages) => {
   }
 }
 
-export const subscribeToNewMessages = () =>
-  dispatch =>
-    socket.on('new-message', (message) => {
-      return dispatch(setMessage(message))
-    });
+// export const subscribeToNewMessages = () =>
+//   dispatch =>
+//     socket.on('new-message', (message) => {
+//       return dispatch(setMessage(message))
+//     });
 
 export const getAllMessages = () => {
   return dispatch => {
