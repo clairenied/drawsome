@@ -69,5 +69,4 @@ export const setAllFriends = (id) => {
 	}
 }
 
-
 export default reducer

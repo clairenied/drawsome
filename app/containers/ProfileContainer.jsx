@@ -7,8 +7,6 @@ import {getFriend, removeFriend} from '../reducers/friends'
 //components
 import BigDoodle from '../components/BigDoodle.jsx'
 
-
-
 class ProfileContainer extends Component {
 
   constructor(props) {
@@ -49,8 +47,8 @@ class ProfileContainer extends Component {
     return(
       <div className="container">
         <h1>Art By: {profile.profile.fullName}</h1>
-        {isFriend && (profileId !== userId) ? (<button className="btn btn-danger btn-sm" onClick={this.deleteFriend}>unfriend</button>) : null} 
-        {!isFriend && (profileId !== userId) ? (<button className="btn btn-primary btn-sm" onClick={this.addFriend}>add friend</button>) : null}
+        {isFriend && (profileId !== userId) ? (<button className="btn btn-danger btn-sm" onClick={this.deleteFriend}>unfollow</button>) : null} 
+        {!isFriend && (profileId !== userId) ? (<button className="btn btn-primary btn-sm" onClick={this.addFriend}>follow</button>) : null}
 
         <div className="row">
           <div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
 import PaperCanvas from './PaperCanvas.jsx'
+import CommentComponent from './CommentComponent.jsx'
 
 const BigDoodle = (props) => {
 
@@ -26,19 +27,24 @@ const BigDoodle = (props) => {
           </Link>
         </div>
         <div className="col-xs-12">
+        <CommentComponent masterpiece={props.masterpiece}/>
           <div className="col-xs-12">
             <h3>Comments:</h3>
           </div>
-          <div className="col-xs-3">
-            { comments && comments.map(comment => {
-                return ( 
-                  <div key={comment.id}>
-                  <h4><Link to={`/profile/${comment.users[0].id}`}>{comment.users[0].fullName}</Link></h4>
-                    <PaperCanvas json={comment.versions[0].data} />
-                  </div>
-                )
-              })
-            }
+          <div className="col-xs-12 col-sm-6 col-md-4">    
+            <div className="img-card">
+              <div className="doodle-container">      
+                    { comments && comments.map(comment => {
+                        return ( 
+                          <div key={comment.id}>
+                          <h4><Link to={`/profile/${comment.users[0].id}`}>{comment.users[0].fullName}</Link></h4>
+                            <PaperCanvas json={comment.versions[0].data} />
+                          </div>
+                        )
+                      })
+                    }
+              </div>
+            </div>
           </div>
         </div>
       </div>
