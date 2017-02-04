@@ -29,6 +29,14 @@ const Drawing = db.define('drawing', {
   },
 },{
     instanceMethods: {
+      findUsers: function(userIdsArr){
+        return this.setUsers(userIdsArr)
+        .then(() => this.getUsers())
+        .then(users => {
+          this.setDataValue('users', users)
+          return this
+        })
+      },
       getComments: function () {
         return Drawing.findAll({
               where: { parent_drawing_id: this.id },

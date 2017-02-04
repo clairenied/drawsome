@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect, Provider} from 'react-redux'
 import { Link } from 'react-router'
 import paper from 'paper'
 
@@ -10,6 +11,7 @@ class ChatBox extends React.Component {
 
     this.state = {
       showChat: false,
+      currentPaper: null,
       paperSettings: {
         strokeWidth: 10,
         strokeCap: 'round',
@@ -21,6 +23,7 @@ class ChatBox extends React.Component {
 
     this.onInitialize = this.onInitialize.bind(this)
     this.onMouseDown = this.onMouseDown.bind(this)
+    this.onMouseUp = this.onMouseUp.bind(this)
     this.onMouseDrag = this.onMouseDrag.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
     this.clearCanvas= this.clearCanvas.bind(this)
@@ -34,6 +37,11 @@ class ChatBox extends React.Component {
 
   onMouseDown(event, currentPaper){
     this.path = new this.Path(this.state.paperSettings);
+  }
+
+  onMouseUp(event, currentPaper){
+    console.log(this.props.postMessage)
+    this.props.postMessage(this.state.currentPaper.project.exportJSON(), this.props.user.id, this.props.friend)
   }
 
   onMouseDrag(event, currentPaper) {
@@ -69,6 +77,7 @@ class ChatBox extends React.Component {
             onInitialize={this.onInitialize}
             onMouseDown={this.onMouseDown}
             onMouseDrag={this.onMouseDrag}
+            onMouseUp={this.onMouseUp}
             getCurrentPaper={this.getCurrentPaper}
             clearCanvas={this.clearCanvas}
             undoDraw = {this.undoDraw}
@@ -81,4 +90,16 @@ class ChatBox extends React.Component {
   }
 }
 
-export default ChatBox
+function mapStateToProps(state, ownProps){
+  return {
+    friends: state.friends,
+    user: state.auth,
+  }
+}
+
+ChatBox.defaultProps = {
+  friend: '',
+  postMessage: function(){},
+}
+
+export default connect(mapStateToProps)(ChatBox)

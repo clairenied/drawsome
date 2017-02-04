@@ -31,20 +31,16 @@ const BigDoodle = (props) => {
           <div className="col-xs-12">
             <h3>Comments:</h3>
           </div>
-          <div className="col-xs-12 col-sm-6 col-md-4">    
-            <div className="img-card">
-              <div className="doodle-container">      
-                    { comments && comments.map(comment => {
-                        return ( 
-                          <div key={comment.id}>
-                          <h4><Link to={`/profile/${comment.users[0].id}`}>{comment.users[0].fullName}</Link></h4>
-                            <PaperCanvas json={comment.versions[0].data} />
-                          </div>
-                        )
-                      })
-                    }
-              </div>
-            </div>
+          <div className="col-xs-3">
+            { comments && comments.map(comment => {
+                return ( 
+                  <div>
+                  <h4><Link to={`/profile/${comment.users[0].id}`}>{comment.users[0].fullName}</Link></h4>
+                    <PaperCanvas json={comment.versions[0].data} />
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
       </div>

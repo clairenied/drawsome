@@ -1,9 +1,7 @@
 import axios from 'axios'
 import { browserHistory } from 'react-router'
-
 // import { setUser } from './users';
 import socket from '../socket';
-
 
 const initialState = {}
 
@@ -46,13 +44,6 @@ export const setAllMessages = (allMessages) => {
 //     socket.on('new-message', (message) => {
 //       return dispatch(setMessage(message))
 //     });
-
-export const getAllMessages = () => {
-  return dispatch => {
-    return axios.get('/api/messages')
-    .then(res => dispatch(setAllMessages(res.data)))
-  }
-}
 
 export const postMessage = (text, loggedInUser) => {
   return dispatch => {

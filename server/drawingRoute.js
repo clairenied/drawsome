@@ -4,17 +4,20 @@ const router = express.Router()
 
 const Drawing = db.model('drawing')
 const Version = db.model('version')
+const Friendship = db.model('friendship')
 const User = db.model('users')
 
-router.get('/', (req, res, next) => {
-  Version.findAll({
-    where: {
-      user_id: req.user.id
-    },
-    include: [{ model: Drawing }]
-  })
-  .then( drawings => res.send(drawings))
-    .catch(next)
+router.get('/', async (req, res, next) => {
+  try {
+    const versions = await Version.findAll({
+      where: {
+        user_id: req.user.id
+      }, 
+      include: [ Drawing ]
+    })
+    
+    return res.send(versions)
+  } catch(next){}
 })
 
 router.post('/', (req, res, next) => {
@@ -67,6 +70,15 @@ router.post('/comment', (req, res, next) => {
     ])
   })
   .then(data => {
+    // data.sort(function(a,b){
+    //   return a.number - b.number
+    // })
+    // return Version.create({
+    //   drawing_id: req.params.id,
+    //   user_id: req.body.userId,
+    //   versionNumber: data[0].versionNumber + 1,
+    //   data: req.body.json
+    // })
     console.log('DATA VALS',data[0][0][0])
     return Drawing.findById(data[0][0][0].dataValues.drawing_id, {include: [{model: Version}]}) 
   })
@@ -74,33 +86,6 @@ router.post('/comment', (req, res, next) => {
     res.json(drawing)
   })
   .catch(next);
-})
-
-router.get('/messages', (req, res, next) => {
-  return Drawing.findAll({
-    where: {
-      type: "chat"
-    },
-    include: [{
-      model: Version,
-      where: {
-        user_id: req.user.id
-      }
-    }]
-  })
-  .then(drawings => res.send(drawings))
-  .catch(next)
-})
-
-router.post('/messages/:drawingId', (req, res, next) => {
-  return Drawing.findOrCreate({
-    where: {
-      version_id: req.params.drawingId,
-      user_id: [req.user.id, req.params.friend_id]
-    }
-  })
-  .then(drawing => res.send(drawing))
-  .catch(next)
 })
 
 router.put('/:id', (req, res, next) => {
@@ -142,7 +127,7 @@ router.get('/:id', (req, res, next) => {
     versionData.sort(function(a,b){
       return a.number - b.number
     })
-    res.json(versionData[0])
+    res.json(data[0])
   })
 })
 

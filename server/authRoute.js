@@ -23,7 +23,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(
   (id, done) => {
     debug('will deserialize user.id=%d', id)
-    User.findById(id, {include: [{model: Drawing, include: [Version]}]})
+    User.findById(id)
       .then(user => {
         if(user){
           debug('deserialize did ok user.id=%d', user.id)
@@ -96,7 +96,28 @@ passport.use(new (require('passport-local').Strategy) (
   }
 ))
 
-auth.get('/whoami', (req, res) => res.send(req.user))
+auth.get('/whoami', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id, {
+      include: [{
+        model: User,
+        as: 'followers',
+      },{
+        model: User,
+        as: 'followees',
+      },{
+        model: Drawing,
+        include: [ Version ]
+      }]
+    })
+
+    res.json(user)
+  }catch(next){
+    const err = new Error()
+    err.status = 400
+    throw err
+  }
+})
 
 auth.post('/:strategy/login', (req, res, next) =>
   passport.authenticate(req.params.strategy, {

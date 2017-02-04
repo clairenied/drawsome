@@ -30,7 +30,6 @@ import {whoami} from './reducers/auth'
 const loadProfileOnEnter = function (nextRouterState) {
   const profileId = nextRouterState.params.id;
   store.dispatch(getProfile(profileId));
-  // store.dispatch(subscribeToNewMessages())
 };
 
 render (
