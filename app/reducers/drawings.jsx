@@ -57,7 +57,7 @@ export const createMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   }
 }
 
-export const postMasterpieceDraft = (userId, name, json, canEdit, priv) => {
+export const postMasterpieceDraft = (userId, json, canEdit, priv) => {
   return dispatch => {
     axios.post('/api/drawings/', {userId, name, json, canEdit, priv})
     .then(drawing => {
@@ -69,6 +69,17 @@ export const postMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   }
 }
 
+export const postComment = (userId, masterpieceId, json, canEdit, priv) => {
+  return dispatch => {
+    axios.post('/api/drawings/comment', {userId, masterpieceId, json, canEdit, priv})
+    .then(drawing => {
+      // dispatch(setAllVersions(drawing.data.versions))
+      // dispatch(setMasterpiece(drawing.data))
+      browserHistory.push(`/profile/${userId}`)
+    })
+    .catch(err => console.log('there was an error posting the comment', err))
+  }
+}
 
 
 export const saveNewMasterpieceDraft = (id, userId, json) => {
