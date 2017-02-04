@@ -7,10 +7,10 @@ const initialState = {};
 const reducer  = (state = initialState, action) => {
   const nextState = Object.assign({}, state);
   switch (action.type) {
-    case SET_MASTERPIECE: 
+    case SET_MASTERPIECE:
       nextState[action.masterpiece.id] = action.masterpiece;
       break;
-    default: 
+    default:
        return state;
   }
   return nextState
@@ -24,7 +24,7 @@ const SET_MASTERPIECE = "SET_MASTERPIECE";
 //ACTION CREATORS
 
 export const setMasterpiece = masterpiece => {
-  let drawingVersions = masterpiece.versions 
+  let drawingVersions = masterpiece.versions
   masterpiece.versions = []
   drawingVersions.forEach(version => {
     masterpiece.versions.push(version.id)
@@ -57,7 +57,7 @@ export const createMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   }
 }
 
-export const postMasterpieceDraft = (userId, name, json, canEdit, priv) => {
+export const postMasterpieceDraft = (userId, json, canEdit, priv) => {
   return dispatch => {
     axios.post('/api/drawings/', {userId, name, json, canEdit, priv})
     .then(drawing => {
@@ -69,6 +69,17 @@ export const postMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   }
 }
 
+export const postComment = (userId, masterpieceId, json, canEdit, priv) => {
+  return dispatch => {
+    axios.post('/api/drawings/comment', {userId, masterpieceId, json, canEdit, priv})
+    .then(drawing => {
+      // dispatch(setAllVersions(drawing.data.versions))
+      // dispatch(setMasterpiece(drawing.data))
+      browserHistory.push(`/profile/${userId}`)
+    })
+    .catch(err => console.log('there was an error posting the comment', err))
+  }
+}
 
 
 export const saveNewMasterpieceDraft = (id, userId, json) => {

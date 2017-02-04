@@ -70,7 +70,13 @@ export const whoami = () =>
           dispatch(setAllFriends(user.id))
         }
         dispatch(authenticated(user))
+        if(!user){
+          browserHistory.push('/login')
+        }
       })
-      .catch(failed => dispatch(authenticated(null)))
+      .catch(failed => {
+        browserHistory.push('/login')
+        dispatch(authenticated(null))
+      })
 
 export default reducer

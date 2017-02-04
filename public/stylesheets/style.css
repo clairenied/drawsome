@@ -107,9 +107,15 @@ nav .navbar-default {
 hr.divider-rule {
   border-top: 4px solid #ff0274; }
 
-doodle-container {
-  max-width: 100%;
+.doodle-container {
+  margin-right: 50rem;
   height: auto; }
+
+.edit-button {
+  float: right; }
+
+.doodle-header {
+  position: inline; }
 
 .chat-app-container {
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
@@ -217,6 +223,11 @@ doodle-container {
   margin-bottom: 10px;
   font-size: 36px; }
 
+.masterpiece-title {
+  display: inline;
+  box-sizing: border-box;
+  border-bottom: 4px solid #ff0274; }
+
 .master-h1 {
   width: 40%;
   display: inline; }
@@ -238,6 +249,12 @@ doodle-container {
 #master-buttons {
   margin-top: 10px;
   float: right; }
+
+.draft-section {
+  padding-top: 40px; }
+
+#clear-button {
+  margin-right: 10px; }
 
 .palette {
   margin-top: 20px; }

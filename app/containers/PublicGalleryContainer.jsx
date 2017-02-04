@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import axios from 'axios'
 
 //components
 import Doodle from '../components/Doodle'
@@ -11,10 +10,9 @@ class PublicGalleryContainer extends Component {
     this.state = {
       shape : ""
     }
-    
   }
+
   render(){
-  
     return(
       <div className="container">
         <h1>Your Gallery</h1>

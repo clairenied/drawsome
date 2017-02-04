@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { browserHistory } from 'react-router'
+// import { setUser } from './users';
 import socket from '../socket';
-import { setMasterpiece } from './drawings'
 
 const initialState = {}
 
@@ -39,11 +39,11 @@ export const setAllMessages = (allMessages) => {
   }
 }
 
-export const subscribeToNewMessages = () =>
-  dispatch =>
-    socket.on('new-message', (message) => {
-      return dispatch(setMessage(message))
-    });
+// export const subscribeToNewMessages = () =>
+//   dispatch =>
+//     socket.on('new-message', (message) => {
+//       return dispatch(setMessage(message))
+//     });
 
 export const postMessage = (text, loggedInUser) => {
   return dispatch => {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
 import PaperCanvas from './PaperCanvas.jsx'
+import CommentComponent from './CommentComponent.jsx'
 
 const BigDoodle = (props) => {
 
@@ -26,6 +27,7 @@ const BigDoodle = (props) => {
           </Link>
         </div>
         <div className="col-xs-12">
+        <CommentComponent masterpiece={props.masterpiece}/>
           <div className="col-xs-12">
             <h3>Comments:</h3>
           </div>

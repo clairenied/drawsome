@@ -17,30 +17,40 @@ const reducer = (state=initialState, action) => {
 		case GET_FRIEND:
 			nextState[action.friend.id] = action.friend
 			break;
+		case REMOVE_FRIEND:
+			nextState[action.friend.id] = null
+			break;
 		default: 
 			return state
 	}
 	return nextState
 }
 
-
 // CONSTANTS
 
 export const GET_FRIEND = 'GET_FRIEND'
-
+export const REMOVE_FRIEND = 'REMOVE_FRIEND'
 
 // ACTION CREATORS
 
 export const getFriend = (friend) => {
+	
 	let personDrawings = friend.drawings
 	friend.drawings = []
-	personDrawings.forEach(drawing => friend.drawings.push(drawing.id))
+	personDrawings.drawings && personDrawings.forEach(drawing => friend.drawings.push(drawing.id))
 	let personVersions = friend.versions 
 	friend.versions = []
-	personVersions.forEach(version => friend.versions.push(version.id))
+	personVersions && personVersions.forEach(version => friend.versions.push(version.id))
 	return {
 	  type: GET_FRIEND, 
 	  friend: transformFriend(friend)
+	}
+}
+
+export const removeFriend = (friend) => {
+	return {
+	  type: REMOVE_FRIEND, 
+	  friend
 	}
 }
 
@@ -65,6 +75,5 @@ export const setAllFriends = (id) => {
 		.catch((err)=> console.log(err))
 	}
 }
-
 
 export default reducer

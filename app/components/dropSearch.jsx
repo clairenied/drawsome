@@ -3,7 +3,6 @@ import {Link} from 'react-router'
 import axios from 'axios'
 
 
-
 export class SearchBar extends Component {
   constructor(){
     super()

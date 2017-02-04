@@ -31,6 +31,18 @@ class ActivePaperCanvas extends React.Component {
 
     this.props.getCurrentPaper(this.currentPaper)
 
+
+
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.json !== this.props.json) {
+      return new Promise((resolve, reject) => {
+        resolve(this.currentPaper.project.clear())
+      }).then((paper) => {
+        this.currentPaper.importJSON(nextProps.json);
+      })
+    }
   }
 
   render() {
