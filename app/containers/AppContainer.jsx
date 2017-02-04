@@ -57,6 +57,7 @@ class AppContainer extends React.Component {
   }
 
   render(){
+    console.log('CHATS BITCH', this.props.chats)
     return (
       <div>
         <Navbar />
@@ -86,6 +87,7 @@ class AppContainer extends React.Component {
           </div>
           {
             Object.keys(this.state.openChats).map((friendId) => {
+              console.log('MESSAGE DRAWING ID\nMESSAGE DRAWING ID\nMESSAGE DRAWING ID\n', this.props.drawings[this.props.friends[friendId].chatId])
               return (
                 <div 
                   key={friendId}
@@ -127,6 +129,7 @@ function mapStateToProps(state, ownProps){
   return {
     user: state.auth,
     friends: state.friends,
+    chats:  Object.values(state.drawings).filter(drawing => drawing.type === "chat"),
   }
 }
 

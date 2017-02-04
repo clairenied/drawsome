@@ -60,6 +60,7 @@ export const whoami = () =>
       .then(response => {
         const user = response.data
         if(user.drawings){
+          console.log('USER DRAWINGS', user.drawings)
           // dispatch(subscribeToNewMessages())
           // dispatch(setAllServerMessages())
           dispatch(setAllMasterpieces(user.drawings))

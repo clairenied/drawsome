@@ -4,17 +4,20 @@ const router = express.Router()
 
 const Drawing = db.model('drawing')
 const Version = db.model('version')
+const Friendship = db.model('friendship')
 const User = db.model('users')
 
-router.get('/', (req, res, next) => {
-  Version.findAll({
-    where: {
-      user_id: req.user.id
-    },
-    include: [{ model: Drawing }]
-  })
-  .then( drawings => res.send(drawings))
-  .catch(next)
+router.get('/', async (req, res, next) => {
+  try {
+    const versions = await Version.findAll({
+      where: {
+        user_id: req.user.id
+      }, 
+      include: [ Drawing ]
+    })
+    
+    return res.send(versions)
+  } catch(next){}
 })
 
 router.post('/', (req, res, next) => {

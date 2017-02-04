@@ -1,5 +1,6 @@
 const db = require('./index')
 const Promise = require('bluebird')
+const chalk = require('chalk')
 
 const User = require('./models/index').User;
 const Version = require('./models/index').Version;
@@ -199,23 +200,23 @@ const versions = [{
 }]
 
 const friends = [{
-  user_id: 0,
-  friend_id: 1,
+  followee_id: 0,
+  follower_id: 1,
 },{
-  user_id: 0,
-  friend_id: 2,
+  followee_id: 0,
+  follower_id: 2,
 },{
-  user_id: 0,
-  friend_id: 3,
+  followee_id: 0,
+  follower_id: 3,
 },{
-  user_id: 1,
-  friend_id: 2,
+  followee_id: 1,
+  follower_id: 2,
 },{
-  user_id: 1,
-  friend_id: 3,
+  followee_id: 1,
+  follower_id: 3,
 },{
-  user_id: 2,
-  friend_id: 3,
+  followee_id: 2,
+  follower_id: 3,
 }]
 
 const createItems = async (users, drawings, versions, friends) => {
@@ -237,17 +238,25 @@ const createItems = async (users, drawings, versions, friends) => {
       })
       .map(version => Version.create(version)) 
   )
+
+  await Promise.all(
+    friends
+      .map(friend => {
+        friend.followee_id = createdUsers[friend.followee_id].id;
+        friend.follower_id = createdUsers[friend.follower_id].id
+        return friend;
+      })
+      .map(friend => Friendship.create(friend)) 
+  )
 }
 
 
 const associateItems = async () => {
   try {  
-    console.log("Currently seeding database...")
+    console.log(chalk.bold.magenta("Currently seeding database..."))
     await db.didSync
     await db.sync({ force: true })
     await createItems(users, drawings, versions, friends)    
-
-    console.log("Complete!")
   } catch(error) { console.error(error) }
 }
 

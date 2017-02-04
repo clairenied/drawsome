@@ -4,13 +4,19 @@ const User = require('./user')
 const Drawing = require('./drawing')
 
 
-const Friendship = db.define('friendship',{}, {
+const Friendship = db.define('friendship',{
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+}, {
   instanceMethods: {
     getInverse() {
       return Friendship.findOne({
         where: {
-          user_id: Friendship.friend_id,
-          friend_id: Friendship.user_id
+          follower_id: Friendship.followee_id,
+          followee_id: Friendship.follower_id
         }
       });
     }
@@ -21,7 +27,10 @@ const Friendship = db.define('friendship',{}, {
       if(inverse) {
         friendship.chat_drawing_id = inverse.chat_drawing_id;
       } else {
-        const drawing = await Drawing.create({});
+        const drawing = await Drawing.create({
+          type: 'chat',
+          likes: 0,
+        });
         friendship.chat_drawing_id = drawing.id;
       }
     }

@@ -10,7 +10,16 @@ const Version = require('./version')
 const Friendship = require('./friendship')
 
 User.belongsToMany(User, { 
-  as: 'friend', 
+  as: { singular: 'follower', plural: 'followers' },
+  foreignKey: 'follower_id',
+  through: {
+    model: Friendship,
+  }
+})
+
+User.belongsToMany(User, { 
+  as: { singular: 'followee', plural: 'followees' },
+  foreignKey: 'followee_id',
   through: {
     model: Friendship,
   }
