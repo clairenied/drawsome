@@ -136,7 +136,6 @@ class MakeDrawing extends React.Component {
 
   render(){
     return(
-      <div>
       <div className="container">
         <div className="col-xs-12">
           <div className="master-header">
@@ -174,14 +173,31 @@ class MakeDrawing extends React.Component {
         </div>  
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
-            <ActivePaperCanvas
-              getCurrentPaper={this.getCurrentPaper}
-              onInitialize={this.onInitialize}
-              onMouseDrag={this.onMouseDrag}
-              onMouseDown={this.onMouseDown}
-              clearCanvas={this.clearCanvas}
-              undoDraw = {this.undoDraw}
+          {
+            this.props.versions ? 
+              <div>
+              { this.props.selectedVersion &&
+              <ActivePaperCanvas
+                getCurrentPaper={this.getCurrentPaper}
+                onInitialize={this.onInitialize}
+                onMouseDrag={this.onMouseDrag}
+                onMouseDown={this.onMouseDown}
+                clearCanvas={this.clearCanvas}
+                undoDraw = {this.undoDraw}
+                json={this.props.selectedVersion.data}
               />
+              }
+              </div>
+              : 
+              <ActivePaperCanvas
+                getCurrentPaper={this.getCurrentPaper}
+                onInitialize={this.onInitialize}
+                onMouseDrag={this.onMouseDrag}
+                onMouseDown={this.onMouseDown}
+                clearCanvas={this.clearCanvas}
+                undoDraw = {this.undoDraw}
+              />
+          }
             {
               this.props.selectedMasterpiece ?
                 <form id="master-buttons" className="form-inline">
@@ -197,12 +213,17 @@ class MakeDrawing extends React.Component {
           </div>
         </div> 
       </div>
-      <div className="draft-section">
-        <DraftContainer />
-      </div>
-      </div>
     )
   }
 }
 
-export default connect(null, {createMasterpieceDraft, postMasterpieceDraft, saveNewMasterpieceDraft, postMasterpieceFromDraft})(MakeDrawing)
+function mapStateToProps(state, props) {
+  const toPutOnProps = {};
+
+  if(props.versions) {
+    toPutOnProps.selectedVersion = props.versions[Math.max(...props.selectedMasterpiece.versions)] ;
+  }
+  return toPutOnProps;
+}
+
+export default connect(mapStateToProps, {createMasterpieceDraft, postMasterpieceDraft, saveNewMasterpieceDraft, postMasterpieceFromDraft})(MakeDrawing)

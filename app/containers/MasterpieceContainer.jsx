@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux'
-import paper from 'paper'
-import DraftContainer from './DraftContainer'
-import {createMasterpieceDraft, postMasterpieceDraft} from '../reducers/drawings'
-
-import ActivePaperCanvas from '../components/ActivePaperCanvas'
-import MakeDrawing from './MakeDrawing'
+import {connect} from 'react-redux';
+import DraftContainer from './DraftContainer';
+import MakeDrawing from './MakeDrawing';
 
 export function MasterpieceContainer(props){
   return(
@@ -20,10 +16,10 @@ export function MasterpieceContainer(props){
   )
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state, props){
   return {
     user: state.auth
   }
 }
 
-export default connect(mapStateToProps, {createMasterpieceDraft, postMasterpieceDraft})(MasterpieceContainer)
+export default connect(mapStateToProps)(MasterpieceContainer)
