@@ -25,13 +25,13 @@ import DraftContainer from './containers/DraftContainer'
 import {getMasterpieceDraft} from './reducers/drawings.jsx'
 import {getProfile} from './reducers/profile.jsx'
 import { subscribeToNewMessages } from './reducers/messages.jsx'
+import {whoami} from './reducers/auth'
 
 const loadProfileOnEnter = function (nextRouterState) {
   const profileId = nextRouterState.params.id;
   store.dispatch(getProfile(profileId));
   // store.dispatch(subscribeToNewMessages())
 };
-
 
 render (
   <Provider store={store}>
@@ -40,7 +40,7 @@ render (
         <IndexRedirect to="/gallery" />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/gallery" component={PublicGalleryContainer} />
+        <Route path="/gallery" component={PublicGalleryContainer}/>
         <Route path="/masterpiece" component={SingleMasterpieceViewContainer} />
         <Route path="/profile/:id" component={ProfileContainer} onEnter={loadProfileOnEnter}/>
         <Route path="/create-masterpiece" component={MasterpieceContainer}/>
