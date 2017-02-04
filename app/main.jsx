@@ -33,12 +33,6 @@ const loadProfileOnEnter = function (nextRouterState) {
   // store.dispatch(subscribeToNewMessages())
 };
 
-const galleryOnEnter = function(nextRouterState) {
-  store.dispatch(whoami())
-  console.log('NEXTROUTER',nextRouterState)
-}
-
-
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -46,7 +40,7 @@ render (
         <IndexRedirect to="/gallery" />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/gallery" component={PublicGalleryContainer} onEnter={galleryOnEnter}/>
+        <Route path="/gallery" component={PublicGalleryContainer}/>
         <Route path="/masterpiece" component={SingleMasterpieceViewContainer} />
         <Route path="/profile/:id" component={ProfileContainer} onEnter={loadProfileOnEnter}/>
         <Route path="/create-masterpiece" component={MasterpieceContainer}/>
