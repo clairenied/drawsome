@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import axios from 'axios'
+import {browserHistory} from 'react-router'
 
 //components
 import Doodle from '../components/Doodle'
@@ -13,8 +13,12 @@ class PublicGalleryContainer extends Component {
     }
     
   }
+
+  loginRedirect(){
+    browserHistory.push('/login')
+  }
+
   render(){
-  
     return(
       <div className="container">
         <h1>Your Gallery</h1>
