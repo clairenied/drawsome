@@ -10,7 +10,6 @@ class PublicGalleryContainer extends Component {
     this.state = {
       shape : ""
     }
-    
   }
 
   render(){
