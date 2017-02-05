@@ -2,6 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 const User = require('./user')
 const Drawing = require('./drawing')
+const Version = require('./version')
 
 
 const Friendship = db.define('friendship',{
@@ -31,6 +32,10 @@ const Friendship = db.define('friendship',{
           type: 'chat',
           likes: 0,
         });
+        const version = await Version.create({})
+        version.setDrawing(drawing)
+        version.setUser(friendship.follower_id)
+        
         friendship.chat_drawing_id = drawing.id;
       }
     }

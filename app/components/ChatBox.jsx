@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import {connect, Provider} from 'react-redux'
 import { Link } from 'react-router'
 import paper from 'paper'
+import axios from 'axios'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
+
+import { getChat, postChat } from '../reducers/drawings'
 
 class ChatBox extends React.Component {
   constructor(props) {
@@ -30,6 +33,11 @@ class ChatBox extends React.Component {
     this.undoDraw = this.undoDraw.bind(this)
   }
 
+  componentDidMount() {
+    const friendshipId = this.props.friendship.id
+    this.props.getChat(friendshipId)
+  }
+
   onInitialize(paperScope) {
     paperScope.install(this);
     this.path = new this.Path(this.state.paperSettings);
@@ -40,8 +48,7 @@ class ChatBox extends React.Component {
   }
 
   onMouseUp(event, currentPaper){
-    console.log(this.props.postMessage)
-    this.props.postMessage(this.state.currentPaper.project.exportJSON(), this.props.user.id, this.props.friend)
+    this.props.postChat(currentPaper.project.exportJSON(), this.props.friendship.chat_drawing_id)
   }
 
   onMouseDrag(event, currentPaper) {
@@ -52,6 +59,7 @@ class ChatBox extends React.Component {
   getCurrentPaper(paper) {
     this.setState({currentPaper: paper}) 
   }
+
 
   clearCanvas(){
     return new Promise((resolve, reject) => resolve(this.state.currentPaper.project.clear())
@@ -68,17 +76,24 @@ class ChatBox extends React.Component {
     )
   }
 
-
   render(){ 
+    const version = Object.values(this.props.versions)
+      .filter(version => {
+        return version.drawing_id === this.props.friendship.chat_drawing_id
+      })
+      .reverse()[0]
+
+    console.log('VERSION', version.data)
     return (
       <div>     
-        <div className={ this.props.showChat ? "chat-box-container" : "hidden" }>   
+        <div className={ this.props.showChat ? "chat-box-container" : "hidden" }>  
           <ActivePaperCanvas
             onInitialize={this.onInitialize}
             onMouseDown={this.onMouseDown}
             onMouseDrag={this.onMouseDrag}
             onMouseUp={this.onMouseUp}
             getCurrentPaper={this.getCurrentPaper}
+            json={version.data}
             clearCanvas={this.clearCanvas}
             undoDraw = {this.undoDraw}
             width="200"
@@ -90,16 +105,28 @@ class ChatBox extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps){
+const mapStateToProps = (state, ownProps) => {
   return {
-    friends: state.friends,
     user: state.auth,
+    drawings: state.drawings,
+    versions: state.versions,
+    friendship: Object.values(state.friendships)
+      .find(friendship => {
+        return friendship.follower_id === +ownProps.friendId || friendship.followee_id === +ownProps.friendId
+      }),
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getChat: friendshipId => dispatch(getChat(friendshipId)),
+    postChat: (drawingData, drawingId) => dispatch(postChat(drawingData, drawingId)),
   }
 }
 
 ChatBox.defaultProps = {
-  friend: '',
-  postMessage: function(){},
+  getChat: function(){},
+  postChat: function(){},
 }
 
-export default connect(mapStateToProps)(ChatBox)
+export default connect(mapStateToProps, mapDispatchToProps)(ChatBox)

@@ -116,7 +116,7 @@ auth.get('/whoami', async (req, res, next) => {
     } else {
       res.end()
     }
-  }catch(next){
+  } catch(next){
     const err = new Error()
     err.status = 400
     throw err

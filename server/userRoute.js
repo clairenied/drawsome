@@ -60,48 +60,35 @@ router.get('/:id/friends', mustBeLoggedIn, async (req, res, next) => {
         as: 'followees'
       },{
       	model: Drawing, 
-      	include: [Version, User, {model: Drawing, as: "parent_drawing"}]
+      	include: [Version, User, { model: Drawing, as: "parent_drawing" }]
       }]
 		})
 		return res.json(friends)
 	} catch(next){ console.error(next) }
 })
 
-// router.get('/:id/friends', mustBeLoggedIn, (req, res, next) => {
-// 	return User.findById(req.params.id,{
-
-// 	include: [{model: User, as: 'friend', include: [{model: Version},{model: Drawing, include:[User, Version, {model: Drawing, as : "parentDrawing"}]}]}]
-
-// 	})
-// 	.then((user) => {
-// 		res.json(user)
-// 	})
-// 	.catch(next)
+// router.put('/:id/friends', mustBeLoggedIn, (req, res, next) => {
+// 		Friendship.create({
+// 				user_id : req.user.id,
+// 				friend_id : req.params.id
+// 		})
+// 		.then((user) => {
+// 		res.send(user)
+// 		})
+// 		.catch(next)
 // })
 
-router.put('/:id/friends', mustBeLoggedIn, (req, res, next) => {
-		Friendship.create({
-				user_id : req.user.id,
-				friend_id : req.params.id
-		})
-		.then((user) => {
-		res.send(user)
-		})
-		.catch(next)
-})
-
-router.delete('/:id/friends', function (req, res, next) {
-
-     Friendship.destroy({
-        where : {
-          	user_id : req.user.id,
-						friend_id : req.params.id
-        }
-      })
-			.then((user) => {
-			res.sendStatus(200)
-			})
-			.catch(next)
-});
+// router.delete('/:id/friends', function (req, res, next) {
+//      Friendship.destroy({
+//         where : {
+//           	user_id : req.user.id,
+// 						friend_id : req.params.id
+//         }
+//       })
+// 			.then((user) => {
+// 			res.sendStatus(200)
+// 			})
+// 			.catch(next)
+// });
 
 module.exports = router;

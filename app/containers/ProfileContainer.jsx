@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
 import axios from 'axios'
-import {getFriend, removeFriend} from '../reducers/friends'
+import { getUser, removeUserFromStore, addFriend, deleteFriend } from '../reducers/users'
 
 //components
 import BigDoodle from '../components/BigDoodle.jsx'
@@ -11,38 +11,15 @@ class ProfileContainer extends Component {
 
   constructor(props) {
     super(props);
-    
-  
-  this.addFriend = this.addFriend.bind(this);  
-  this.deleteFriend = this.deleteFriend.bind(this); 
   }
-
-  addFriend(e) {
-    let id = this.props.profile.id
-    axios.put(`/api/users/${id}/friends`)
-    .then((res) => {
-      this.props.getFriend(this.props.profile)
-    }
-    )
-  }
-
-  deleteFriend(e) {
-    let id = this.props.profile.id
-    axios.delete(`/api/users/${id}/friends`)
-    .then((res) => {
-      this.props.removeFriend(this.props.profile)
-    }
-    )
-  }
-
 
   render(){
-  let profile = this.props;
-  let isFriend;
-  this.props.friends[this.props.profile.id] ? isFriend = true : isFriend = false;
-  let profileId = this.props.profile.id;
-  let userId;
-  this.props.user ? userId = this.props.user.id : null;
+    let profile = this.props;
+    let isFriend;
+    this.props.friends[this.props.profile.id] ? isFriend = true : isFriend = false;
+    let profileId = this.props.profile.id;
+    let userId;
+    this.props.user ? userId = this.props.user.id : null;
   
     return(
       <div className="container">
@@ -68,22 +45,17 @@ class ProfileContainer extends Component {
 }
 
 function mapStateToProps(state, ownProps){
-  let profileId = ownProps.params.id;
-  let masterpieces;
-  let user = state.auth;
-  let friends = state.friends
-  
   if (state.profile.drawings) {
     masterpieces = Object.values(state.profile.profdrawings).filter(drawing => drawing.type === "masterpiece");
     //comments = Object.values(state.profile.drawings).filter(drawing => drawing.type === "comment");
    
   }
 
-    return {
-    profile: state.profile, 
-    masterpieces,
-    user,
-    friends
+  return {
+    masterpieces: state.drawings,
+    user: state.auth,
+    profile: state.users[ownProps.params.id], 
+    friend: state.friends,
   }
 }
 

@@ -1,9 +1,17 @@
+import { receiveDrawing } from './drawings'
 const initialState = {};
+
+const transformVersion = versionObj => {
+  if(versionObj.drawing) {
+    delete versionObj.drawing
+  }
+  return versionObj
+}
 
 const reducer  = (state = initialState, action) => {
   const nextState = Object.assign({}, state);
   switch (action.type) {
-    case SET_VERSION: 
+    case ADD_VERSION: 
       nextState[action.version.id] = action.version;
       break;
     default: 
@@ -12,24 +20,21 @@ const reducer  = (state = initialState, action) => {
   return nextState
 }
 
-// CONSTANTS 
+const ADD_VERSION = "ADD_VERSION"
+export const receiveVersion = version => 
+  dispatch => {
+    if (version.drawing) dispatch(receiveDrawing(version.drawing))
+    return dispatch ({
+      type: ADD_VERSION,
+      version: transformVersion(version)
+    })
+  }
 
-const SET_VERSION = "SET_VERSION";
-
-
-// ACTION-CREATORS
-
-export const setVersion = version => ({
-    type: SET_VERSION,
-    version
-});
-
-
-export const setAllVersions = (versions) => {
+export const receiveVersions = versions => {
 	return dispatch => {
     return versions.forEach(version => {
-    	dispatch(setVersion(version));
-    });
+    	dispatch(receiveVersion(version));
+    })
 	}
 }
 

@@ -2,7 +2,12 @@
 
 const bcrypt = require('bcryptjs')
 const Sequelize = require('sequelize')
+
 const db = require('APP/db')
+const Friendship = require('./friendship')
+const Drawing = require('./drawing')
+const Version = require('./version')
+
 
 const User = db.define('users', {
   firstName: {
@@ -45,9 +50,25 @@ const User = db.define('users', {
           (err, result) =>
             err ? reject(err) : resolve(result))
         )
-
+    },
+    getAllFriendships() {
+      return Friendship.findAll({
+        where: {
+          $or: [{
+            follower_id: this.id,
+          },{
+            followee_id: this.id,
+          }]
+        },
+        include: [{
+          model: User,
+          as: 'follower',
+        },{
+          model: User,
+          as: 'followee',
+        }] 
+      })
     }
-
   }
 })
 
