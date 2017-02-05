@@ -66,7 +66,7 @@ const User = db.define('users', {
         },{
           model: User,
           as: 'followee',
-        }] 
+        }]
       })
     }
   }
