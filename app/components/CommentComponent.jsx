@@ -53,7 +53,7 @@ export class CommentComponent extends React.Component {
 
   saveComment(e){
     e.preventDefault()
-      this.props.postComment(this.props.user.id, this.props.masterpiece, this.props.profile.profile.id, this.state.currentPaper.project.exportJSON(), false, false)
+      this.props.postComment(this.props.user.id, this.props.masterpiece, this.props.profile.id, this.state.currentPaper.project.exportJSON(), false, false)
   }
 
   getCurrentPaper(paper) {
