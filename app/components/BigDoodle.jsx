@@ -11,7 +11,7 @@ const BigDoodle = (props) => {
   const profile = props.profile;
   
   const masterpieceVersion = props.versions[masterpiece.versions[0]];
-  // const comments = masterpiece.comments;
+  const comments = masterpiece.comments;
   
   return (
     <div className="row big-doodle">
