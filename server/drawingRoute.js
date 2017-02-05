@@ -31,19 +31,15 @@ router.post('/', (req, res, next) => {
     likes: 0
   })
   .then(drawing => {
-    return Promise.all([
-      drawing.setUsers([req.body.userId]),
-      Version.create({
-        drawing_id: drawing.id,
-        user_id: req.body.userId,
-        number: 1,
-        data: req.body.json
-      })
-    ])
+    return Version.create({
+      drawing_id: drawing.id,
+      user_id: req.body.userId,
+      number: 1,
+      data: req.body.json
+    })
   })
-  .then(data => {
-    console.log('DATA VALS',data[0][0][0])
-    return Drawing.findById(data[0][0][0].dataValues.drawing_id, {include: [{model: Version}]}) 
+  .then(version => {
+    return Drawing.findById(version.dataValues.drawing_id, {include: [{model: Version}]}) 
   })
   .then(drawing => {
     res.json(drawing)
@@ -52,7 +48,6 @@ router.post('/', (req, res, next) => {
 })
 
 router.post('/comment', (req, res, next) => {
-  console.log("REQ BODY")
   return Drawing.create({
     type: "comment",
     canEdit: req.body.canEdit,
