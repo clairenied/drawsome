@@ -59,4 +59,4 @@ function mapStateToProps(state, ownProps){
   }
 }
 
-export default connect(mapStateToProps, {getFriend, removeFriend})(ProfileContainer)
+export default connect(mapStateToProps)(ProfileContainer)
