@@ -25,7 +25,16 @@ hr.divider-rule {
   border-top: 4px solid $drawsome-pink;
 }
 
-doodle-container {
-	max-width: 100%;
+.doodle-container {
+  margin-right: 50rem;
 	height: auto;
 }
+
+.edit-button {
+  float: right;
+}
+
+.doodle-header {
+  position: inline;
+}
+

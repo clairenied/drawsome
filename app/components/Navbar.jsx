@@ -23,7 +23,7 @@ export class Navbar extends Component {
           <li>
             <div className="user-dropdown">
               <DropdownButton title={<span className="glyphicon glyphicon-user"></span>} id={`dropdown-basic-1`} className="btn-default">
-                <MenuItem eventKey="1" href="/profile">
+              <MenuItem eventKey="1" href={`/profile/${this.props.user.id}`}>
                   My Profile
                 </MenuItem>
                 <MenuItem divider/>
@@ -76,8 +76,7 @@ export class Navbar extends Component {
 
 function mapStateToProps(state){
   return {
-    user: state.auth,
-    users: state.users
+    user: state.auth
   }
 }
 

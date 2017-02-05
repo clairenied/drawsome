@@ -12,11 +12,11 @@ const Version = require('./version')
 const User = db.define('users', {
   firstName: {
     type: Sequelize.STRING,
-
+    allowNull: false
   },
   lastName: {
     type: Sequelize.STRING,
-
+    allowNull: false
   },
   birthday: Sequelize.DATE,
   email: {
@@ -37,7 +37,7 @@ const User = db.define('users', {
   getterMethods: {
     fullName: function()  { return this.firstName + ' ' + this.lastName }
   },
-  
+
 	indexes: [{fields: ['email'], unique: true,}],
   hooks: {
     beforeCreate: setEmailAndPassword,

@@ -25,8 +25,7 @@ const Version = db.define('version', {
          order: 'number DESC',
          limit: 1
         }
-    },
-
+    }
 })
 
 module.exports = Version

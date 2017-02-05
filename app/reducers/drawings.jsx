@@ -22,11 +22,12 @@ const reducer  = (state = initialState, action) => {
     case ADD_DRAWING: 
       nextState[action.drawing.id] = action.drawing;
       break;
-    default: 
+    default:
        return state;
   }
   return nextState
 }
+
 
 const ADD_DRAWING = "ADD_DRAWING";
 export const receiveDrawing = drawing => {
@@ -49,10 +50,10 @@ export const getDrawings = () =>
   dispatch =>
     axios.get('/api/drawings')
       .then(res => {
-        console.log('RESSSSS', res.data)
         return res.data
       })
       .then(drawings => dispatch(receiveDrawings(drawings)));
+
 
 export const createMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   return dispatch => {
@@ -66,7 +67,7 @@ export const createMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   }
 }
 
-export const postMasterpieceDraft = (userId, name, json, canEdit, priv) => {
+export const postMasterpieceDraft = (userId, json, canEdit, priv) => {
   return dispatch => {
     axios.post('/api/drawings/', {userId, name, json, canEdit, priv})
     .then(drawing => {
@@ -75,6 +76,18 @@ export const postMasterpieceDraft = (userId, name, json, canEdit, priv) => {
       browserHistory.push(`/gallery`)
     })
     .catch(err => console.log('there was an error posting the masterpiece', err))
+  }
+}
+
+export const postComment = (userId, masterpieceId, json, canEdit, priv) => {
+  return dispatch => {
+    axios.post('/api/drawings/comment', {userId, masterpieceId, json, canEdit, priv})
+    .then(drawing => {
+      // dispatch(setAllVersions(drawing.data.versions))
+      // dispatch(setMasterpiece(drawing.data))
+      browserHistory.push(`/profile/${userId}`)
+    })
+    .catch(err => console.log('there was an error posting the comment', err))
   }
 }
 

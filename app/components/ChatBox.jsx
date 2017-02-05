@@ -29,7 +29,8 @@ class ChatBox extends React.Component {
     this.onMouseUp = this.onMouseUp.bind(this)
     this.onMouseDrag = this.onMouseDrag.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
-    this.clear = this.clear.bind(this)
+    this.clearCanvas= this.clearCanvas.bind(this)
+    this.undoDraw = this.undoDraw.bind(this)
   }
 
   componentDidMount() {
@@ -54,15 +55,26 @@ class ChatBox extends React.Component {
     this.path.add(event.point);
     this.path.smooth({ type: 'continuous' })
   }
-
-  clear(event, currentPaper) {
-    this.props.postChat('', this.props.friendship.chat_drawing_id)
-  }
   
   getCurrentPaper(paper) {
     this.setState({currentPaper: paper}) 
   }
 
+
+  clearCanvas(){
+    return new Promise((resolve, reject) => resolve(this.state.currentPaper.project.clear())
+      .then(()=> this.getCurrentPaper(paper))
+    )
+  }
+
+  undoDraw(){
+    let children = this.state.currentPaper.project.activeLayer.children
+    return new Promise((resolve, reject) => resolve(this.state.currentPaper.project.activeLayer.lastChild.remove())
+      .then(()=> {
+        this.getCurrentPaper(paper)
+      })
+    )
+  }
 
   render(){ 
     const version = Object.values(this.props.versions)
@@ -75,7 +87,6 @@ class ChatBox extends React.Component {
     return (
       <div>     
         <div className={ this.props.showChat ? "chat-box-container" : "hidden" }>  
-          <a onClick={ this.clear }>Clear</a> 
           <ActivePaperCanvas
             onInitialize={this.onInitialize}
             onMouseDown={this.onMouseDown}
@@ -83,6 +94,8 @@ class ChatBox extends React.Component {
             onMouseUp={this.onMouseUp}
             getCurrentPaper={this.getCurrentPaper}
             json={version.data}
+            clearCanvas={this.clearCanvas}
+            undoDraw = {this.undoDraw}
             width="200"
             height="250"
             />

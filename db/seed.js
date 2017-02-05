@@ -1,4 +1,5 @@
 const db = require('./index')
+<<<<<<< HEAD
 const Promise = require('bluebird')
 const chalk = require('chalk')
 

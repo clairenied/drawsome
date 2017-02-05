@@ -64,7 +64,13 @@ export const whoami = () =>
           dispatch(getDrawings())
         }
         dispatch(authenticated(user))
+        if(!user){
+          browserHistory.push('/login')
+        }
       })
-      .catch(failed => dispatch(authenticated(null)))
+      .catch(failed => {
+        browserHistory.push('/login')
+        dispatch(authenticated(null))
+      })
 
 export default reducer
