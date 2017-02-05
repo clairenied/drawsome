@@ -45,7 +45,7 @@ const BigDoodle = (props) => {
                 )
               })
             }
-          </div>*/}
+          </div>
         </div>
       </div>
     </div>
