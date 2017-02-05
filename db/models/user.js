@@ -63,6 +63,10 @@ const User = db.define('users', {
         include: [{
           model: User,
           as: 'follower',
+          include: [{
+            model: Drawing,
+            include: [ Version ]
+          }]
         },{
           model: User,
           as: 'followee',

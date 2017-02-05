@@ -22,8 +22,9 @@ class PublicGalleryContainer extends Component {
             {
             this.props.drawings && this.props.drawings.map((drawing) =>{
               let version = this.props.versions[Math.max(...drawing.versions)]
+              let artist = this.props.friends[version.user_id]
               return (
-                <Doodle key={drawing.id} drawing={drawing} version={version} user={this.props.user} />
+                <Doodle key={drawing.id} drawing={drawing} version={version} user={this.props.user} artist={artist} />
               )
             })
             }
@@ -38,7 +39,7 @@ function mapStateToProps(state){
   return {
     user: state.auth,
     drawings:  Object.values(state.drawings).filter(drawing => drawing.type === "masterpiece" && drawing.private === false),
-    friends: state.friends,
+    friends: state.users,
     versions: state.versions
   }
 }
