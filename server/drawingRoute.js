@@ -11,11 +11,14 @@ const User = db.model('users')
 router.get('/', async (req, res, next) => {
   try {
     const drawings = await Drawing.findAll({
-      include: {
+      include: [{
         model: Version.scope('recent'),
         include: [ Drawing ],
         limit: 50,
-      }
+      },{
+        model: Drawing,
+        as: 'parent_drawing'
+      }]
     })
     return res.send(drawings)
   } catch(next){ console.error(next) }

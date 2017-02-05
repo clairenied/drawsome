@@ -6,21 +6,21 @@ const Version = db.model('version')
 const User = db.model('users')
 
 
-router.get('/:id', (req, res, next) => { 
-	let userprofile;
-   return User.findById(req.params.id,{
-	include: [{model: Drawing, include:[Version.scope('recent')]}]
-	})
-	.then((user) =>{
-		userprofile = user;
-		let userdrawings = user.drawings;
-		let promisedrawings = userdrawings.map(drawing  => drawing.getComments())
-		return Promise.all(promisedrawings)
-	})
-	.then((drawings) => {
-		userprofile.setDataValue("profdrawings", drawings)
-		res.json(userprofile)
-	})
+router.get('/:id', async (req, res, next) => {
+	try {
+		const user = await User.findById(req.params.id, {
+			include: [{ 
+				model: Version.scope('recent'),
+				include: [{
+					model: Drawing,
+					include: [ Version.scope('recent') ]
+				}]
+			}]
+		}) 
+
+		const versions = user.versions
+		return res.json(user)	
+	} catch(next) { console.error(next) }
 })
 	
 module.exports = router;
