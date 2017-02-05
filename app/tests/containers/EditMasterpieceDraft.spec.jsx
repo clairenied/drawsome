@@ -1,7 +1,9 @@
 import React from 'react';
 import chai, { expect, assert } from 'chai';
 import { render, shallow, mount } from 'enzyme';
+
 import sinon from 'sinon';
+
 import {EditMasterpieceDraft} from '../../containers/EditMasterpieceDraft';
 import DraftContainer from '../../containers/DraftContainer';
 import ActivePaperCanvas from '../../components/ActivePaperCanvas'
@@ -9,10 +11,12 @@ import ActivePaperCanvas from '../../components/ActivePaperCanvas'
 chai.use(require('chai-enzyme')());
 
 
+
 import jsdom from 'jsdom'
 const doc = jsdom.jsdom('<!doctype html><html><body></body></html>')
 global.document = doc
 global.window = doc.defaultView
+
 
 const initProps = {
 	user: {
@@ -64,6 +68,7 @@ const newProps = {
 			versions: []
 		}
 	},
+
 	selectedMasterpiece: {name: 'pretty masterpiece',versions: [1,2,5]}
 }
 
@@ -89,6 +94,7 @@ describe('<EditMasterpieceDraft />', () => {
   	wrapper = shallow(<EditMasterpieceDraft {...newProps}/>);
   	expect(wrapper.find(ActivePaperCanvas)).to.have.length(1)
   })
+
 
   it('should show the masterpiece title', () => {
   	wrapper = shallow(<EditMasterpieceDraft {...newProps}/>)

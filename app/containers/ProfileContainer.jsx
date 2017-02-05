@@ -12,7 +12,6 @@ class ProfileContainer extends Component {
   }
 
   render(){
-    console.log('BEKE NIERENBERG', this.props)    
     return(
       <div className="container">
         <h1>Art By: { this.props.profile.fullName }</h1>
@@ -115,5 +114,3 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer)
-
-

@@ -3,17 +3,24 @@ import {connect} from 'react-redux';
 import DraftContainer from './DraftContainer';
 import MakeDrawing from './MakeDrawing';
 
-export function MasterpieceContainer(props){
-  return(
-    <div>
+class MasterpieceContainer extends Component{
+  
+  componentDidUpdate() {
+    window.scrollTo(0,0);
+  }
+  
+  render(){  
+    return(
       <div>
-        <MakeDrawing user={props.user}/>
+        <div>
+          <MakeDrawing user={this.props.user}/>
+        </div>
+        <div className="draft-section">
+          <DraftContainer />
+        </div>
       </div>
-      <div className="draft-section">
-        <DraftContainer />
-      </div>
-    </div>
-  )
+    )
+  }
 }
 
 function mapStateToProps(state, props){
