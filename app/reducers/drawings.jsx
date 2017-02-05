@@ -1,14 +1,26 @@
 import axios from 'axios';
-import {setAllVersions} from './versions'
-import {browserHistory} from 'react-router'
+import { receiveVersion, receiveVersions } from './versions'
+import { browserHistory } from 'react-router'
+
+const transformDrawing = drawingObj => {
+  if(drawingObj.versions) {
+    const versionsArr = drawingObj.versions.map(version => {
+      return version.id
+    })
+    
+    drawingObj.versions = versionsArr
+    delete drawingObj.version
+  }
+  return drawingObj
+}
 
 const initialState = {};
 
 const reducer  = (state = initialState, action) => {
   const nextState = Object.assign({}, state);
   switch (action.type) {
-    case SET_MASTERPIECE: 
-      nextState[action.masterpiece.id] = action.masterpiece;
+    case ADD_DRAWING: 
+      nextState[action.drawing.id] = action.drawing;
       break;
     default: 
        return state;
@@ -16,31 +28,19 @@ const reducer  = (state = initialState, action) => {
   return nextState
 }
 
-//CONSTANTS
-
-const SET_MASTERPIECE = "SET_MASTERPIECE";
-
-
-//ACTION CREATORS
-
-export const setMasterpiece = masterpiece => {
-  let drawingVersions = masterpiece.versions 
-  masterpiece.versions = []
-  drawingVersions.forEach(version => {
-    masterpiece.versions.push(version.id)
-  })
+const ADD_DRAWING = "ADD_DRAWING";
+export const receiveDrawing = drawing => {
   return {
-    type: SET_MASTERPIECE,
-    masterpiece
+    type: 'ADD_DRAWING',
+    drawing: transformDrawing(drawing)
   }
-};
+}
 
-export const setAllMasterpieces = (masterpieces) => {
+export const receiveDrawings = drawings => {
 	return dispatch => {
-    return masterpieces.forEach(masterpiece => {
-      dispatch(setAllVersions(masterpiece.versions));
-      dispatch(setMasterpiece(masterpiece));
-
+    return drawings.forEach(drawing => {
+      dispatch(receiveVersions(drawing.versions));
+      dispatch(receiveDrawing(drawing));
     });
 	}
 }
@@ -49,8 +49,8 @@ export const createMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   return dispatch => {
     axios.post('/api/drawings/', {userId, name, json, canEdit, priv})
     .then(drawing => {
-      dispatch(setAllVersions(drawing.data.versions))
-      dispatch(setMasterpiece(drawing.data))
+      dispatch(receiveVersions(drawing.data.versions))
+      dispatch(receiveDrawing(drawing.data))
       browserHistory.push(`/edit-masterpiece/${drawing.data.id}`)
     })
     .catch(err => console.log('there was an error saving the masterpiece', err))
@@ -61,22 +61,20 @@ export const postMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   return dispatch => {
     axios.post('/api/drawings/', {userId, name, json, canEdit, priv})
     .then(drawing => {
-      dispatch(setAllVersions(drawing.data.versions))
-      dispatch(setMasterpiece(drawing.data))
+      dispatch(receiveVersions(drawing.data.versions))
+      dispatch(receiveDrawing(drawing.data))
       browserHistory.push(`/gallery`)
     })
     .catch(err => console.log('there was an error posting the masterpiece', err))
   }
 }
 
-
-
 export const saveNewMasterpieceDraft = (id, userId, json) => {
   return dispatch => {
     axios.post(`/api/drawings/${id}`, {userId, json})
     .then(drawing => {
-      dispatch(setAllVersions(drawing.data.versions))
-      dispatch(setMasterpiece(drawing.data))
+      dispatch(receiveVersions(drawing.data.versions))
+      dispatch(receiveDrawing(drawing.data))
       browserHistory.push(`/edit-masterpiece/${drawing.data.id}`)
     })
     .catch(err => console.log('there was an error saving the masterpiece', err))
@@ -87,8 +85,8 @@ export const postMasterpieceFromDraft = (id, userId, json, canEdit) => {
   return dispatch => {
     axios.put(`/api/drawings/${id}`, {userId, json, canEdit})
     .then(drawing => {
-      dispatch(setAllVersions(drawing.data.versions))
-      dispatch(setMasterpiece(drawing.data))
+      dispatch(receiveVersions(drawing.data.versions))
+      dispatch(receiveDrawing(drawing.data))
       browserHistory.push(`/gallery`)
     })
     .catch(err => console.log('there was an error saving the masterpiece', err))
@@ -106,5 +104,14 @@ export const getMasterpieceDraft = (id) => {
   }
 }
 
+export const getChat = (friendId) => {
+  return dispatch => {
+    return axios.get(`/api/messages/${friendId}`)
+    .then(chatDrawing => {
+      console.log('CHAT DRAWING', chatDrawing.data)
+      dispatch(receiveVersion(chatDrawing.data))
+    })
+  }
+}
 
 export default reducer

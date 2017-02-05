@@ -7,6 +7,7 @@ api
   .get('/heartbeat', (req, res) => res.send({ok: true,}))
   .use('/auth', require('./authRoute'))
   .use('/users', require('./userRoute'))
+  .use('/friendships', require('./friendshipRoute'))
   .use('/messages', require('./messageRoute'))
   .use('/drawings', require('./drawingRoute'))
   .use('/profile', require('./profile'))

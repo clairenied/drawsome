@@ -23,7 +23,10 @@ User.belongsToMany(User, {
   through: {
     model: Friendship,
   }
-})
+});
+
+Friendship.belongsTo(User, { as: 'follower', foreignKey: 'follower_id', })
+Friendship.belongsTo(User, { as: 'followee', foreignKey: 'followee_id', })
 
 Friendship.belongsTo(Drawing, { as: 'chat_drawing' })
 Drawing.belongsTo(Drawing, { as: 'parent_drawing' })

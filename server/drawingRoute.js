@@ -9,13 +9,11 @@ const User = db.model('users')
 
 router.get('/', async (req, res, next) => {
   try {
-    const versions = await Version.findAll({
-      where: {
-        user_id: req.user.id
-      }, 
-      include: [ Drawing ]
-    })
-    
+    const friendships = await req.user.getAllFriendships()
+    const versions = friendships.map(friendship => {
+      return friendship.user.version
+    })    
+    console.log(versions)
     return res.send(versions)
   } catch(next){}
 })

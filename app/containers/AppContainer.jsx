@@ -23,46 +23,44 @@ class AppContainer extends React.Component {
     this.setState({ showChatSidebar: oppositeState })
   }
 
-  toggleShowChat(friendId){
+  toggleShowChat(userId){
     let newState = {}
-    newState[friendId] = !this.state.openChats[friendId]
+    newState[userId] = !this.state.openChats[userId]
 
     this.setState({ 
       openChats: Object.assign(this.state.openChats, newState) 
     })
   }
 
-  closeChat(friendId){
-    let newState = delete this.state.openChats[friendId]
+  closeChat(userId){
+    let newState = delete this.state.openChats[userId]
     this.setState({
       openChats: Object.assign(this.state.openChats, newState),
       activeChat: '',
     })
   }
 
-  openChat(friendId){
-    if ( !Object.keys(this.state.openChats).includes(friendId) && Object.keys(this.state.openChats).length < 3 ){
+  openChat(userId){
+    if ( !Object.keys(this.state.openChats).includes(userId) && Object.keys(this.state.openChats).length < 3 ){
       let friendObj = {}
-      friendObj[friendId] = true
+      friendObj[userId] = true
 
       this.setState({ 
         openChats: Object.assign(this.state.openChats, friendObj),
-        activeChat: friendId,
+        activeChat: userId,
       })   
     }
   }
 
-  setActiveChat(friendId){
-    this.setState({ activeChat: friendId })
+  setActiveChat(userId){
+    this.setState({ activeChat: userId })
   }
 
   render(){
-    console.log('CHATS BITCH', this.props.chats)
     return (
       <div>
         <Navbar />
         { this.props.user ? 
-
         <div className="chatbox-pen">
           <div className="chat-box-wrapper">
             <div onClick={this.toggleShowChatSidebar} className="title">
@@ -71,13 +69,13 @@ class AppContainer extends React.Component {
             { this.state.showChatSidebar ? 
               <div className="chat-sidebar-container-contents">
                 { 
-                  Object.values(this.props.friends).map((friend, i) => {
-                    const friendId = friend.id
+                  Object.values(this.props.users).map((user, i) => {
+                    const userId = user.id
                     return <p 
                         key={i} 
                         className="online"
-                        onClick={ this.openChat.bind(this, friendId) }>
-                          { friend.firstName } { friend.lastName }
+                        onClick={ this.openChat.bind(this, userId) }>
+                          { user.firstName } { user.lastName }
                       </p>
                   })
                 }
@@ -86,28 +84,27 @@ class AppContainer extends React.Component {
               <div></div> }      
           </div>
           {
-            Object.keys(this.state.openChats).map((friendId) => {
-              console.log('MESSAGE DRAWING ID\nMESSAGE DRAWING ID\nMESSAGE DRAWING ID\n', this.props.drawings[this.props.friends[friendId].chatId])
+            Object.keys(this.state.openChats).map((userId) => {
               return (
                 <div 
-                  key={friendId}
+                  key={userId}
                   className="chat-box-wrapper">
                   <div className="chat-box-title">
                     <span 
                       className="title-name"
-                      onClick={ this.toggleShowChat.bind(this, friendId) }>
-                      { this.props.friends[friendId].firstName } { this.props.friends[friendId].lastName }
+                      onClick={ this.toggleShowChat.bind(this, userId) }>
+                      { this.props.users[userId].firstName } { this.props.users[userId].lastName }
                     </span>
                     <span 
                       className="close glyphicon glyphicon-remove"
-                      onClick={ this.closeChat.bind(this, friendId) }>
+                      onClick={ this.closeChat.bind(this, userId) }>
                     </span>
                   </div>
-                  <div onClick={ this.setActiveChat.bind(this, friendId) }>
+                  <div onClick={ this.setActiveChat.bind(this, userId) }>
                     <ChatBox 
-                      showChat={ this.state.openChats[friendId] }
+                      showChat={ this.state.openChats[userId] }
                       postMessage={ this.props.postMessage }
-                      friend={ friendId }
+                      friendId={ userId }
                       />
                   </div>
                 </div>
@@ -125,20 +122,16 @@ class AppContainer extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps){
+const mapStateToProps = (state, ownProps) => {
   return {
     user: state.auth,
-    friends: state.friends,
-    chats:  Object.values(state.drawings).filter(drawing => drawing.type === "chat"),
+    users: state.users,
+    friendships: state.friendships
   }
 }
 
-function mapDispatchToProps(dispatch, ownProps){
-  return {
-    postMessage: (drawingData, loggedInUser, friendUser, drawingId) => {
-      return dispatch(postMessage(drawingData, loggedInUser, friendUser, drawingId))
-    },
-  }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer)

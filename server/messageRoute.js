@@ -5,44 +5,45 @@ const router = express.Router()
 const Drawing = db.model('drawing')
 const Version = db.model('version')
 const User = db.model('users')
+const Friendship = db.model('friendship')
 
-router.get('/', (req, res, next) => {
-  //find all chats where userID = req.loggedInUser
-  //fiter those chats for a chat that is associated with req.body.sendingTo
-  Drawing.findAll({
-    where: {
-      type: "chat",
-    },
-    include: [{
-      model: Version.scope('recent')
-    },{
-      model: User,
-      where: { }
-    }],
-  })
-  .then(drawings => {
-    return res.send(drawings)
-  })
-  .catch(next)
+router.get('/:id', async (req, res, next) => {
+  try {
+    const friendship = await Friendship.findById( req.params.id, { 
+      include: {
+        model: Drawing,
+        as: 'chat_drawing',
+        include: {
+          model: Version.scope('recent'),
+          include: [ Drawing ]
+        }
+      }
+    })
+    return res.send(friendship.chat_drawing.versions[0])
+  } catch(next){ console.error(next) }
 })
 
 router.post('/', async (req, res, next) => {
   try {
-    const drawing = await Drawing.findById(req.body.drawingId, {
-      include: {
-        model: Version.scope('recent')
-      }
+    const drawing = await Drawing.findById(req.body.drawingId)
+
+    const mostRecentVersion = await Version.findAll({
+      where: {
+        drawing_id: req.body.drawingId    
+      },
+      order: 'number DESC',
+      limit: 1,
     })
 
     const version = await Version.create({
-      user_id: req.body.loggedInUser,
-      drawing_id: req.body.drawingId,
-      number: ++drawing.versions[0].number,
-      data: req.body.drawingData
-    })  
+      user_id: req.user.id,
+      number: ++mostRecentVersion[0].number,
+      data: req.body.drawingData,
+    })
 
+    await version.setDrawing(drawing) 
     return res.send(version)
-  } catch(next){}
+  } catch(next){ console.error(next) }
 })
 
 module.exports = router

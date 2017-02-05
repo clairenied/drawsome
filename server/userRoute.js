@@ -49,19 +49,4 @@ router.get('/:id', mustBeLoggedIn, async (req, res, next) => {
 	} catch(next){}
 })
 
-router.get('/:id/friends', mustBeLoggedIn, async (req, res, next) => {
-	try {
-		const friends = await User.findById(req.params.id,{
-			include: [{
-        model: User,
-        as: 'followers'
-      },{
-        model: User,
-        as: 'followees'
-      }]
-		})
-		return res.json(friends)
-	} catch(next){ console.error(next) }
-})
-
 module.exports = router;

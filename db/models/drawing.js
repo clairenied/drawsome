@@ -35,8 +35,8 @@ const Drawing = db.define('drawing', {
       },
       getComments: function () {
         return Drawing.findAll({
-              where: { parent_drawing_id: this.id },
-              include: [Version.scope('recent'), User]
+          where: { parent_drawing_id: this.id },
+          include: [ Version.scope('recent'), User ]
         })
         .then((comments) => {
           this.setDataValue("comments", comments)

@@ -110,8 +110,7 @@ auth.get('/whoami', async (req, res, next) => {
         include: [ Version ]
       }]
     })
-
-    res.json(user)
+    return res.json(user)
   }catch(next){
     const err = new Error()
     err.status = 400
