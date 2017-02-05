@@ -79,13 +79,14 @@ export const postMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   }
 }
 
-export const postComment = (userId, masterpieceId, json, canEdit, priv) => {
+export const postComment = (userId, masterpiece, profileId, json, canEdit, priv) => {
   return dispatch => {
-    axios.post('/api/drawings/comment', {userId, masterpieceId, json, canEdit, priv})
+    axios.post('/api/drawings/comment', {userId, masterpiece, json, canEdit, priv})
     .then(drawing => {
-      // dispatch(setAllVersions(drawing.data.versions))
-      // dispatch(setMasterpiece(drawing.data))
-      browserHistory.push(`/profile/${userId}`)
+
+      dispatch(setAllVersions(drawing.data.versions))
+      dispatch(setMasterpiece(drawing.data))
+      browserHistory.push(`/profile/${profileId}`)
     })
     .catch(err => console.log('there was an error posting the comment', err))
   }

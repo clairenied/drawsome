@@ -31,8 +31,8 @@ const BigDoodle = (props) => {
           </Link>
         </div>
         <div className="col-xs-12">
-         {/*<CommentComponent masterpiece={props.masterpiece}/>*/}
-          {/*<div className="col-xs-12">
+<CommentComponent masterpiece={props.masterpiece} profile={props.profile}/>
+          <div className="col-xs-12">
             <h3>Comments:</h3>
           </div>
           <div className="col-xs-3">

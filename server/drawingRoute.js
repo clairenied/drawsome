@@ -50,12 +50,13 @@ router.post('/', (req, res, next) => {
 })
 
 router.post('/comment', (req, res, next) => {
+
   return Drawing.create({
     type: "comment",
     canEdit: req.body.canEdit,
     private: req.body.priv,
     likes: 0,
-    parent_drawing_id: req.body.masterpieceId
+    parent_drawing_id: req.body.masterpiece.id
   })
   .then(drawing => {
     return Promise.all([
@@ -69,6 +70,7 @@ router.post('/comment', (req, res, next) => {
     ])
   })
   .then(data => {
+
     // data.sort(function(a,b){
     //   return a.number - b.number
     // })
@@ -78,6 +80,7 @@ router.post('/comment', (req, res, next) => {
     //   versionNumber: data[0].versionNumber + 1,
     //   data: req.body.json
     // })
+
     return Drawing.findById(data[0][0][0].dataValues.drawing_id, {include: [{model: Version}]}) 
   })
   .then(drawing => {
