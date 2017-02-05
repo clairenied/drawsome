@@ -24,7 +24,6 @@ import DraftContainer from './containers/DraftContainer'
 // import {setSelectedMasterpiece} from './reducers/selected.jsx'
 import {getMasterpieceDraft} from './reducers/drawings.jsx'
 import {getProfile} from './reducers/profile.jsx'
-import { subscribeToNewMessages } from './reducers/messages.jsx'
 import {whoami} from './reducers/auth'
 
 const loadProfileOnEnter = function (nextRouterState) {

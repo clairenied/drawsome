@@ -27,6 +27,8 @@ const reducer = (state=initialState, action) => {
 		case ADD_USER:
 			nextState[action.user.id] = action.user
 			break;
+		case REMOVE_USER:
+			delete nextState[action.user.id]
 		default: 
 			return state
 	}
@@ -42,5 +44,45 @@ export const receiveUser = user =>
 		})
 	}
 
+export const REMOVE_USER = 'REMOVE_USER'
+export const removeUserFromStore = user => 
+	dispatch => {
+		return dispatch({
+			type: REMOVE_USER,
+			user,
+		})
+	}
+
+export const getUser = id => {
+	return dispatch => {
+		return axios.get(`/api/profile/${id}`)
+			.then(response => {
+				if(true){
+					dispatch(receiveUser(response.data))
+				}
+			})
+			.catch( err => console.log(err) )
+		}
+	}
+
+export const addFriend = id => {
+	return dispatch => {
+		return axios.post('/api/friendships/', { id })
+		.then(res => {
+			if(res) dispatch(receiveUser(res.data))
+		})
+		.catch( err => console.log(err) )
+	}
+}
+
+export const removeFriend = id => {
+	return dispatch => {
+		return axios.delete('/api/friendships/', { id })
+		.then(res => {
+			if(res) dispatch(removeUserFromStore(res.data))
+		})
+		.catch( err => console.log(err) )
+	}
+}
 
 export default reducer

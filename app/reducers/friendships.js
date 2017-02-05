@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { setAllMasterpieces } from './drawings'
 import { setAllVersions } from './versions'
-import { receiveUser } from './users' // <- is right now './friend'
+import { receiveUser } from './users'
 
 const transformFriendship = friendObj => {
   delete friendObj.follower
