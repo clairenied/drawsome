@@ -130,8 +130,6 @@ auth.post('/:strategy/login', (req, res, next) =>
 )
 
 auth.post('/logout', (req, res, next) => {
-  console.log('THISISREQ', req.user)
-  console.log('reqlogout',req.logout)
   req.logout()
   res.redirect('/api/auth/whoami')
 })
