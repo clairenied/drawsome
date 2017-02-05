@@ -109,7 +109,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     getUser: () => dispatch(getUser(ownProps.params.id)), 
     removeUserFromStore: () => dispatch(removeUserFromStore(ownProps.params.id)), 
     addFriend: () => dispatch(addFriend(ownProps.params.id)), 
-    deleteFriend: () => dispatch(deletFriend(ownProps.params.id)),
+    deleteFriend: () => dispatch(deleteFriend(ownProps.params.id)),
   }
 }
 
