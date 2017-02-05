@@ -8,6 +8,7 @@ class MasterpieceContainer extends Component{
   componentDidUpdate() {
     window.scrollTo(0,0);
   }
+  render(){
     return(
       <div>
         <div>
