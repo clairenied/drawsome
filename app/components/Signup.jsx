@@ -1,9 +1,6 @@
 import React from 'react';
 import {Alert} from 'react-bootstrap';
 
-
-
-
 export class Signup extends React.Component {
 
   constructor(props){
@@ -27,14 +24,12 @@ export class Signup extends React.Component {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)) {
       return (true)
     }
-      this.setState({emailSubmit:false})
       return (false)
 }
   fieldsFilled() {
     if (this.state.firstName !== '' & this.state.lastName !== '' & this.state.email !== '' & this.state.password !== ''){
       return true
     }
-      this.setState({nameSubmit:false})
       return false
   }
 

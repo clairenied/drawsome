@@ -11,8 +11,8 @@
     "build-css": "node-sass -w assets/stylesheets/style.scss -o public/stylesheets",
     "build-branch": "bin/build-branch.sh",
     "deploy-heroku": "bin/deploy-heroku.sh",
-    "start": "check-node-version --node '>= 6.7.0' && bin/setup && nodemon server/start.js",
-    "seed": "node db/seed.js"
+    "start": "check-node-version --node '>= 6.7.0' && bin/setup && nodemon -x 'node --harmony' server/start.js",
+    "seed": "node --harmony db/seed.js"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,8 @@
     "enzyme": "^2.7.1",
     "express": "^4.14.0",
     "font-awesome": "^4.7.0",
+    "lodash": "^4.17.4",
+    "jsdom": "^9.9.1",
     "mocha": "^3.2.0",
     "node-gyp": "^3.5.0",
     "node-sass": "^4.3.0",
@@ -79,6 +81,7 @@
     "babel-preset-react": "^6.16.0",
     "chai": "^3.5.0",
     "mocha": "^3.1.2",
+    "redux-mock-store": "^1.2.2",
     "supertest": "^2.0.1",
     "supertest-as-promised": "^4.0.1",
     "volleyball": "^1.4.1",

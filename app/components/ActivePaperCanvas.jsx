@@ -20,6 +20,10 @@ class ActivePaperCanvas extends React.Component {
       this.currentPaper.activate();
       this.props.onMouseDown(event, this.currentPaper);
     }
+
+    this.currentPaper.view.onMouseUp = (event) => {
+      this.props.onMouseUp(event, this.currentPaper);
+    }
     
     this.currentPaper.view.onMouseDrag = (event) => { 
       this.props.onMouseDrag(event, this.currentPaper)
@@ -50,15 +54,12 @@ class ActivePaperCanvas extends React.Component {
   }
 }
 
-ActivePaperCanvas.propTypes = {
-  json: React.PropTypes.array,
-}
-
 ActivePaperCanvas.defaultProps = {
   width: '450px',
   height: '450px',
-  onMouseDrag: function() {},
-
+  onMouseUp: function(){},
+  onMouseDown: function(){},
+  onMouseDrag: function(){},
 }
 
 export default ActivePaperCanvas

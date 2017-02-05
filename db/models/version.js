@@ -2,6 +2,11 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const Version = db.define('version', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   number: {
     type: Sequelize.INTEGER,
     defaultValue: 1,

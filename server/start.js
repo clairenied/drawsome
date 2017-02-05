@@ -7,7 +7,6 @@ const passport = require('passport')
 const PrettyError = require('pretty-error')
 const path = require('path')
 
-
 // Bones has a symlink from node_modules/APP to the root of the app.
 // That means that we can require paths relative to the app root by
 // saying require('APP/whatever').
@@ -16,6 +15,7 @@ const path = require('path')
 const pkg = require('APP')
 
 const app = express()
+
 
 if (!pkg.isProduction && !pkg.isTesting) {
   // Logging middleware (dev only)
@@ -77,5 +77,7 @@ if (module === require.main) {
       console.log(`--- Started HTTP Server for ${pkg.name} ---`)      
       console.log(`Listening on ${JSON.stringify(server.address())}`)
     }
-  )
+  );
+  require('./sockets').setIO(server);
+  
 }
