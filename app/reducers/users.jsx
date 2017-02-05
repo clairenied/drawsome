@@ -4,17 +4,18 @@ import { receiveVersions } from './versions'
 import { receiveDrawing } from './drawings'
 
 const transformUser = userObj => {
-	const userVersionsArr = userObj.versions.map(version => {
-		return version.id
-	})
+	if(userObj.versions){
+		const userVersionsArr = userObj.versions.map(version => {
+			return version.id
+		})
 
-	const userDrawingsArr = userObj.versions.map(version => {
-		return version.drawing_id
-	})
+		const userDrawingsArr = userObj.versions.map(version => {
+			return version.drawing_id
+		})
 
-	userObj.versions = userVersionsArr
-	userObj.drawings = userDrawingsArr
-
+		userObj.versions = userVersionsArr
+		userObj.drawings = userDrawingsArr		
+	}
 	return userObj
 }
 
@@ -35,7 +36,6 @@ const reducer = (state=initialState, action) => {
 export const ADD_USER = 'ADD_USER'
 export const receiveUser = user =>
 	dispatch => {
-		dispatch(receiveVersions(user.versions))
 		return dispatch({
 			type: ADD_USER,
 			user: transformUser(user),

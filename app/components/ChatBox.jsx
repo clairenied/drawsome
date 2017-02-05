@@ -6,7 +6,7 @@ import axios from 'axios'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
-import { getChat } from '../reducers/drawings'
+import { getChat, postChat } from '../reducers/drawings'
 
 class ChatBox extends React.Component {
   constructor(props) {
@@ -29,6 +29,7 @@ class ChatBox extends React.Component {
     this.onMouseUp = this.onMouseUp.bind(this)
     this.onMouseDrag = this.onMouseDrag.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
+    this.clear = this.clear.bind(this)
   }
 
   componentDidMount() {
@@ -46,30 +47,35 @@ class ChatBox extends React.Component {
   }
 
   onMouseUp(event, currentPaper){
-    axios.post('/api/messages', { 
-      drawingData: this.state.currentPaper.project.exportJSON(),
-      drawingId: this.props.friendship.chat_drawing_id,
-    })
+    this.props.postChat(currentPaper.project.exportJSON(), this.props.friendship.chat_drawing_id)
   }
 
   onMouseDrag(event, currentPaper) {
     this.path.add(event.point);
     this.path.smooth({ type: 'continuous' })
   }
+
+  clear(event, currentPaper) {
+    this.props.postChat('', this.props.friendship.chat_drawing_id)
+  }
   
   getCurrentPaper(paper) {
     this.setState({currentPaper: paper}) 
   }
 
-  render(){ 
-    const version = Object.values(this.props.versions).find(version => {
-      return version.drawing_id === this.props.friendship.chat_drawing_id
-    })
 
-    console.log('VERSION', version)
+  render(){ 
+    const version = Object.values(this.props.versions)
+      .filter(version => {
+        return version.drawing_id === this.props.friendship.chat_drawing_id
+      })
+      .reverse()[0]
+
+    console.log('VERSION', version.data)
     return (
       <div>     
-        <div className={ this.props.showChat ? "chat-box-container" : "hidden" }>   
+        <div className={ this.props.showChat ? "chat-box-container" : "hidden" }>  
+          <a onClick={ this.clear }>Clear</a> 
           <ActivePaperCanvas
             onInitialize={this.onInitialize}
             onMouseDown={this.onMouseDown}
@@ -100,12 +106,14 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getChat: friendshipId => dispatch(getChat(friendshipId))
+    getChat: friendshipId => dispatch(getChat(friendshipId)),
+    postChat: (drawingData, drawingId) => dispatch(postChat(drawingData, drawingId)),
   }
 }
 
 ChatBox.defaultProps = {
   getChat: function(){},
+  postChat: function(){},
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatBox)

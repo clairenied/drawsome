@@ -1,6 +1,7 @@
 const db = require('APP/db')
 const express = require('express')
 const router = express.Router()
+const _ = require('lodash')
 
 const Drawing = db.model('drawing')
 const Version = db.model('version')
@@ -9,13 +10,16 @@ const User = db.model('users')
 
 router.get('/', async (req, res, next) => {
   try {
-    const friendships = await req.user.getAllFriendships()
-    const versions = friendships.map(friendship => {
-      return friendship.user.version
-    })    
-    console.log(versions)
-    return res.send(versions)
-  } catch(next){}
+    const drawings = await Drawing.findAll({
+      include: {
+        model: Version.scope('recent'),
+        include: [ Drawing ],
+        limit: 50,
+      }
+    })
+    console.log(drawings)
+    return res.send(drawings)
+  } catch(next){ console.error(next) }
 })
 
 router.post('/', (req, res, next) => {

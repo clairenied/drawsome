@@ -2,6 +2,8 @@ import axios from 'axios'
 import {browserHistory} from 'react-router'
 import {loginIssue, signinIssue} from './warnings'
 import { getFriendships } from './friendships'
+import { getDrawings } from './drawings'
+
 
 const reducer = (state=null, action) => {
   switch(action.type) {
@@ -59,6 +61,7 @@ export const whoami = () =>
         const user = response.data
         if(user){
           dispatch(getFriendships())
+          dispatch(getDrawings())
         }
         dispatch(authenticated(user))
       })

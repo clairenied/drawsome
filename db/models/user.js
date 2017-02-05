@@ -60,30 +60,13 @@ const User = db.define('users', {
             followee_id: this.id,
           }]
         },
-        include: [
-          {
-            model: User,
-            as: 'follower',
-            include: {
-              model: Version,
-              include: {
-                model: Drawing,
-                include: [ Version ]
-              }
-            },
-          },
-          {
-            model: User,
-            as: 'followee',
-            include: {
-              model: Version,
-              include: {
-                model: Drawing,
-                include: [ Version ]
-              }
-            },
-          },
-        ] 
+        include: [{
+          model: User,
+          as: 'follower',
+        },{
+          model: User,
+          as: 'followee',
+        }] 
       })
     }
   }

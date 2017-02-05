@@ -7,9 +7,9 @@ const transformDrawing = drawingObj => {
     const versionsArr = drawingObj.versions.map(version => {
       return version.id
     })
-    
     drawingObj.versions = versionsArr
-    delete drawingObj.version
+  } else {
+    drawingObj.versions = []
   }
   return drawingObj
 }
@@ -37,13 +37,22 @@ export const receiveDrawing = drawing => {
 }
 
 export const receiveDrawings = drawings => {
-	return dispatch => {
+  return dispatch => {
     return drawings.forEach(drawing => {
-      dispatch(receiveVersions(drawing.versions));
+      if (drawing.versions) dispatch(receiveVersions(drawing.versions));
       dispatch(receiveDrawing(drawing));
     });
-	}
+  }
 }
+
+export const getDrawings = () =>
+  dispatch =>
+    axios.get('/api/drawings')
+      .then(res => {
+        console.log('RESSSSS', res.data)
+        return res.data
+      })
+      .then(drawings => dispatch(receiveDrawings(drawings)));
 
 export const createMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   return dispatch => {
@@ -107,9 +116,17 @@ export const getMasterpieceDraft = (id) => {
 export const getChat = (friendId) => {
   return dispatch => {
     return axios.get(`/api/messages/${friendId}`)
-    .then(chatDrawing => {
-      console.log('CHAT DRAWING', chatDrawing.data)
-      dispatch(receiveVersion(chatDrawing.data))
+    .then(res => {
+      dispatch(receiveVersion(res.data))
+    })
+  }
+}
+
+export const postChat = (drawingData, drawingId) => {
+  return dispatch => {
+    return axios.post('/api/messages', { drawingData, drawingId })
+    .then(res => {
+      dispatch(receiveVersion(res.data))
     })
   }
 }

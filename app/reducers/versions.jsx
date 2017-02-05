@@ -23,7 +23,7 @@ const reducer  = (state = initialState, action) => {
 const ADD_VERSION = "ADD_VERSION"
 export const receiveVersion = version => 
   dispatch => {
-    dispatch(receiveDrawing(version.drawing))
+    if (version.drawing) dispatch(receiveDrawing(version.drawing))
     return dispatch ({
       type: ADD_VERSION,
       version: transformVersion(version)
