@@ -98,20 +98,24 @@ passport.use(new (require('passport-local').Strategy) (
 
 auth.get('/whoami', async (req, res, next) => {
   try {
-    const user = await User.findById(req.user.id, {
-      include: [{
-        model: User,
-        as: 'followers',
-      },{
-        model: User,
-        as: 'followees',
-      },{
-        model: Drawing,
-        include: [ Version ]
-      }]
-    })
+    if(req.user){
+      const user = await User.findById(req.user.id, {
+        include: [{
+          model: User,
+          as: 'followers',
+        },{
+          model: User,
+          as: 'followees',
+        },{
+          model: Drawing,
+          include: [ Version ]
+        }]
+      })
 
-    res.json(user)
+      res.json(user)
+    } else {
+      res.end()
+    }
   }catch(next){
     const err = new Error()
     err.status = 400
