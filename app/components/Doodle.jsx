@@ -7,6 +7,7 @@ import { Link } from 'react-router'
 
 
 const Doodle = (props) => {
+  let drawing = props.drawing;
   return (
     <div className="col-xs-12 col-sm-6 col-md-4">
       <div className="img-card">
@@ -16,7 +17,8 @@ const Doodle = (props) => {
         }
         </div>
         <h2 className="doodle-name">{props.drawing.name}</h2>
-        <h3> <Link to="/profile">Mike Purgatori,</Link> <Link to="/profile">Zeke Nierenberg</Link></h3>
+        {drawing.users ? (<h3><Link to={`/profile/${drawing.users[0].id}`}>{drawing.users[0].fullName}</Link></h3>) : null}
+        {props.user && !drawing.users ? (<h3><Link to={`/profile/${props.user.id}`}>{props.user.fullName}</Link></h3>) : null}
         <h4>{props.drawing.created_at}</h4>
       </div>
 

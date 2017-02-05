@@ -10,8 +10,8 @@ class AppContainer extends React.Component {
 
     this.state = {
       showChatSidebar: false,
-      openMessages: {},
-      activeMessage: '',
+      openChats: {},
+      activeChat: '',
     }
 
     this.toggleShowChatSidebar = this.toggleShowChatSidebar.bind(this)
@@ -23,43 +23,44 @@ class AppContainer extends React.Component {
     this.setState({ showChatSidebar: oppositeState })
   }
 
-  toggleShowChat(friendId){
+  toggleShowChat(userId){
     let newState = {}
-    newState[friendId] = !this.state.openMessages[friendId]
+    newState[userId] = !this.state.openChats[userId]
 
     this.setState({ 
-      openMessages: Object.assign(newState, this.state.openMessages) 
+      openChats: Object.assign(this.state.openChats, newState) 
     })
   }
 
-  closeChat(friendId){
-    let newState = delete this.state.openMessages[friendId]
+  closeChat(userId){
+    let newState = delete this.state.openChats[userId]
     this.setState({
-      openMessages: Object.assign(newState, this.state.openMessages),
-      activeMessage: '',
+      openChats: Object.assign(this.state.openChats, newState),
+      activeChat: '',
     })
   }
 
-  openMessageBox(friendId){
-    if ( !Object.keys(this.state.openMessages).includes(friendId) && Object.keys(this.state.openMessages).length < 3 ){
+  openChat(userId){
+    if ( !Object.keys(this.state.openChats).includes(userId) && Object.keys(this.state.openChats).length < 3 ){
       let friendObj = {}
-      friendObj[friendId] = true
+      friendObj[userId] = true
 
       this.setState({ 
-        openMessages: Object.assign(friendObj, this.state.openMessages),
-        activeMessage: friendId,
+        openChats: Object.assign(this.state.openChats, friendObj),
+        activeChat: userId,
       })   
     }
   }
 
-  setActiveMessage(friendId){
-    this.setState({ activeMessage: friendId })
+  setActiveChat(userId){
+    this.setState({ activeChat: userId })
   }
 
   render(){
     return (
       <div>
         <Navbar />
+        { this.props.user ? 
         <div className="chatbox-pen">
           <div className="chat-box-wrapper">
             <div onClick={this.toggleShowChatSidebar} className="title">
@@ -68,13 +69,13 @@ class AppContainer extends React.Component {
             { this.state.showChatSidebar ? 
               <div className="chat-sidebar-container-contents">
                 { 
-                  Object.values(this.props.friends).map((friend, i) => {
-                    const friendId = friend.id
+                  Object.values(this.props.users).map((user, i) => {
+                    const userId = user.id
                     return <p 
                         key={i} 
                         className="online"
-                        onClick={ this.openMessageBox.bind(this, friendId) }>
-                          { friend.firstName } { friend.lastName }
+                        onClick={ this.openChat.bind(this, userId) }>
+                          { user.firstName } { user.lastName }
                       </p>
                   })
                 }
@@ -83,30 +84,36 @@ class AppContainer extends React.Component {
               <div></div> }      
           </div>
           {
-            Object.keys(this.state.openMessages).map((friendId, i) => {
+            Object.keys(this.state.openChats).map((userId) => {
               return (
                 <div 
-                  key={i}
+                  key={userId}
                   className="chat-box-wrapper">
                   <div className="chat-box-title">
                     <span 
                       className="title-name"
-                      onClick={ this.toggleShowChat.bind(this, friendId) }>
-                      { this.props.friends[friendId].firstName } { this.props.friends[friendId].lastName }
+                      onClick={ this.toggleShowChat.bind(this, userId) }>
+                      { this.props.users[userId].firstName } { this.props.users[userId].lastName }
                     </span>
                     <span 
                       className="close glyphicon glyphicon-remove"
-                      onClick={ this.closeChat.bind(this, friendId) }>
+                      onClick={ this.closeChat.bind(this, userId) }>
                     </span>
                   </div>
-                  <div onClick={ this.setActiveMessage.bind(this, friendId) }>
-                    <ChatBox showChat={this.state.openMessages[friendId]}/>
+                  <div onClick={ this.setActiveChat.bind(this, userId) }>
+                    <ChatBox 
+                      showChat={ this.state.openChats[userId] }
+                      postMessage={ this.props.postMessage }
+                      friendId={ userId }
+                      />
                   </div>
                 </div>
               )
             })
           }
-        </div>
+        </div> :
+        <div></div>
+        }
         <div className="app-container">
           {this.props.children}
         </div>
@@ -115,11 +122,16 @@ class AppContainer extends React.Component {
   }
 }
 
-function mapStateToProps(state, props){
+const mapStateToProps = (state, ownProps) => {
   return {
-    friends: state.friends,
     user: state.auth,
+    users: state.users,
+    friendships: state.friendships
   }
 }
 
-export default connect(mapStateToProps)(AppContainer)
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer)
