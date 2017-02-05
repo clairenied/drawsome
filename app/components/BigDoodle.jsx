@@ -20,14 +20,14 @@ const BigDoodle = (props) => {
           </div>
           <Link to="/masterpiece">
             <div className="col-xs-12 col-md-8">
-              <div className="doodle-container">
+              <div className="masterpiece-container">
                 <PaperCanvas json={masterpieceVersion[0].data} />
               </div>
             </div>
           </Link>
         </div>
         <div className="col-xs-12">
-        <CommentComponent masterpiece={props.masterpiece}/>
+<CommentComponent masterpiece={props.masterpiece} profile={props.profile}/>
           <div className="col-xs-12">
             <h3>Comments:</h3>
           </div>

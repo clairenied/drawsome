@@ -100,7 +100,7 @@ class MasterpieceContainer extends React.Component {
 
   postDrawing(e){
     e.preventDefault()
-    this.props.PostComment(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, false)
+    this.props.postMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, false)
   }
 
   getCurrentPaper(paper) {
