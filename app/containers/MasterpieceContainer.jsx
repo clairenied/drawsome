@@ -8,6 +8,7 @@ export function MasterpieceContainer(props){
     <div>
       <div>
         <MakeDrawing user={props.user}/>
+
       </div>
       <div className="draft-section">
         <DraftContainer />
