@@ -22,13 +22,13 @@ import EditMasterpieceDraft from './containers/EditMasterpieceDraft'
 import DraftContainer from './containers/DraftContainer'
 
 // import {setSelectedMasterpiece} from './reducers/selected.jsx'
+import { getUser } from './reducers/users.jsx'
 import {getMasterpieceDraft} from './reducers/drawings.jsx'
-import {getProfile} from './reducers/profile.jsx'
 import {whoami} from './reducers/auth'
 
 const loadProfileOnEnter = function (nextRouterState) {
   const profileId = nextRouterState.params.id;
-  store.dispatch(getProfile(profileId));
+  store.dispatch(getUser(profileId));
 };
 
 render (
