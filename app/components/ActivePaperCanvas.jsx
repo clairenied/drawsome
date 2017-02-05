@@ -54,10 +54,6 @@ class ActivePaperCanvas extends React.Component {
   }
 }
 
-ActivePaperCanvas.propTypes = {
-  json: React.PropTypes.array,
-}
-
 ActivePaperCanvas.defaultProps = {
   width: '450px',
   height: '450px',

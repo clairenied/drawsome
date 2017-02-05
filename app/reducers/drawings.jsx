@@ -67,7 +67,7 @@ export const createMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   }
 }
 
-export const postMasterpieceDraft = (userId, json, canEdit, priv) => {
+export const postMasterpieceDraft = (userId, name, json, canEdit, priv) => {
   return dispatch => {
     axios.post('/api/drawings/', {userId, name, json, canEdit, priv})
     .then(drawing => {

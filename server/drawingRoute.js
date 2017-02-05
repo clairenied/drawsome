@@ -17,7 +17,6 @@ router.get('/', async (req, res, next) => {
         limit: 50,
       }
     })
-    console.log(drawings)
     return res.send(drawings)
   } catch(next){ console.error(next) }
 })
@@ -76,7 +75,6 @@ router.post('/comment', (req, res, next) => {
     //   versionNumber: data[0].versionNumber + 1,
     //   data: req.body.json
     // })
-    console.log('DATA VALS',data[0][0][0])
     return Drawing.findById(data[0][0][0].dataValues.drawing_id, {include: [{model: Version}]}) 
   })
   .then(drawing => {
