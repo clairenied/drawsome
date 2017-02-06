@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 import PaperCanvas from './PaperCanvas';
 import sampleDrawing from '../sample-drawing';
-
 import { Link } from 'react-router'
+import { dateFormatted } from '../helperFunctions'
+
 
 
 const Doodle = (props) => {
@@ -17,8 +18,9 @@ const Doodle = (props) => {
         }
         </div>
         <h2 className="doodle-name">{props.drawing.name}</h2>
-        {props.user && !props.artist ? (<h3><Link to={`/profile/${props.user.id}`}>{props.user.fullName}</Link></h3>) : (<h3><Link to={`/profile/${props.artist.id}`}>{props.artist.fullName}</Link></h3>)}
-        <h4>{props.drawing.created_at}</h4>
+        {drawing.users ? (<h3><Link to={`/profile/${drawing.users[0].id}`}>{drawing.users[0].fullName}</Link></h3>) : null}
+        {props.user && !drawing.users ? (<h3><Link to={`/profile/${props.user.id}`}>{props.user.fullName}</Link></h3>) : null}
+        <h4>{dateFormatted(props.drawing.created_at)}</h4>
       </div>
 
     </div>

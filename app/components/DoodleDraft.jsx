@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PaperCanvas from './PaperCanvas';
 import sampleDrawing from '../sample-drawing';
 import { Link } from 'react-router'
+import { dateFormatted } from '../helperFunctions'
 
 
 const DoodleDraft = (props) => {
@@ -14,7 +15,7 @@ const DoodleDraft = (props) => {
         }
         </div>
         <h3>{props.drawing.name}</h3>
-        <h4>{props.drawing.created_at}</h4>
+        <h4>{dateFormatted(props.drawing.created_at)}</h4>
       </div>
 
     </div>
