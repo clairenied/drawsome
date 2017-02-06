@@ -7,7 +7,6 @@ const rootReducer = combineReducers({
   friendships: require('./friendships').default,
   drawings: require('./drawings.jsx').default,
   versions: require('./versions.jsx').default,
-  profile: require('./profile.jsx').default,
 })
 
 export default rootReducer

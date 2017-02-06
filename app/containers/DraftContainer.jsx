@@ -9,7 +9,6 @@ export class DraftContainer extends Component {
   }
 
 	render(){
-		console.log('DRAFTS', this.props.drafts)
 		return(
 			<div className="container">
 	      <h1>Drafts</h1>

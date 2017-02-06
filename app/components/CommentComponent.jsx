@@ -18,7 +18,8 @@ export class CommentComponent extends React.Component {
         opacity: 1,
       },
       currentPaper: null,
-      name: ''
+      name: '',
+      showComment: false
     }
 
     this.onMouseDown = this.onMouseDown.bind(this)
@@ -28,6 +29,7 @@ export class CommentComponent extends React.Component {
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
     this.clearCanvas = this.clearCanvas.bind(this)
     this.undoDraw = this.undoDraw.bind(this)
+    this.toggleComment=this.toggleComment.bind(this)
   }
   
   onInitialize(paperScope) {
@@ -39,15 +41,19 @@ export class CommentComponent extends React.Component {
     this.path = new this.Path(this.state.paperSettings);
   }
 
+  toggleComment(event, currentPaper){
+      let toggle = this.state.showComment;
+      this.setState({showComment: !toggle})
+    }
+
   onMouseDrag(event, currentPaper) {
     this.path.add(event.point);
     this.path.smooth({ type: 'continuous' })
   }
 
   saveComment(e){
-
     e.preventDefault()
-      this.props.postComment(this.props.user.id, this.props.masterpiece.id, this.state.currentPaper.project.exportJSON(), false, false)
+      this.props.postComment(this.props.user.id, this.props.masterpiece, this.props.profile.id, this.state.currentPaper.project.exportJSON(), false, false)
   }
 
   getCurrentPaper(paper) {
@@ -72,31 +78,36 @@ export class CommentComponent extends React.Component {
   render(){
     return(
       <div>
-      <div className="container">
-        <div className="col-xs-12 col-sm-4">
-        </div>  
-        <div className="col-xs-12 col-sm-8">
-          <div className="masterpiece-container">
-            <ActivePaperCanvas
-              getCurrentPaper={this.getCurrentPaper}
-              onInitialize={this.onInitialize}
-              onMouseDrag={this.onMouseDrag}
-              onMouseDown={this.onMouseDown}
-              clearCanvas={this.clearCanvas}
-              undoDraw = {this.undoDraw}
-              />
-          <div className="palette">
-            <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>  
-            <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button> 
-          </div>
-            <form id="master-buttons" className="form-inline">
-              <button type="button" onClick={this.saveComment} className="btn btn-secondary" id="post-button">Post</button>
-            </form>
-          </div>
-        </div> 
-      </div>
-      <div className="draft-section">
-      </div>
+        <button type="button" id="post-button" className="btn btn=secondary" onClick={this.toggleComment}>Add Comment</button>
+              <div className="container">
+                <div className="col-xs-12 col-sm-4">
+                </div>  
+
+              {this.state.showComment ? 
+                (<div className="col-xs-12 col-sm-8">
+                  <div className="masterpiece-container">
+                    <ActivePaperCanvas
+                      getCurrentPaper={this.getCurrentPaper}
+                      onInitialize={this.onInitialize}
+                      onMouseDrag={this.onMouseDrag}
+                      onMouseDown={this.onMouseDown}
+                      clearCanvas={this.clearCanvas}
+                      undoDraw = {this.undoDraw}
+                      />
+                  <div className="palette">
+                    <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>  
+                    <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button> 
+                  </div>
+                    <form id="master-buttons" className="form-inline">
+                      <button type="button" onClick={this.saveComment} className="btn btn-secondary" id="post-button">Post</button>
+                    </form>
+                  </div>
+                </div>) : null}
+
+
+              </div>
+              <div className="draft-section">
+          </div> 
       </div>
     )
   }

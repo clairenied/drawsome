@@ -11,13 +11,15 @@ const User = db.model('users')
 router.get('/', async (req, res, next) => {
   try {
     const drawings = await Drawing.findAll({
-      include: {
+      include: [{
         model: Version.scope('recent'),
         include: [ Drawing ],
         limit: 50,
-      }
+      },{
+        model: Drawing,
+        as: 'parent_drawing'
+      }]
     })
-    console.log(drawings)
     return res.send(drawings)
   } catch(next){ console.error(next) }
 })
@@ -48,12 +50,13 @@ router.post('/', (req, res, next) => {
 })
 
 router.post('/comment', (req, res, next) => {
+
   return Drawing.create({
     type: "comment",
     canEdit: req.body.canEdit,
     private: req.body.priv,
     likes: 0,
-    parent_drawing_id: req.body.masterpieceId
+    parent_drawing_id: req.body.masterpiece.id
   })
   .then(drawing => {
     return Promise.all([
@@ -67,6 +70,7 @@ router.post('/comment', (req, res, next) => {
     ])
   })
   .then(data => {
+
     // data.sort(function(a,b){
     //   return a.number - b.number
     // })
@@ -76,7 +80,7 @@ router.post('/comment', (req, res, next) => {
     //   versionNumber: data[0].versionNumber + 1,
     //   data: req.body.json
     // })
-    console.log('DATA VALS',data[0][0][0])
+
     return Drawing.findById(data[0][0][0].dataValues.drawing_id, {include: [{model: Version}]}) 
   })
   .then(drawing => {

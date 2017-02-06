@@ -1,19 +1,14 @@
 import axios from 'axios';
 import { setAllMasterpieces } from './drawings'
 import { receiveVersions } from './versions'
-import { receiveDrawing } from './drawings'
+import { receiveDrawings } from './drawings'
 
 const transformUser = userObj => {
-	if(userObj.versions){
-		const userVersionsArr = userObj.versions.map(version => {
-			return version.id
+	if(userObj.drawings){
+		const userDrawingsArr = userObj.drawings.map(drawing => {
+			return drawing.id
 		})
 
-		const userDrawingsArr = userObj.versions.map(version => {
-			return version.drawing_id
-		})
-
-		userObj.versions = userVersionsArr
 		userObj.drawings = userDrawingsArr		
 	}
 	return userObj
@@ -38,6 +33,9 @@ const reducer = (state=initialState, action) => {
 export const ADD_USER = 'ADD_USER'
 export const receiveUser = user =>
 	dispatch => {
+		if(user.drawings){
+			dispatch(receiveDrawings(user.drawings))
+		}
 		return dispatch({
 			type: ADD_USER,
 			user: transformUser(user),
@@ -52,6 +50,8 @@ export const removeUserFromStore = user =>
 			user,
 		})
 	}
+
+
 
 export const getUser = id => {
 	return dispatch => {
