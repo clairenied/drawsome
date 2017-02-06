@@ -92,7 +92,7 @@ const mapStateToProps = (state, ownProps) => {
     .filter(version => version.user_id === Number(ownProps.params.id));
 
   const drawings = Object.values(state.drawings)
-    .filter(drawing => drawing.type === 'masterpiece' && drawing.versions
+    .filter(drawing => drawing.type === 'masterpiece' && drawing.private===false && drawing.versions
       .some(version_id => versions.some(version => version.id === version_id)))
 
   return {
