@@ -2,6 +2,7 @@ import axios from 'axios';
 import { setAllMasterpieces } from './drawings'
 import { receiveVersions } from './versions'
 import { receiveDrawings } from './drawings'
+import { deleteFriendship, receiveFriendship } from './friendships'
 
 const transformUser = userObj => {
 	if(userObj.drawings){
@@ -51,8 +52,6 @@ export const removeUserFromStore = user =>
 		})
 	}
 
-
-
 export const getUser = id => {
 	return dispatch => {
 		return axios.get(`/api/profile/${id}`)
@@ -69,17 +68,26 @@ export const addFriend = id => {
 	return dispatch => {
 		return axios.post('/api/friendships/', { id })
 		.then(res => {
-			if(res) dispatch(receiveUser(res.data))
+			if(res) {
+				dispatch(receiveUser(res.data[0]))
+				dispatch(receiveFriendship(res.data[1]))
+			}
 		})
 		.catch( err => console.log(err) )
 	}
 }
 
-export const removeFriend = id => {
+export const deleteFriend = id => {
 	return dispatch => {
-		return axios.delete('/api/friendships/', { id })
+		console.log('IDHERE', id)
+		return axios.delete(`/api/friendships/${id}`)
 		.then(res => {
-			if(res) dispatch(removeUserFromStore(res.data))
+			console.log("RES", res)
+			if(res) {
+				console.log(res.data)
+				dispatch(removeUserFromStore(res.data[0]))
+				dispatch(deleteFriendship(res.data[1]))
+			}
 		})
 		.catch( err => console.log(err) )
 	}

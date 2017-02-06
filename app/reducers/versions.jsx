@@ -32,9 +32,11 @@ export const receiveVersion = version =>
 
 export const receiveVersions = versions => {
 	return dispatch => {
-    return versions.forEach(version => {
+    if (versions) {
+      return versions.forEach(version => {
     	dispatch(receiveVersion(version));
-    })
+      }) 
+    }
 	}
 }
 

@@ -59,6 +59,7 @@ export const whoami = () =>
     axios.get('/api/auth/whoami')
       .then(response => {
         const user = response.data
+
         dispatch(authenticated(user))
         dispatch(getFriendships())
         dispatch(receiveDrawings(user.drawings))

@@ -83,9 +83,8 @@ export const postComment = (userId, masterpiece, profileId, json, canEdit, priv)
   return dispatch => {
     axios.post('/api/drawings/comment', {userId, masterpiece, json, canEdit, priv})
     .then(drawing => {
-
-      dispatch(setAllVersions(drawing.data.versions))
-      dispatch(setMasterpiece(drawing.data))
+      dispatch(receiveVersions(drawing.data.versions))
+      dispatch(receiveDrawing(drawing.data))
       browserHistory.push(`/profile/${profileId}`)
     })
     .catch(err => console.log('there was an error posting the comment', err))
