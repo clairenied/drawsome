@@ -80,3 +80,12 @@ nav .navbar-default{
   font-weight: 500;
 }
 
+.searchStyle{
+  z-index:1;
+  top:10px;
+  position:absolute;
+}
+
+.resultStyle{
+  background-color: white;
+}
