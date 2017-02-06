@@ -22,7 +22,7 @@ router.get('/', forbidden('only admins can list users'), async (req, res, next) 
 router.post('/', async (req, res, next) => {
 	try {
 		const users = await User.create(req.body)
-		return res.status(201).json(user)
+		return res.status(201).json(users)
 	} catch(next){}
 })
 
