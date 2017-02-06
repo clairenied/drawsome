@@ -20,31 +20,29 @@ router.get('/', mustBeLoggedIn, async (req, res, next) => {
 
 router.post('/', mustBeLoggedIn, async (req, res, next) => {
   try {
-    const newFriend = await User.findById(req.body.id)
+    const newFriend = await User.findById(Number(req.body.id))
     const newFriendship = await Friendship.create({
-      follower: req.user,
-      followee: newFriend,
+      follower_id: req.user.id,
+      followee_id: newFriend.id,
     })
-    return res.json(newFriend)
+    return res.json([newFriend, newFriendship])
   } catch(next){ console.error(next) }
 })
 
-router.delete('/', mustBeLoggedIn, async (req, res, next) => {
+router.delete('/:id', mustBeLoggedIn, async (req, res, next) => {
   try {
-    const removeFriend = await User.findById(req.body.id)
+    console.log('REQUSER THEN REQBODY', req.user.id, req.params.id)
+    const removeFriend = await User.findById(req.params.id)
     const friendship = await Friendship.findOne({
       where: {
-        $or: [{ 
           follower_id: req.user.id, 
-          followee_id: req.body.id, 
-        },{
-          follower_id: req.body.id, 
-          followee_id: req.user.id,
-        }]
+          followee_id: req.params.id
       }
     })
+    console.log("friendship", friendship)
+    let friendshipInfo = friendship
     await friendship.destroy()
-    return res.send(removeFriend)
+    return res.send([removeFriend, friendshipInfo])
   } catch(next){ console.error(next) }
 })
 

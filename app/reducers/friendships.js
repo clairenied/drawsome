@@ -17,6 +17,9 @@ const reducer = (state=initialState, action) => {
     case ADD_FRIENDSHIP:
       nextState[action.friendship.id] = action.friendship
       break;
+    case DELETE_FRIENDSHIP:
+      delete nextState[action.friendship.id]
+      break;
     default: 
       return state
   }
@@ -30,6 +33,15 @@ export const receiveFriendship = friendship => {
     friendship: transformFriendship(friendship),
   }
 }
+
+export const DELETE_FRIENDSHIP = 'DELETE_FRIENDSHIP'
+export const deleteFriendship = friendship => {
+  return {
+    type: 'DELETE_FRIENDSHIP',
+    friendship,
+  }
+}
+
 
 export const receiveFriendships = friendships => {
   return dispatch => {

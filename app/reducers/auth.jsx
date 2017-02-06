@@ -62,7 +62,7 @@ export const whoami = () =>
         if(user){
           dispatch(getFriendships())
           dispatch(receiveDrawings(user.drawings))
-          // dispatch(getDrawings())
+          dispatch(getDrawings())
         }
         dispatch(authenticated(user))
         if(!user){
