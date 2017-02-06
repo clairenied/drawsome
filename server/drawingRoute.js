@@ -71,19 +71,20 @@ router.post('/comment', (req, res, next) => {
   })
   .then(data => {
 
-    // data.sort(function(a,b){
-    //   return a.number - b.number
-    // })
-    // return Version.create({
-    //   drawing_id: req.params.id,
-    //   user_id: req.body.userId,
-    //   versionNumber: data[0].versionNumber + 1,
-    //   data: req.body.json
-    // })
+    data.sort(function(a,b){
+      return a.number - b.number
+    })
+    return Version.create({
+      drawing_id: req.params.id,
+      user_id: req.body.userId,
+      versionNumber: data[0].versionNumber + 1,
+      data: req.body.json
+    })
 
     return Drawing.findById(data[0][0][0].dataValues.drawing_id, {include: [{model: Version}]}) 
   })
   .then(drawing => {
+    console.log("DRAWING in API", drawing)
     res.json(drawing)
   })
   .catch(next);
