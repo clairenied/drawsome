@@ -35,7 +35,6 @@ export const signup = (firstName, lastName, birthday, email, password) =>
   dispatch => 
     axios.post('/api/users', {firstName, lastName, birthday, email, password})
     .then((res) => {
-      console.log(res)
       dispatch(login(res.data.email, res.data.password))
       browserHistory.push('/gallery')
     })
@@ -59,11 +58,12 @@ export const whoami = () =>
     axios.get('/api/auth/whoami')
       .then(response => {
         const user = response.data
-
-        dispatch(authenticated(user))
-        dispatch(getFriendships())
-        dispatch(receiveDrawings(user.drawings))
+        if(user){
+          dispatch(authenticated(user))
+          dispatch(getFriendships())
+          dispatch(receiveDrawings(user.drawings))
           // dispatch(getDrawings())
+        } else return
       })
       .catch(failed => {
         browserHistory.push('/login')
