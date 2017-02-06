@@ -42,6 +42,17 @@
   background-color: #ff5602;
   color: #ffffff; }
 
+.clear-title {
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
+  pointer-events: auto;
+  width: 20rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem 0.5rem 2rem;
+  background-color: #efefef;
+  color: #000000; }
+
 .title-name {
   cursor: pointer; }
 

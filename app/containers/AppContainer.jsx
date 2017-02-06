@@ -3,6 +3,7 @@ import {connect, Provider} from 'react-redux'
 
 import Navbar from '../components/Navbar'
 import ChatBox from '../components/ChatBox'
+import { subscribeToNewChats } from '../reducers/drawings'
 
 class AppContainer extends React.Component {
   constructor(props){
@@ -16,6 +17,10 @@ class AppContainer extends React.Component {
 
     this.toggleShowChatSidebar = this.toggleShowChatSidebar.bind(this)
     this.toggleShowChat = this.toggleShowChat.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.subscribeToNewChats()
   }
 
   toggleShowChatSidebar(){
@@ -131,7 +136,9 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return {}
+  return {
+    subscribeToNewChats: () => dispatch(subscribeToNewChats()),
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer)

@@ -78,6 +78,8 @@ if (module === require.main) {
       console.log(`Listening on ${JSON.stringify(server.address())}`)
     }
   );
-  require('./sockets').setIO(server);
-  
+  const io = require('./sockets')
+  io.setIO(server)
+
+  io.io.on('connection', io.listenForConnections)
 }

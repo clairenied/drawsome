@@ -3,10 +3,11 @@ import {connect, Provider} from 'react-redux'
 import { Link } from 'react-router'
 import paper from 'paper'
 import axios from 'axios'
+import io from '../socket'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
-import { getChat, postChat } from '../reducers/drawings'
+import { getChat, postChat, subscribeToNewChats } from '../reducers/drawings'
 
 class ChatBox extends React.Component {
   constructor(props) {
@@ -30,12 +31,21 @@ class ChatBox extends React.Component {
     this.onMouseDrag = this.onMouseDrag.bind(this)
     this.getCurrentPaper = this.getCurrentPaper.bind(this)
     this.clearCanvas= this.clearCanvas.bind(this)
-    this.undoDraw = this.undoDraw.bind(this)
+    this.getVersion = this.getVersion.bind(this)
   }
 
   componentDidMount() {
     const friendshipId = this.props.friendship.id
     this.props.getChat(friendshipId)
+    this.props.subscribeToNewChats()
+  }
+
+  getVersion(){
+    return Object.values(this.props.versions)
+      .filter(version => {
+        return version.drawing_id === this.props.friendship.chat_drawing_id
+      })
+      .reverse()[0]
   }
 
   onInitialize(paperScope) {
@@ -52,8 +62,10 @@ class ChatBox extends React.Component {
   }
 
   onMouseDrag(event, currentPaper) {
+    const version = this.getVersion()
     this.path.add(event.point);
     this.path.smooth({ type: 'continuous' })
+    return io.emit('new-chat', version)
   }
   
   getCurrentPaper(paper) {
@@ -62,30 +74,18 @@ class ChatBox extends React.Component {
 
 
   clearCanvas(){
-    return new Promise((resolve, reject) => resolve(this.state.currentPaper.project.clear())
-      .then(()=> this.getCurrentPaper(paper))
-    )
-  }
-
-  undoDraw(){
-    let children = this.state.currentPaper.project.activeLayer.children
-    return new Promise((resolve, reject) => resolve(this.state.currentPaper.project.activeLayer.lastChild.remove())
-      .then(()=> {
-        this.getCurrentPaper(paper)
-      })
-    )
+    const version = this.getVersion()
+    delete version.data
+    version.data = ""
+    this.props.postChat("", this.props.friendship.chat_drawing_id)
+    return io.emit('new-chat', version)
   }
 
   render(){ 
-    const version = Object.values(this.props.versions)
-      .filter(version => {
-        return version.drawing_id === this.props.friendship.chat_drawing_id
-      })
-      .reverse()[0]
-
-    console.log('VERSION', version.data)
+    const version = this.getVersion()
     return (
-      <div>     
+      <div> 
+        <div className="clear-title"><a onClick={this.clearCanvas}>Clear</a></div>
         <div className={ this.props.showChat ? "chat-box-container" : "hidden" }>  
           <ActivePaperCanvas
             onInitialize={this.onInitialize}
@@ -94,7 +94,6 @@ class ChatBox extends React.Component {
             onMouseUp={this.onMouseUp}
             getCurrentPaper={this.getCurrentPaper}
             json={version.data}
-            clearCanvas={this.clearCanvas}
             undoDraw = {this.undoDraw}
             width="200"
             height="250"
@@ -121,12 +120,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getChat: friendshipId => dispatch(getChat(friendshipId)),
     postChat: (drawingData, drawingId) => dispatch(postChat(drawingData, drawingId)),
+    subscribeToNewChats: () => dispatch(subscribeToNewChats())
   }
 }
 
 ChatBox.defaultProps = {
   getChat: function(){},
   postChat: function(){},
+  subscribeToNewChats: function(){},
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatBox)

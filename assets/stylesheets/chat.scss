@@ -43,6 +43,16 @@
   color: #ffffff;
 }
 
+.clear-title {
+  @include shadow;
+  pointer-events: auto;
+  width: 20rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem 0.5rem 2rem;
+  background-color: #efefef;
+  color: #000000;
+}
+
 .title-name {
   cursor: pointer;
 }

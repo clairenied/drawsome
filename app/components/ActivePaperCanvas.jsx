@@ -46,6 +46,7 @@ class ActivePaperCanvas extends React.Component {
   }
 
   render() {
+    console.log(this.props.width)
     return <canvas 
       width={this.props.width} 
       height={this.props.height} 
@@ -55,8 +56,8 @@ class ActivePaperCanvas extends React.Component {
 }
 
 ActivePaperCanvas.defaultProps = {
-  width: '450px',
-  height: '450px',
+  width: 450,
+  height: 450,
   onMouseUp: function(){},
   onMouseDown: function(){},
   onMouseDrag: function(){},
