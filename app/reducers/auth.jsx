@@ -58,13 +58,11 @@ export const whoami = () =>
   dispatch =>
     axios.get('/api/auth/whoami')
       .then(response => {
-        if(user){
         const user = response.data
         dispatch(authenticated(user))
         dispatch(getFriendships())
         dispatch(receiveDrawings(user.drawings))
           // dispatch(getDrawings())
-        }
       })
       .catch(failed => {
         browserHistory.push('/login')
