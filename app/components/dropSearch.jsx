@@ -35,18 +35,18 @@ export class SearchBar extends Component {
 
   render() {
     return (
-      <div>
-        <input 
+      <div className="searchStyle">
+        <input
           type="text"
           className="form-control"
           name="searchTerm"
           placeholder="Search for friends"
           value={this.state.input}
           onChange={ this.searchUpdate} />
-        
+
         { this.state.nameArr.map(name => {
           return (
-            <div key={name.email}>
+            <div className="resultStyle" key={name.email}>
             <Link to={`/profile/${name.id}`}>{name.fullName}</Link>
             </div>
           )
