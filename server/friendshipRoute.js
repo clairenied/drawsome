@@ -20,7 +20,11 @@ router.get('/', mustBeLoggedIn, async (req, res, next) => {
 
 router.post('/', mustBeLoggedIn, async (req, res, next) => {
   try {
-    const newFriend = await User.findById(Number(req.body.id))
+    const newFriend = await User.findById(Number(req.body.id), {include: [{
+          model: Drawing,
+          include: [ Version ]
+        }]
+      })
     const newFriendship = await Friendship.create({
       follower_id: req.user.id,
       followee_id: newFriend.id,
@@ -31,7 +35,6 @@ router.post('/', mustBeLoggedIn, async (req, res, next) => {
 
 router.delete('/:id', mustBeLoggedIn, async (req, res, next) => {
   try {
-    console.log('REQUSER THEN REQBODY', req.user.id, req.params.id)
     const removeFriend = await User.findById(req.params.id)
     const friendship = await Friendship.findOne({
       where: {
@@ -39,7 +42,6 @@ router.delete('/:id', mustBeLoggedIn, async (req, res, next) => {
           followee_id: req.params.id
       }
     })
-    console.log("friendship", friendship)
     let friendshipInfo = friendship
     await friendship.destroy()
     return res.send([removeFriend, friendshipInfo])
