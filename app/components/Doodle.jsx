@@ -17,8 +17,9 @@ const Doodle = (props) => {
           <PaperCanvas json={props.version.data} />
         }
         </div>
-        <h2 className="doodle-name">{props.drawing.name}</h2>
-         {props.user && !props.artist ? (<h3><Link to={`/profile/${props.user.id}`}>{props.user.fullName}</Link></h3>) : (<h3><Link to={`/profile/${props.artist.id}`}>{props.artist.fullName}</Link></h3>)}
+        {props.user && !props.artist ? 
+          (<h3>{props.drawing.name}<br/><Link to={`/profile/${props.user.id}`}>{props.user.fullName}</Link></h3>) : 
+          (<h3>{props.drawing.name}<br/><Link to={`/profile/${props.artist.id}`}>{props.artist.fullName}</Link></h3>)}
         <h4>{dateFormatted(props.drawing.created_at)}</h4>
       </div>
 
