@@ -10,7 +10,7 @@ class MakeDrawing extends React.Component {
 
   constructor(props){
     super(props)
-    
+
     this.state = {
       paperSettings: {
         strokeWidth: 10,
@@ -20,7 +20,8 @@ class MakeDrawing extends React.Component {
         opacity: 1,
       },
       currentPaper: null,
-      name: ''
+      name: '',
+      errorLoad:false
     }
 
     this.onMouseDown = this.onMouseDown.bind(this)
@@ -97,12 +98,19 @@ class MakeDrawing extends React.Component {
 
   saveAndCreateDrawing(e){
     e.preventDefault()
+    if (this.state.name !== ''){
     this.props.createMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, true)
+    }
+    this.setState({errorLoad:true})
   }
 
   postAndCreateDrawing(e){
+    if (this.state.name !== ''){
     e.preventDefault()
     this.props.postMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, false)
+  }
+  this.setState({errorLoad:true})
+
   }
 
   saveVersionDraft(e){
@@ -116,7 +124,7 @@ class MakeDrawing extends React.Component {
   }
 
   getCurrentPaper(paper) {
-    this.setState({currentPaper: paper}) 
+    this.setState({currentPaper: paper})
   }
 
   clearCanvas(){
@@ -142,16 +150,16 @@ class MakeDrawing extends React.Component {
             <h1 className="master-h1">Now editing: </h1>
             {
               this.props.selectedMasterpiece ?
-                <h1 className="masterpiece-title">{this.props.selectedMasterpiece && this.props.selectedMasterpiece.name}</h1> 
+                <h1 className="masterpiece-title">{this.props.selectedMasterpiece && this.props.selectedMasterpiece.name}</h1>
                 :
                 <div id="master-form" className="form-group">
-                  <input type="text" 
-                    className="masterpiece-input" 
-                    placeholder="Your Masterpiece" 
+                  <input type="text"
+                    className="masterpiece-input"
+                    placeholder="Your Masterpiece"
                     value={this.state.name}
                     onChange={this.updateName.bind(this)}
                   />
-                </div>    
+                </div>
             }
           </div>
         </div>
@@ -166,15 +174,15 @@ class MakeDrawing extends React.Component {
             <a onClick={() => this.changeColor('blue')}><div className="blue"></div></a>
             <a onClick={() => this.changeColor('#8500ff')}><div className="purple"></div></a>
             <a onClick={() => this.changeColor('black')}><div className="black"></div></a>
-            <a onClick={() => this.changeColor('white')}><div className="white"></div></a>  
-            <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>  
-            <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button> 
+            <a onClick={() => this.changeColor('white')}><div className="white"></div></a>
+            <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>
+            <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button>
           </div>
-        </div>  
+        </div>
         <div className="col-xs-12 col-sm-8">
           <div className="masterpiece-container">
           {
-            this.props.versions ? 
+            this.props.versions ?
               <div>
               { this.props.selectedVersion &&
               <ActivePaperCanvas
@@ -188,7 +196,7 @@ class MakeDrawing extends React.Component {
               />
               }
               </div>
-              : 
+              :
               <ActivePaperCanvas
                 getCurrentPaper={this.getCurrentPaper}
                 onInitialize={this.onInitialize}
@@ -197,6 +205,10 @@ class MakeDrawing extends React.Component {
                 clearCanvas={this.clearCanvas}
                 undoDraw = {this.undoDraw}
               />
+          }
+          {this.state.errorLoad ?
+            <div style={{color:'red'}}>Give your masterpiece a name!</div>
+            :null
           }
             {
               this.props.selectedMasterpiece ?
@@ -211,7 +223,7 @@ class MakeDrawing extends React.Component {
                 </form>
             }
           </div>
-        </div> 
+        </div>
       </div>
     )
   }

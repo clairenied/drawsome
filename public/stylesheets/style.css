@@ -83,6 +83,14 @@ nav .navbar-default {
   color: #000000;
   font-weight: 500; }
 
+.searchStyle {
+  z-index: 1;
+  top: 10px;
+  position: absolute; }
+
+.resultStyle {
+  background-color: white; }
+
 .big-doodle {
   margin-bottom: 4rem; }
 
