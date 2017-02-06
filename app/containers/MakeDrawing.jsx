@@ -93,7 +93,9 @@ class MakeDrawing extends React.Component {
   }
 
   updateName(e){
+    if(e.target.value.length < 17){
     this.setState({name: e.target.value})
+    }
   }
 
   saveAndCreateDrawing(e){
@@ -108,7 +110,7 @@ class MakeDrawing extends React.Component {
   }
 
   postAndCreateDrawing(e){
-      e.preventDefault()
+    e.preventDefault()
     if (this.state.name !== ''){
       this.setState({errorLoad:false})
     this.props.postMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, false)

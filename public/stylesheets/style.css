@@ -89,7 +89,10 @@ nav .navbar-default {
   position: absolute; }
 
 .resultStyle {
-  background-color: white; }
+  background-color: white;
+  border-style: solid;
+  border: 1px;
+  border-color: black; }
 
 .big-doodle {
   margin-bottom: 4rem; }
