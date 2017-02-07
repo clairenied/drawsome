@@ -62,13 +62,27 @@ const User = db.define('users', {
         },
         include: [{
           model: User,
-          as: 'follower'
+          as: 'follower',
+          required: false,
+          include: [{
+            model: Drawing,
+            required: false,
+            include: [{
+              model: Version.scope('recent'),
+              required: false,
+            }]
+          }]
         },{
           model: User,
           as: 'followee',
+          required: false,
           include: [{
             model: Drawing,
-            include: [ Version ]
+            required: false,
+            include: [{
+              model: Version.scope('recent'),
+              required: false,
+            }]
           }]
         }]
       })

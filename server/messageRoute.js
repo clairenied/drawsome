@@ -27,21 +27,20 @@ router.post('/', async (req, res, next) => {
   try {
     const drawing = await Drawing.findById(req.body.drawingId)
 
-    const mostRecentVersion = await Version.findAll({
+    const mostRecentVersion = await Version.findOne({
       where: {
         drawing_id: req.body.drawingId    
       },
       order: 'number DESC',
-      limit: 1,
     })
 
     const version = await Version.create({
       user_id: req.user.id,
-      number: ++mostRecentVersion[0].number,
+      number: ++mostRecentVersion.number,
       data: req.body.drawingData,
+      drawing_id: drawing.id,
     })
 
-    await version.setDrawing(drawing) 
     return res.send(version)
   } catch(next){ console.error(next) }
 })

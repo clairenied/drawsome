@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { receiveVersion, receiveVersions } from './versions'
 import { browserHistory } from 'react-router'
+import io from '../socket'
 
 const transformDrawing = drawingObj => {
   if(drawingObj.versions) {
@@ -25,6 +26,9 @@ const reducer  = (state = initialState, action) => {
     case REMOVE_DRAWING:
       delete nextState[action.drawing.id]
       break;
+    case REMOVE_DRAWING_ID:
+      delete nextState[action.drawing]
+      break;
     default:
        return state;
   }
@@ -32,9 +36,16 @@ const reducer  = (state = initialState, action) => {
 }
 
 export const REMOVE_DRAWING = 'REMOVE_DRAWING'
+export const REMOVE_DRAWING_ID = 'REMOVE_DRAWING_ID'
 export const removeDrawingsFromStore = drawings => 
   dispatch => {
     drawings.forEach(drawing => {
+      if(!drawing.id) {
+        return dispatch({
+          type: REMOVE_DRAWING_ID,
+          drawing,
+        }) 
+      }
       return dispatch({
         type: REMOVE_DRAWING,
         drawing,
@@ -155,6 +166,15 @@ export const postChat = (drawingData, drawingId) => {
       dispatch(receiveVersion(res.data))
     })
   }
+}
+
+export const subscribeToNewChats = (drawing_id) => {
+  return dispatch =>
+    io.on('new-chat', version => {
+      if(version.drawing_id === drawing_id) {
+        return dispatch(receiveVersion(version))
+      }
+    })
 }
 
 export default reducer

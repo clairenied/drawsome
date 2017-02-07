@@ -6,13 +6,12 @@ import {connect} from 'react-redux'
 
 
 const BigDoodle = (props) => {
-  console.log("PROPS", props)
   const masterpiece = props.masterpiece;
   const profile = props.profile;
 
   const masterpieceVersion = props.versions[masterpiece.versions[0]];
-  const comments = masterpiece.comments;
-
+  const comments = props.comments
+  
   return (
    <div className="row big-doodle">
       <div className="big-doodle-border">
@@ -41,8 +40,8 @@ const BigDoodle = (props) => {
             { comments && comments.map(comment => {
                 return (
                   <div>
-                  <h4><Link to={`/profile/${comment.users[0].id}`}>{comment.users[0].fullName}</Link></h4>
-                    <PaperCanvas json={comment.versions[0].data} />
+                  <h4><Link to={`/profile/${comment.version.users_id}`}>{}</Link></h4>
+                    <PaperCanvas json={comment.version.data} />
                   </div>
                 )
               })
