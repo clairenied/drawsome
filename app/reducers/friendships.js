@@ -46,9 +46,10 @@ export const deleteFriendship = friendship => {
 export const receiveFriendships = friendships => {
   return dispatch => {
     return friendships.forEach(friendship => {
-      if(friendship.follower) {
-        dispatch(receiveUser(friendship.follower));
-      } else if(friendship.followee) {
+      // if(friendship.follower) {
+      //   dispatch(receiveUser(friendship.follower));
+      // } 
+      if(friendship.followee) {
         dispatch(receiveUser(friendship.followee));
       }
       return dispatch(receiveFriendship(friendship))
@@ -59,9 +60,8 @@ export const receiveFriendships = friendships => {
 export const getFriendships = () =>
   dispatch =>
     axios.get('/api/friendships')
-      .then(res => {
-        return res.data
-      })
-      .then(friendships => dispatch(receiveFriendships(friendships)));
+      .then(friendships => {
+        dispatch(receiveFriendships(friendships.data))
+      });
 
 export default reducer

@@ -37,6 +37,9 @@ export const receiveUser = user =>
 		if(user.drawings){
 			dispatch(receiveDrawings(user.drawings))
 		}
+		if(user.versions){
+			dispatch(receiveVersions(user.versions))
+		}
 		return dispatch({
 			type: ADD_USER,
 			user: transformUser(user),
