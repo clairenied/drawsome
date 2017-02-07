@@ -9,9 +9,7 @@ module.exports = {
   get io() {
     return sockets.io;
   },
-  listenForConnections(socket){
-    socket.on('new-chat', version => {
-      return socket.broadcast.emit('new-chat', version)
-    })
+  onNewConnection(socket) {
+    
   },
 };

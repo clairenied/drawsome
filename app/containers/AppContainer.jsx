@@ -17,11 +17,10 @@ class AppContainer extends React.Component {
 
     this.toggleShowChatSidebar = this.toggleShowChatSidebar.bind(this)
     this.toggleShowChat = this.toggleShowChat.bind(this)
-    this.getFriends = this.getFriends.bind(this)
   }
 
   componentDidMount() {
-    this.props.subscribeToNewChats()
+    // this.props.subscribeToNewChats()
   }
 
   toggleShowChatSidebar(){
@@ -58,13 +57,6 @@ class AppContainer extends React.Component {
     }
   }
 
-  getFriends(){
-    return Object.values(this.props.friendships).map(friendship => {
-      if (this.props.user.id !== friendship.follower_id) { return friendship.follower_id }
-      else { return friendship.followee_id }
-    })
-  }
-
   setActiveChat(userId){
     this.setState({ activeChat: userId })
   }
@@ -82,15 +74,15 @@ class AppContainer extends React.Component {
             { this.state.showChatSidebar ? 
               <div className="chat-sidebar-container-contents">
                 { 
-                  this.getFriends().map(friendId => {
-                    console.log('FRIEEEEEND', friendId)
-                    const friend = this.props.users[friendId]
-                    return <p
-                      key={friendId}
-                      className="online"
-                      onClick={ this.openChat.bind(this, friendId) }>
-                      { friend.firstName } { friend.lastName }
-                    </p>
+
+                  Object.values(this.props.users).map((user) => {
+                    const userId = user.id
+                    return <p 
+                        key={user.id} 
+                        className="online"
+                        onClick={ this.openChat.bind(this, userId) }>
+                          { user.firstName } { user.lastName }
+                      </p>
                   })
                 }
               </div> 

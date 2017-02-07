@@ -48,7 +48,8 @@ export const receiveFriendships = friendships => {
     return friendships.forEach(friendship => {
       if(friendship.follower) {
         dispatch(receiveUser(friendship.follower));
-      } else if(friendship.followee) {
+      }
+      if(friendship.followee) {
         dispatch(receiveUser(friendship.followee));
       }
       return dispatch(receiveFriendship(friendship))

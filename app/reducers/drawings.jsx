@@ -145,10 +145,12 @@ export const postChat = (drawingData, drawingId) => {
   }
 }
 
-export const subscribeToNewChats = () => {
+export const subscribeToNewChats = (drawing_id) => {
   return dispatch =>
     io.on('new-chat', version => {
-      return dispatch(receiveVersion(version))
+      if(version.drawing_id === drawing_id) {
+        return dispatch(receiveVersion(version))
+      }
     })
 }
 

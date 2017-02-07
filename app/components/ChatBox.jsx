@@ -37,7 +37,7 @@ class ChatBox extends React.Component {
   componentDidMount() {
     const friendshipId = this.props.friendship.id
     this.props.getChat(friendshipId)
-    this.props.subscribeToNewChats()
+    this.props.subscribeToNewChats(this.props.friendship.chat_drawing_id)
   }
 
   getVersion(){
@@ -58,14 +58,15 @@ class ChatBox extends React.Component {
   }
 
   onMouseUp(event, currentPaper){
+    const version = this.getVersion()
+    console.log("VERSION!!!")
     this.props.postChat(currentPaper.project.exportJSON(), this.props.friendship.chat_drawing_id)
+    return io.emit('new-chat', version)
   }
 
   onMouseDrag(event, currentPaper) {
-    const version = this.getVersion()
     this.path.add(event.point);
     this.path.smooth({ type: 'continuous' })
-    return io.emit('new-chat', version)
   }
   
   getCurrentPaper(paper) {
@@ -107,7 +108,6 @@ class ChatBox extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     user: state.auth,
-    drawings: state.drawings,
     versions: state.versions,
     friendship: Object.values(state.friendships)
       .find(friendship => {
@@ -120,7 +120,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getChat: friendshipId => dispatch(getChat(friendshipId)),
     postChat: (drawingData, drawingId) => dispatch(postChat(drawingData, drawingId)),
-    subscribeToNewChats: () => dispatch(subscribeToNewChats())
+    subscribeToNewChats: drawing_id => dispatch(subscribeToNewChats(drawing_id))
   }
 }
 

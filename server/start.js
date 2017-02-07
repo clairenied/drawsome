@@ -81,5 +81,5 @@ if (module === require.main) {
   const io = require('./sockets')
   io.setIO(server)
 
-  io.io.on('connection', io.listenForConnections)
+  // io.io.on('connection', io.onNewConnection)
 }
