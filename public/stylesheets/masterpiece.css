@@ -2,13 +2,31 @@
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
-  width: 700px;
-  height: 500px;
+  width: 450px;
+  height: 450px;
   margin: 20px auto;
   background-color: #ffffff; }
 
 .master-header {
   display: inline; }
+
+.follow-btns {
+  display: inline;
+  margin-left: 1rem; }
+
+#follow-button {
+  background-color: #ff0274;
+  color: white;
+  margin-left: 1rem;
+  margin-bottom: 10px;
+  padding-left: 2rem;
+  padding-right: 2rem; }
+
+#unfollow-button {
+  background-color: #ff5602;
+  color: white;
+  margin-left: 1rem;
+  margin-bottom: 10px; }
 
 .masterpiece-input {
   display: inline;

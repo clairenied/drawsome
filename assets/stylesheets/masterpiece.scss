@@ -18,6 +18,28 @@
   display: inline;
 }
 
+.follow-btns {
+  display: inline;
+  margin-left: 1rem;
+}
+
+#follow-button {
+  background-color: $drawsome-pink;
+  color: white;
+  margin-left: 1rem;
+  margin-bottom: 10px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+#unfollow-button {
+  background-color: $drawsome-orange;
+  color: white;
+  margin-left: 1rem;
+  margin-bottom: 10px;
+
+}
+
 .masterpiece-input {
   display: inline;
   box-sizing: border-box;
