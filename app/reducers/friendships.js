@@ -51,9 +51,9 @@ export const deleteFriendship = friendship => {
 export const receiveFriendships = friendships => {
   return dispatch => {
     return friendships.forEach(friendship => {
-      // if(friendship.follower) {
-      //   dispatch(receiveUser(friendship.follower));
-      // } 
+      if(friendship.follower) {
+        dispatch(receiveUser(friendship.follower));
+      }
       if(friendship.followee) {
         dispatch(receiveUser(friendship.followee));
       }

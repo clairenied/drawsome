@@ -108,7 +108,7 @@ auth.get('/whoami', async (req, res, next) => {
           as: 'followees',
         },{
           model: Drawing,
-          include: [ Version ]
+          include: [ Version.scope('recent') ]
         }]
       })
 

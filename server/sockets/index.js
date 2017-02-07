@@ -5,9 +5,11 @@ const sockets = {
 module.exports = {
   setIO(server) {
     sockets.io = require('socket.io')(server);
-
   },
   get io() {
     return sockets.io;
+  },
+  onNewConnection(socket) {
+    
   },
 };

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { receiveVersion, receiveVersions } from './versions'
 import { browserHistory } from 'react-router'
+import io from '../socket'
 
 const transformDrawing = drawingObj => {
   if(drawingObj.versions) {
@@ -165,6 +166,15 @@ export const postChat = (drawingData, drawingId) => {
       dispatch(receiveVersion(res.data))
     })
   }
+}
+
+export const subscribeToNewChats = (drawing_id) => {
+  return dispatch =>
+    io.on('new-chat', version => {
+      if(version.drawing_id === drawing_id) {
+        return dispatch(receiveVersion(version))
+      }
+    })
 }
 
 export default reducer

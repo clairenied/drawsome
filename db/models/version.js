@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('APP/db')
+const sockets = require('../../server/sockets')
 
 const Version = db.define('version', {
   id: {
@@ -20,6 +21,12 @@ const Version = db.define('version', {
     defaultValue: false,
   }
 }, {
+  hooks: {
+    afterCreate(version) {
+      console.log(version);
+      sockets.io.emit('new-chat', version);
+    }
+  },
   scopes : {
     recent : {
          order: 'number DESC',
