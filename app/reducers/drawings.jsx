@@ -23,12 +23,25 @@ const reducer  = (state = initialState, action) => {
     case ADD_DRAWING: 
       nextState[action.drawing.id] = action.drawing;
       break;
+    case REMOVE_DRAWING:
+      delete nextState[action.drawing.id]
+      break;
     default:
        return state;
   }
   return nextState
 }
 
+export const REMOVE_DRAWING = 'REMOVE_DRAWING'
+export const removeDrawingsFromStore = drawings => 
+  dispatch => {
+    drawings.forEach(drawing => {
+      return dispatch({
+        type: REMOVE_DRAWING,
+        drawing,
+      })  
+    })
+  }
 
 const ADD_DRAWING = "ADD_DRAWING";
 export const receiveDrawing = drawing => {

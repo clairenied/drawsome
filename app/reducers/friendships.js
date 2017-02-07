@@ -60,9 +60,8 @@ export const receiveFriendships = friendships => {
 export const getFriendships = () =>
   dispatch =>
     axios.get('/api/friendships')
-      .then(res => {
-        return res.data
-      })
-      .then(friendships => dispatch(receiveFriendships(friendships)));
+      .then(friendships => {
+        dispatch(receiveFriendships(friendships.data))
+      });
 
 export default reducer

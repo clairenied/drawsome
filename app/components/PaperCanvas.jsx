@@ -10,7 +10,7 @@ class PaperCanvas extends React.Component {
 
     }
     render() {
-        return <canvas width="300" height="300" ref={(elem) => this.canvas = elem}></canvas>
+        return <canvas width={this.props.width || "300"} height={this.props.height || "300"} ref={(elem) => this.canvas = elem}></canvas>
     }
 }
 
