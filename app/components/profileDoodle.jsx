@@ -6,7 +6,7 @@ import PaperCanvas from './PaperCanvas.jsx'
 import CommentComponent from './CommentComponent.jsx'
 import {connect} from 'react-redux'
 
-const profileDoodle = (props) => {
+const ProfileDoodle = (props) => {
   const masterpiece = props.masterpiece;
   const profile = props.profile;
   
@@ -60,4 +60,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(profileDoodle)
+export default connect(mapStateToProps)(ProfileDoodle)
