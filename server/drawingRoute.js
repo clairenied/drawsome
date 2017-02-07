@@ -21,7 +21,6 @@ router.get('/', async (req, res, next) => {
       }]
     })
   const commentdrawings = await drawings.map(drawing  => drawing.getComments())
-  console.log("COMMENTDRAFTING", commentdrawings)
     return res.send(commentdrawings)
   } catch(next){ console.error(next) }
 })
