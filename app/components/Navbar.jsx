@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import {connect} from 'react-redux'
 import {logout} from '../reducers/auth'
 import {DropdownButton, MenuItem} from 'react-bootstrap'
-import {SearchBar} from './dropSearch.jsx'
+import {SearchBar} from './DropSearch.jsx'
 
 export class Navbar extends Component {
 

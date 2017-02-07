@@ -8,7 +8,7 @@ export class CommentComponent extends React.Component {
 
   constructor(props){
     super(props)
-    
+
     this.state = {
       paperSettings: {
         strokeWidth: 7,
@@ -31,7 +31,7 @@ export class CommentComponent extends React.Component {
     this.undoDraw = this.undoDraw.bind(this)
     this.toggleComment=this.toggleComment.bind(this)
   }
-  
+
   onInitialize(paperScope) {
     paperScope.install(this);
     this.path = new this.Path(this.state.paperSettings);
@@ -57,7 +57,7 @@ export class CommentComponent extends React.Component {
   }
 
   getCurrentPaper(paper) {
-    this.setState({currentPaper: paper}) 
+    this.setState({currentPaper: paper})
   }
 
   clearCanvas(){
@@ -81,9 +81,9 @@ export class CommentComponent extends React.Component {
         <button type="button" id="post-button" className="btn btn=secondary" onClick={this.toggleComment}>Add Comment</button>
               <div className="container">
                 <div className="col-xs-12 col-sm-4">
-                </div>  
+                </div>
 
-              {this.state.showComment ? 
+              {this.state.showComment ?
                 (<div className="col-xs-12 col-sm-8">
                   <div className="masterpiece-container">
                     <ActivePaperCanvas
@@ -95,8 +95,8 @@ export class CommentComponent extends React.Component {
                       undoDraw = {this.undoDraw}
                       />
                   <div className="palette">
-                    <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>  
-                    <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button> 
+                    <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>
+                    <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button>
                   </div>
                     <form id="master-buttons" className="form-inline">
                       <button type="button" onClick={this.saveComment} className="btn btn-secondary" id="post-button">Post</button>
@@ -107,7 +107,7 @@ export class CommentComponent extends React.Component {
 
               </div>
               <div className="draft-section">
-          </div> 
+          </div>
       </div>
     )
   }

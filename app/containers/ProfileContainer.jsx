@@ -31,11 +31,11 @@ class ProfileContainer extends Component {
           ( <button
               className="btn btn-danger btn-sm"
               onClick={this.props.deleteFriend.bind(this)}>unfollow
-            </button> ) : null } 
-        
-        { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ? 
-          ( <button 
-              className="btn btn-primary btn-sm" 
+            </button> ) : null }
+
+        { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ?
+          ( <button
+              className="btn btn-primary btn-sm"
               onClick={this.props.addFriend.bind(this)}>follow
             </button> ) : null }
           <div>
@@ -101,8 +101,8 @@ const dummyFriendships = () => {
 }
 
 
-const mapStateToProps = (state, ownProps) => {  
-  
+const mapStateToProps = (state, ownProps) => {
+
   const versions = Object.values(state.versions)
     .filter(version => version.user_id === Number(ownProps.params.id));
 
@@ -113,7 +113,7 @@ const mapStateToProps = (state, ownProps) => {
 
   const comments = Object.values(state.drawings)
     .filter(drawing => drawing.parent_drawing_id)
-  
+
   console.log("COMMENTS?", comments)
 
 
@@ -122,7 +122,7 @@ const mapStateToProps = (state, ownProps) => {
     drawings,
     versions,
     comments,
-    profile: state.users[Number(ownProps.params.id)] || dummyUser(), 
+    profile: state.users[Number(ownProps.params.id)] || dummyUser(),
     friendships: state.friendships || dummyFriendships(),
     isFriend: Object.values(state.friendships)
       .some(friendship =>
@@ -134,9 +134,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getUser: () => dispatch(getUser(Number(ownProps.params.id))), 
-    removeUserFromStore: (user) => dispatch(removeUserFromStore(user)), 
-    addFriend: () => dispatch(addFriend(Number(ownProps.params.id))), 
+    getUser: () => dispatch(getUser(Number(ownProps.params.id))),
+    removeUserFromStore: (user) => dispatch(removeUserFromStore(user)),
+    addFriend: () => dispatch(addFriend(Number(ownProps.params.id))),
     deleteFriend: () => dispatch(deleteFriend(Number(ownProps.params.id))),
     getProfileInfo: () => dispatch(getProfileInfo(Number(ownProps.params.id)))
   }
