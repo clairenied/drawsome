@@ -62,7 +62,6 @@ router.post('/comment', (req, res, next) => {
   })
   .then(drawing => {
     return Promise.all([
-      drawing.setUsers([req.body.userId]),
       Version.create({
         drawing_id: drawing.id,
         user_id: req.body.userId,
@@ -72,18 +71,7 @@ router.post('/comment', (req, res, next) => {
     ])
   })
   .then(data => {
-
-    data.sort(function(a,b){
-      return a.number - b.number
-    })
-    return Version.create({
-      drawing_id: req.params.id,
-      user_id: req.body.userId,
-      versionNumber: data[0].versionNumber + 1,
-      data: req.body.json
-    })
-
-    return Drawing.findById(data[0][0][0].dataValues.drawing_id, {include: [{model: Version}]}) 
+    return Drawing.findById(data.drawing_id, {include: [{model: Version}]}) 
   })
   .then(drawing => {
     res.json(drawing)
