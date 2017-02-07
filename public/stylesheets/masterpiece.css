@@ -10,6 +10,24 @@
 .master-header {
   display: inline; }
 
+.follow-btns {
+  display: inline;
+  margin-left: 1rem; }
+
+#follow-button {
+  background-color: #ff0274;
+  color: white;
+  margin-left: 1rem;
+  margin-bottom: 10px;
+  padding-left: 2rem;
+  padding-right: 2rem; }
+
+#unfollow-button {
+  background-color: #ff5602;
+  color: white;
+  margin-left: 1rem;
+  margin-bottom: 10px; }
+
 .masterpiece-input {
   display: inline;
   box-sizing: border-box;
