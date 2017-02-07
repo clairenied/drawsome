@@ -22,14 +22,10 @@ import EditMasterpieceDraft from './containers/EditMasterpieceDraft'
 import DraftContainer from './containers/DraftContainer'
 
 // import {setSelectedMasterpiece} from './reducers/selected.jsx'
-import { getUser } from './reducers/users.jsx'
+import { getUser, getProfileInfo } from './reducers/users.jsx'
 import {getMasterpieceDraft} from './reducers/drawings.jsx'
 import {whoami} from './reducers/auth'
-
-const loadProfileOnEnter = function (nextRouterState) {
-  const profileId = nextRouterState.params.id;
-  store.dispatch(getUser(profileId));
-};
+import { getFriendships } from './reducers/friendships'
 
 render (
   <Provider store={store}>
@@ -38,9 +34,9 @@ render (
         <IndexRedirect to="/gallery" />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/gallery" component={PublicGalleryContainer}/>
-        <Route path="/masterpiece" component={SingleMasterpieceViewContainer} />
-        <Route path="/profile/:id" component={ProfileContainer} onEnter={loadProfileOnEnter}/>
+        <Route path="/gallery" component={PublicGalleryContainer} />
+        <Route path="/masterpiece/:id" component={SingleMasterpieceViewContainer} />
+        <Route path="/profile/:id" component={ProfileContainer} />
         <Route path="/create-masterpiece" component={MasterpieceContainer}/>
         <Route path="/edit-masterpiece/:id" component={EditMasterpieceDraft} />
         <Route path="/drafts" component={DraftContainer} />

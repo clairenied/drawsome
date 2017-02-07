@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 import {connect} from 'react-redux'
 import {logout} from '../reducers/auth'
 import {DropdownButton, MenuItem} from 'react-bootstrap'
 import {SearchBar} from './dropSearch.jsx'
 
 export class Navbar extends Component {
+
+  profileRedirect(){
+    browserHistory.push(`/profile/${this.props.user.id}`)
+  }
 
   renderLogout(){
     return(
@@ -23,7 +27,7 @@ export class Navbar extends Component {
           <li>
             <div className="user-dropdown">
               <DropdownButton title={<span className="glyphicon glyphicon-user"></span>} id={`dropdown-basic-1`} className="btn-default">
-              <MenuItem eventKey="1" href={`/profile/${this.props.user.id}`}>
+                <MenuItem eventKey="1" onSelect={this.profileRedirect.bind(this)}>
                   My Profile
                 </MenuItem>
                 <MenuItem divider/>

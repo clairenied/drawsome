@@ -2,13 +2,25 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
 import axios from 'axios'
-import { getUser, removeUserFromStore, addFriend, deleteFriend } from '../reducers/users'
+import { getUser, removeUserFromStore, addFriend, deleteFriend, getProfileInfo } from '../reducers/users'
 
-import BigDoodle from '../components/BigDoodle.jsx'
+import ProfileDoodle from '../components/ProfileDoodle.jsx'
 
 class ProfileContainer extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount(){
+    if(!this.props.isFriend && this.props.user.id !== Number(this.props.params.id)){
+      this.props.profile && this.props.getProfileInfo()
+    }
+  }
+
+  componentWillUnmount(){
+    if(!this.props.isFriend && this.props.user.id !== Number(this.props.params.id)){
+      this.props.removeUserFromStore(this.props.profile)
+    }
   }
 
   render(){
@@ -17,26 +29,29 @@ class ProfileContainer extends Component {
         <h1>Art By: { this.props.profile.fullName }</h1>
 
         <div className="row">
-        { this.props.profile && this.props.isFriend && (this.props.profile.id !== this.props.user.id) ? 
-          ( <button 
-              className="btn btn-danger btn-sm" 
+        { this.props.profile && this.props.isFriend && (this.props.profile.id !== this.props.user.id) ?
+          ( <button
+              className="btn btn-danger btn-sm"
               onClick={this.props.deleteFriend.bind(this)}>unfollow
             </button> ) : null } 
         
         { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ? 
           ( <button 
               className="btn btn-primary btn-sm" 
-              onClick={this.props.addFriend}>follow
+              onClick={this.props.addFriend.bind(this)}>follow
             </button> ) : null }
           <div>
-            { this.props.drawings && this.props.drawings.map(drawing => {
+
+            { this.props.drawings.map(drawing => {
+              let commentsarr = this.props.comments.filter(comment => comment.parent_drawing_id === drawing.id);
+
               return (
-                <BigDoodle 
+                <ProfileDoodle
                   key={drawing.id}
                   masterpiece={drawing}
-                  profile={this.props.profile} />
+                  profile={this.props.profile} comments={commentsarr} />
               )
-            })}  
+            })}
           </div>
         </div>
       </div>
@@ -87,7 +102,9 @@ const dummyFriendships = () => {
   }
 }
 
+
 const mapStateToProps = (state, ownProps) => {  
+  
   const versions = Object.values(state.versions)
     .filter(version => version.user_id === Number(ownProps.params.id));
 
@@ -96,15 +113,20 @@ const mapStateToProps = (state, ownProps) => {
       .some(version_id => versions.some(version => version.id === version_id))
       )
 
+  const comments = Object.values(state.drawings)
+    .filter(drawing => drawing.parent_drawing_id)
+  
+  console.log("COMMENTS?", comments)
+
+
   return {
     user: state.auth || dummyUser(),
     drawings,
     versions,
+    comments,
     profile: state.users[Number(ownProps.params.id)] || dummyUser(), 
     friendships: state.friendships || dummyFriendships(),
-    isFriend: Object.values(state.friendships)
-      .some(friendship => 
-      {
+    isFriend: Object.values(state.friendships).some(friendship => {
        return friendship.follower_id === state.auth.id && friendship.followee_id === Number(ownProps.params.id)
       })
   }
@@ -113,9 +135,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getUser: () => dispatch(getUser(Number(ownProps.params.id))), 
-    removeUserFromStore: () => dispatch(removeUserFromStore(Number(ownProps.params.id))), 
+    removeUserFromStore: (user) => dispatch(removeUserFromStore(user)), 
     addFriend: () => dispatch(addFriend(Number(ownProps.params.id))), 
     deleteFriend: () => dispatch(deleteFriend(Number(ownProps.params.id))),
+    getProfileInfo: () => dispatch(getProfileInfo(Number(ownProps.params.id)))
   }
 }
 

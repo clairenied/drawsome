@@ -114,7 +114,7 @@ auth.get('/whoami', async (req, res, next) => {
 
       res.json(user)
     } else {
-      res.end()
+      res.json(null)
     }
   } catch(next){
     const err = new Error()

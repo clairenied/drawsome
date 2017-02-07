@@ -4,8 +4,12 @@ import { setAllVersions } from './versions'
 import { receiveUser } from './users'
 
 const transformFriendship = friendObj => {
-  delete friendObj.follower
-  delete friendObj.followee
+  if(friendObj.follower){
+    delete friendObj.follower  
+  }
+  if(friendObj.followee){
+    delete friendObj.followee
+  }
   return friendObj
 }
 

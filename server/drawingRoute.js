@@ -20,7 +20,9 @@ router.get('/', async (req, res, next) => {
         as: 'parent_drawing'
       }]
     })
-    return res.send(drawings)
+  const commentdrawings = await drawings.map(drawing  => drawing.getComments())
+  console.log("COMMENTDRAFTING", commentdrawings)
+    return res.send(commentdrawings)
   } catch(next){ console.error(next) }
 })
 
@@ -60,7 +62,6 @@ router.post('/comment', (req, res, next) => {
   })
   .then(drawing => {
     return Promise.all([
-      drawing.setUsers([req.body.userId]),
       Version.create({
         drawing_id: drawing.id,
         user_id: req.body.userId,
@@ -69,22 +70,7 @@ router.post('/comment', (req, res, next) => {
       })
     ])
   })
-  .then(data => {
-
-    data.sort(function(a,b){
-      return a.number - b.number
-    })
-    return Version.create({
-      drawing_id: req.params.id,
-      user_id: req.body.userId,
-      versionNumber: data[0].versionNumber + 1,
-      data: req.body.json
-    })
-
-    return Drawing.findById(data[0][0][0].dataValues.drawing_id, {include: [{model: Version}]}) 
-  })
   .then(drawing => {
-    console.log("DRAWING in API", drawing)
     res.json(drawing)
   })
   .catch(next);
@@ -159,3 +145,31 @@ router.post('/:id', (req, res, next) => {
 })
 
 module.exports = router;
+
+
+// const db = require('APP/db')
+// const express = require('express')
+// const router = express.Router()
+// const Drawing = db.model('drawing')
+// const Version = db.model('version')
+// const User = db.model('users')
+
+
+// router.get('/:id', (req, res, next) => { 
+// 	let userprofile;
+//    return User.findById(req.params.id,{
+// 	include: [{model: Drawing, include:[Version.scope('recent')]}]
+// 	})
+// 	.then((user) =>{
+// 		userprofile = user;
+// 		let userdrawings = user.drawings;
+// 		let promisedrawings = userdrawings.map(drawing  => drawing.getComments())
+// 		return Promise.all(promisedrawings)
+// 	})
+// 	.then((drawings) => {
+// 		userprofile.setDataValue("profdrawings", drawings)
+// 		res.json(userprofile)
+// 	})
+// })
+	
+// module.exports = router;

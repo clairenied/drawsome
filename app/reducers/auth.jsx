@@ -56,18 +56,22 @@ export const logout = () =>
 export const whoami = () =>
   dispatch =>
     axios.get('/api/auth/whoami')
-      .then(response => {
-        const user = response.data
-        if(user){
-          dispatch(authenticated(user))
-          dispatch(getFriendships())
-          dispatch(receiveDrawings(user.drawings))
-          // dispatch(getDrawings())
-        } else return
-      })
-      .catch(failed => {
-        browserHistory.push('/login')
-        dispatch(authenticated(null))
-      })
+    .then(response => {
+      const user = response.data
+      if(user){
+        dispatch(authenticated(response.data))
+      }
+      if(user.followers || user.folowees)
+        dispatch(getFriendships())
+      if(user.drawings){
+        dispatch(receiveDrawings(user.drawings))
+        // dispatch(getDrawings())
+      } 
+
+    })
+    .catch(failed => {
+      dispatch(authenticated(null))
+      browserHistory.push('/login')
+    })
 
 export default reducer
