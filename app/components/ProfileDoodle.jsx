@@ -24,13 +24,11 @@ const ProfileDoodle = (props) => {
             <h3><Link to={`/profile/${profile.id}`}>{ profile.firstName } { profile.lastName }</Link></h3>
     */}
           </div>
-          <Link to="/masterpiece">
-            <div className="col-xs-12 col-md-8">
-              <div className="masterpiece-container">
-                <ProfileCanvas height="450" width="450" json={ masterpieceVersion && masterpieceVersion.data} />
-              </div>
+          <div className="col-xs-12 col-md-8">
+            <div className="masterpiece-container">
+              <ProfileCanvas height="450" width="450" json={ masterpieceVersion && masterpieceVersion.data} />
             </div>
-          </Link>
+          </div>
         </div>
         <div className="col-xs-12">
 <CommentComponent masterpiece={props.masterpiece} profile={props.profile}/>
