@@ -67,7 +67,6 @@ export const whoami = () =>
         dispatch(receiveDrawings(user.drawings))
         // dispatch(getDrawings())
       } 
-
     })
     .catch(failed => {
       dispatch(authenticated(null))

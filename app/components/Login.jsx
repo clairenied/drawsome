@@ -1,5 +1,6 @@
 import React from 'react'
 import {Alert} from 'react-bootstrap';
+import { browserHistory } from 'react-router'
 
 export class Login extends React.Component {
   constructor(props){
@@ -7,6 +8,12 @@ export class Login extends React.Component {
     this.state = {
       email: '',
       password: ''
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.user && this.props.user === null){
+      browserHistory.push('/gallery')
     }
   }
 
