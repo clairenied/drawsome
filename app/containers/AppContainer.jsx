@@ -17,10 +17,7 @@ class AppContainer extends React.Component {
 
     this.toggleShowChatSidebar = this.toggleShowChatSidebar.bind(this)
     this.toggleShowChat = this.toggleShowChat.bind(this)
-  }
-
-  componentDidMount() {
-    // this.props.subscribeToNewChats()
+    this.getFriendIds = this.getFriendIds.bind(this)
   }
 
   toggleShowChatSidebar(){
@@ -61,6 +58,13 @@ class AppContainer extends React.Component {
     this.setState({ activeChat: userId })
   }
 
+  getFriendIds(){
+    return Object.values(this.props.friendships).map(friendship => {
+      if (friendship.follower_id !== this.props.user.id) { return friendship.follower_id }
+      else { return friendship.followee_id }
+    })
+  }
+
   render(){
     return (
       <div>
@@ -74,14 +78,13 @@ class AppContainer extends React.Component {
             { this.state.showChatSidebar ? 
               <div className="chat-sidebar-container-contents">
                 { 
-
-                  Object.values(this.props.users).map((user) => {
-                    const userId = user.id
-                    return <p 
-                        key={user.id} 
-                        className="online"
-                        onClick={ this.openChat.bind(this, userId) }>
-                          { user.firstName } { user.lastName }
+                  this.getFriendIds().map(friendId => {
+                    const user = this.props.users[friendId]
+                    return <p
+                      key={user.id}
+                      className="online"
+                      onClick={this.openChat.bind(this, user.id)}>
+                       { user.firstName } { user.lastName }
                       </p>
                   })
                 }
@@ -143,3 +146,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer)
+                  // Object.values(this.props.users).map((user) => {
+                  //   const userId = user.id
+                  //   return <p 
+                  //       key={user.id} 
+                  //       className="online"
+                  //       onClick={ this.openChat.bind(this, userId) }>
+                  //         { user.firstName } { user.lastName }
+                  //     </p>
+                  // })

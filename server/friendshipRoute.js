@@ -25,11 +25,23 @@ router.post('/', mustBeLoggedIn, async (req, res, next) => {
         include: [ Version ]
       }]
     })
+    
     const newFriendship = await Friendship.create({
       follower_id: req.user.id,
       followee_id: newFriend.id,
     })
-    return res.json([newFriend, newFriendship])
+
+    const friendshipWithInfo = await Friendship.findById(newFriendship.id, {
+      include: [{
+        model: Drawing,
+        as: 'chat_drawing',
+        include: [ Version.scope('recent') ]
+      }]
+    })
+    
+    console.log(newFriendship.chat_drawing_id)
+    
+    return res.json([newFriend, friendshipWithInfo])
   } catch(next){ console.error(next) }
 })
 
