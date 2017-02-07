@@ -49,7 +49,7 @@ class ProfileContainer extends Component {
                 <ProfileDoodle
                   key={drawing.id}
                   masterpiece={drawing}
-                  profile={this.props.profile} comments={commentsarr} />
+                  profile={this.props.profile} comments={commentsarr} users={this.props.users}/>
               )
             })}
           </div>
@@ -116,14 +116,12 @@ const mapStateToProps = (state, ownProps) => {
   const comments = Object.values(state.drawings)
     .filter(drawing => drawing.parent_drawing_id)
   
-  console.log("COMMENTS?", comments)
-
-
   return {
     user: state.auth || dummyUser(),
     drawings,
     versions,
     comments,
+    users: state.users,
     profile: state.users[Number(ownProps.params.id)] || dummyUser(), 
     friendships: state.friendships || dummyFriendships(),
     isFriend: Object.values(state.friendships).some(friendship => {
