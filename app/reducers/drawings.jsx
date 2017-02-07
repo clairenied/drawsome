@@ -107,6 +107,7 @@ export const postComment = (userId, masterpiece, profileId, json, canEdit, priv)
   return dispatch => {
     axios.post('/api/drawings/comment', {userId, masterpiece, json, canEdit, priv})
     .then(drawing => {
+      console.log("DRAWING?????", drawing)
       dispatch(receiveVersions(drawing.data.versions))
       dispatch(receiveDrawing(drawing.data))
       browserHistory.push(`/profile/${profileId}`)

@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
-import ProfileCanvas from './profileCanvas.jsx'
+import ProfileCanvas from './ProfileCanvas.jsx'
+import PaperCanvas from './PaperCanvas.jsx'
+
 import CommentComponent from './CommentComponent.jsx'
 import {connect} from 'react-redux'
 
-
-const ProfileDoodle = (props) => {
+const profileDoodle = (props) => {
   const masterpiece = props.masterpiece;
   const profile = props.profile;
-
+  
   const masterpieceVersion = props.versions[masterpiece.versions[0]];
-  const comments = masterpiece.comments;
-
+  const comments = props.comments
+  
   return (
    <div className="row big-doodle">
       <div className="big-doodle-border">
@@ -32,19 +33,16 @@ const ProfileDoodle = (props) => {
           </Link>
         </div>
         <div className="col-xs-12">
-          <CommentComponent masterpiece={props.masterpiece} profile={props.profile}/>
+<CommentComponent masterpiece={props.masterpiece} profile={props.profile}/>
           <div className="col-xs-12">
-            {comments ?
             <h3>Comments:</h3>
-            :null
-            }
           </div>
           <div className="col-xs-3">
             { comments && comments.map(comment => {
-                return (
+                return ( 
                   <div>
-                  <h4><Link to={`/profile/${comment.users[0].id}`}>{comment.users[0].fullName}</Link></h4>
-                    <ProfileCanvas json={comment.versions[0].data} />
+                  <h4><Link to={`/profile/${comment.version.users_id}`}>{}</Link></h4>
+                    <PaperCanvas json={comment.version.data} />
                   </div>
                 )
               })
@@ -57,9 +55,9 @@ const ProfileDoodle = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {
+  return { 
     versions: state.versions
   }
 }
 
-export default connect(mapStateToProps)(ProfileDoodle)
+export default connect(mapStateToProps)(profileDoodle)
