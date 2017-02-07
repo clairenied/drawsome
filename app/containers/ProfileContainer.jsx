@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import axios from 'axios'
 import { getUser, removeUserFromStore, addFriend, deleteFriend } from '../reducers/users'
 
-import BigDoodle from '../components/BigDoodle.jsx'
+import ProfileDoodle from '../components/ProfileDoodle.jsx'
 
 class ProfileContainer extends Component {
   constructor(props) {
@@ -17,26 +17,26 @@ class ProfileContainer extends Component {
         <h1>Art By: { this.props.profile.fullName }</h1>
 
         <div className="row">
-        { this.props.profile && this.props.isFriend && (this.props.profile.id !== this.props.user.id) ? 
-          ( <button 
-              className="btn btn-danger btn-sm" 
+        { this.props.profile && this.props.isFriend && (this.props.profile.id !== this.props.user.id) ?
+          ( <button
+              className="btn btn-danger btn-sm"
               onClick={this.props.deleteFriend.bind(this)}>unfollow
-            </button> ) : null } 
-        
-        { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ? 
-          ( <button 
-              className="btn btn-primary btn-sm" 
+            </button> ) : null }
+
+        { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ?
+          ( <button
+              className="btn btn-primary btn-sm"
               onClick={this.props.addFriend}>follow
             </button> ) : null }
           <div>
             { this.props.drawings && this.props.drawings.map(drawing => {
               return (
-                <BigDoodle 
+                <ProfileDoodle
                   key={drawing.id}
                   masterpiece={drawing}
                   profile={this.props.profile} />
               )
-            })}  
+            })}
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@ const dummyFriendships = () => {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {  
+const mapStateToProps = (state, ownProps) => {
   const versions = Object.values(state.versions)
     .filter(version => version.user_id === Number(ownProps.params.id));
 
@@ -100,10 +100,10 @@ const mapStateToProps = (state, ownProps) => {
     user: state.auth || dummyUser(),
     drawings,
     versions,
-    profile: state.users[Number(ownProps.params.id)] || dummyUser(), 
+    profile: state.users[Number(ownProps.params.id)] || dummyUser(),
     friendships: state.friendships || dummyFriendships(),
     isFriend: Object.values(state.friendships)
-      .some(friendship => 
+      .some(friendship =>
       {
        return friendship.follower_id === state.auth.id && friendship.followee_id === Number(ownProps.params.id)
       })
@@ -112,9 +112,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getUser: () => dispatch(getUser(Number(ownProps.params.id))), 
-    removeUserFromStore: () => dispatch(removeUserFromStore(Number(ownProps.params.id))), 
-    addFriend: () => dispatch(addFriend(Number(ownProps.params.id))), 
+    getUser: () => dispatch(getUser(Number(ownProps.params.id))),
+    removeUserFromStore: () => dispatch(removeUserFromStore(Number(ownProps.params.id))),
+    addFriend: () => dispatch(addFriend(Number(ownProps.params.id))),
     deleteFriend: () => dispatch(deleteFriend(Number(ownProps.params.id))),
   }
 }
