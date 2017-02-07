@@ -3,7 +3,7 @@ import {Link, browserHistory} from 'react-router'
 import axios from 'axios'
 
 
-export class SearchBar extends Component {
+export default class DropSearch extends Component {
   constructor(){
     super()
     this.state = {
