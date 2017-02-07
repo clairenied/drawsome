@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
+import { browserHistory } from 'react-router'
 
 //components
 import Doodle from '../components/Doodle'
@@ -9,6 +10,12 @@ class PublicGalleryContainer extends Component {
     super(props);
     this.state = {
       shape : ""
+    }
+  }
+
+  componentDidMount(){
+    if(this.props&& !this.props.user){
+      browserHistory.push('/login')
     }
   }
 
