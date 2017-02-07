@@ -2,13 +2,23 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
 import axios from 'axios'
-import { getUser, removeUserFromStore, addFriend, deleteFriend } from '../reducers/users'
+import { getUser, removeUserFromStore, addFriend, deleteFriend, getProfileInfo } from '../reducers/users'
 
 import BigDoodle from '../components/BigDoodle.jsx'
 
 class ProfileContainer extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount(){
+    this.props.profile && this.props.getProfileInfo()
+  }
+
+  componentWillUnmount(){
+    if(this.props.profile && this.props.isFriend === false){
+      this.props.removeUserFromStore(this.props.profile)
+    }
   }
 
   render(){
@@ -26,11 +36,13 @@ class ProfileContainer extends Component {
         { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ? 
           ( <button 
               className="btn btn-primary btn-sm" 
-              onClick={this.props.addFriend}>follow
+              onClick={this.props.addFriend.bind(this)}>follow
             </button> ) : null }
           <div>
+
             { this.props.drawings.map(drawing => {
               let commentsarr = this.props.comments.filter(comment => comment.parent_drawing_id === drawing.id);
+
               return (
                 <BigDoodle 
                   key={drawing.id}
@@ -94,8 +106,9 @@ const mapStateToProps = (state, ownProps) => {
     .filter(version => version.user_id === Number(ownProps.params.id));
 
   const drawings = Object.values(state.drawings)
-    .filter(drawing => drawing.type === 'masterpiece' && drawing.versions
-      .some(version_id => versions.some(version => version.id === version_id)))
+    .filter(drawing => drawing.type === 'masterpiece' && drawing.private===false && drawing.versions
+      .some(version_id => versions.some(version => version.id === version_id))
+      )
 
   const comments = Object.values(state.drawings)
     .filter(drawing => drawing.parent_drawing_id)
@@ -119,9 +132,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getUser: () => dispatch(getUser(Number(ownProps.params.id))), 
-    removeUserFromStore: () => dispatch(removeUserFromStore(Number(ownProps.params.id))), 
+    removeUserFromStore: (user) => dispatch(removeUserFromStore(user)), 
     addFriend: () => dispatch(addFriend(Number(ownProps.params.id))), 
     deleteFriend: () => dispatch(deleteFriend(Number(ownProps.params.id))),
+    getProfileInfo: () => dispatch(getProfileInfo(Number(ownProps.params.id)))
   }
 }
 

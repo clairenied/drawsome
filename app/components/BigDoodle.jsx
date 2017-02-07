@@ -26,7 +26,7 @@ const BigDoodle = (props) => {
           <Link to="/masterpiece">
             <div className="col-xs-12 col-md-8">
               <div className="doodle-container">
-                <PaperCanvas json={ masterpieceVersion && masterpieceVersion.data} />
+                <PaperCanvas height="400" width="400" json={ masterpieceVersion && masterpieceVersion.data} />
               </div>
             </div>
           </Link>

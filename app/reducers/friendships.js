@@ -4,8 +4,12 @@ import { setAllVersions } from './versions'
 import { receiveUser } from './users'
 
 const transformFriendship = friendObj => {
-  delete friendObj.follower
-  delete friendObj.followee
+  if(friendObj.follower){
+    delete friendObj.follower  
+  }
+  if(friendObj.followee){
+    delete friendObj.followee
+  }
   return friendObj
 }
 
@@ -28,6 +32,7 @@ const reducer = (state=initialState, action) => {
 
 export const ADD_FRIENDSHIP = 'ADD_FRIENDSHIP'
 export const receiveFriendship = friendship => {
+  console.log('GETTING TO RECEIVE F')
   return {
     type: 'ADD_FRIENDSHIP',
     friendship: transformFriendship(friendship),
@@ -46,9 +51,10 @@ export const deleteFriendship = friendship => {
 export const receiveFriendships = friendships => {
   return dispatch => {
     return friendships.forEach(friendship => {
-      if(friendship.follower) {
-        dispatch(receiveUser(friendship.follower));
-      } else if(friendship.followee) {
+      // if(friendship.follower) {
+      //   dispatch(receiveUser(friendship.follower));
+      // } 
+      if(friendship.followee) {
         dispatch(receiveUser(friendship.followee));
       }
       return dispatch(receiveFriendship(friendship))
@@ -59,9 +65,8 @@ export const receiveFriendships = friendships => {
 export const getFriendships = () =>
   dispatch =>
     axios.get('/api/friendships')
-      .then(res => {
-        return res.data
-      })
-      .then(friendships => dispatch(receiveFriendships(friendships)));
+      .then(friendships => {
+        dispatch(receiveFriendships(friendships.data))
+      });
 
 export default reducer

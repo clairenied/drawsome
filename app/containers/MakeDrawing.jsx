@@ -99,17 +99,23 @@ class MakeDrawing extends React.Component {
   saveAndCreateDrawing(e){
     e.preventDefault()
     if (this.state.name !== ''){
+      this.setState({errorLoad:false})
     this.props.createMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, true)
     }
-    this.setState({errorLoad:true})
+    else {
+      this.setState({errorLoad:true})
+    }
   }
 
   postAndCreateDrawing(e){
+      e.preventDefault()
     if (this.state.name !== ''){
-    e.preventDefault()
+      this.setState({errorLoad:false})
     this.props.postMasterpieceDraft(this.props.user.id, this.state.name, this.state.currentPaper.project.exportJSON(), true, false)
   }
-  this.setState({errorLoad:true})
+  else {
+    this.setState({errorLoad:true})
+  }
 
   }
 

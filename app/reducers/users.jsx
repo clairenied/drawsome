@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { setAllMasterpieces } from './drawings'
 import { receiveVersions } from './versions'
-import { receiveDrawings } from './drawings'
+import { receiveDrawings, removeDrawingsFromStore } from './drawings'
 import { deleteFriendship, receiveFriendship } from './friendships'
 
 const transformUser = userObj => {
@@ -11,6 +11,12 @@ const transformUser = userObj => {
 		})
 
 		userObj.drawings = userDrawingsArr		
+	}
+	if(userObj.versions){
+		const versionDrawings = userObj.versions.map(versions => {
+			return version.id
+		})
+		userObj.versions = versionDrawings
 	}
 	return userObj
 }
@@ -25,6 +31,7 @@ const reducer = (state=initialState, action) => {
 			break;
 		case REMOVE_USER:
 			delete nextState[action.user.id]
+			break;
 		default: 
 			return state
 	}
@@ -37,6 +44,9 @@ export const receiveUser = user =>
 		if(user.drawings){
 			dispatch(receiveDrawings(user.drawings))
 		}
+		if(user.versions){
+			dispatch(receiveVersions(user.versions))
+		}
 		return dispatch({
 			type: ADD_USER,
 			user: transformUser(user),
@@ -46,6 +56,9 @@ export const receiveUser = user =>
 export const REMOVE_USER = 'REMOVE_USER'
 export const removeUserFromStore = user => 
 	dispatch => {
+		if(user.drawings){
+			dispatch(removeDrawingsFromStore(user.drawings))
+		}
 		return dispatch({
 			type: REMOVE_USER,
 			user,
@@ -69,7 +82,7 @@ export const addFriend = id => {
 		return axios.post('/api/friendships/', { id })
 		.then(res => {
 			if(res) {
-				dispatch(receiveUser(res.data[0]))
+				console.log('RES', res)
 				dispatch(receiveFriendship(res.data[1]))
 			}
 		})
@@ -84,12 +97,21 @@ export const deleteFriend = id => {
 		.then(res => {
 			console.log("RES", res)
 			if(res) {
-				console.log(res.data)
-				dispatch(removeUserFromStore(res.data[0]))
 				dispatch(deleteFriendship(res.data[1]))
 			}
 		})
 		.catch( err => console.log(err) )
+	}
+}
+
+export const getProfileInfo = id => {
+	return dispatch => {
+		return axios.get(`/api/users/${id}`)
+		.then(res => {
+			console.log('PROFILEINFORESDATA', res.data)
+			dispatch(receiveUser(res.data))
+		})
+		.catch(err => console.log(err))
 	}
 }
 

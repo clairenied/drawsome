@@ -21,7 +21,7 @@ router.get('/', forbidden('only admins can list users'), async (req, res, next) 
 
 router.post('/', async (req, res, next) => {
 	try {
-		const users = await User.create(req.body)
+		const user = await User.create(req.body)
 		return res.status(201).json(user)
 	} catch(next){}
 })
@@ -44,7 +44,11 @@ router.get('/searchbar', mustBeLoggedIn, async (req, res, next) => {
 
 router.get('/:id', mustBeLoggedIn, async (req, res, next) => {
 	try {
-		const user = await User.findById(req.params.id)
+		const user = await User.findById(req.params.id, {include: [{
+        model: Drawing,
+        include: [ Version ]
+      }]
+    })
 		return res.json(user)
 	} catch(next){}
 })
