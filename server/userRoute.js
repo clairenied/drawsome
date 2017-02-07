@@ -44,7 +44,11 @@ router.get('/searchbar', mustBeLoggedIn, async (req, res, next) => {
 
 router.get('/:id', mustBeLoggedIn, async (req, res, next) => {
 	try {
-		const user = await User.findById(req.params.id)
+		const user = await User.findById(req.params.id, {include: [{
+        model: Drawing,
+        include: [ Version ]
+      }]
+    })
 		return res.json(user)
 	} catch(next){}
 })
