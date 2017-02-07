@@ -113,6 +113,8 @@ const mapStateToProps = (state, ownProps) => {
 
   const comments = Object.values(state.drawings)
     .filter(drawing => drawing.parent_drawing_id)
+  
+  console.log("COMMENTS?", comments)
 
 
   return {

@@ -70,9 +70,6 @@ router.post('/comment', (req, res, next) => {
       })
     ])
   })
-  .then(data => {
-    return Drawing.findById(data.drawing_id, {include: [{model: Version}]}) 
-  })
   .then(drawing => {
     res.json(drawing)
   })
