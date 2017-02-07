@@ -19,7 +19,7 @@
     "url": "git+https://github.com/queerviolet/bones.git"
   },
   "engines": {
-    "node": "4.1.1"
+    "node": "7.5.0"
   },
   "keywords": [
     "react",
