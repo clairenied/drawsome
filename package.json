@@ -13,7 +13,7 @@
     "deploy-heroku": "bin/deploy-heroku.sh",
     "start": "check-node-version --node '>= 6.7.0' && bin/setup && nodemon -x 'node --harmony' server/start.js",
     "seed": "node --harmony db/seed.js",
-    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
