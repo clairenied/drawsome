@@ -11,6 +11,10 @@ class ProfileContainer extends Component {
     super(props);
   }
 
+  componentDidUpdate() {
+    window.scrollTo(0,0);
+  }
+
   componentDidMount(){
     if(!this.props.isFriend && this.props.user.id !== Number(this.props.params.id)){
       this.props.profile && this.props.getProfileInfo()
