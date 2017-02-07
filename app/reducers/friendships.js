@@ -32,7 +32,6 @@ const reducer = (state=initialState, action) => {
 
 export const ADD_FRIENDSHIP = 'ADD_FRIENDSHIP'
 export const receiveFriendship = friendship => {
-  console.log('GETTING TO RECEIVE F')
   return {
     type: 'ADD_FRIENDSHIP',
     friendship: transformFriendship(friendship),

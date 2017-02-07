@@ -6,7 +6,6 @@ import {connect} from 'react-redux'
 
 
 const ProfileDoodle = (props) => {
-  console.log("PROPS", props)
   const masterpiece = props.masterpiece;
   const profile = props.profile;
 

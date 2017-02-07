@@ -82,7 +82,6 @@ export const addFriend = id => {
 		return axios.post('/api/friendships/', { id })
 		.then(res => {
 			if(res) {
-				console.log('RES', res)
 				dispatch(receiveFriendship(res.data[1]))
 			}
 		})
@@ -92,10 +91,8 @@ export const addFriend = id => {
 
 export const deleteFriend = id => {
 	return dispatch => {
-		console.log('IDHERE', id)
 		return axios.delete(`/api/friendships/${id}`)
 		.then(res => {
-			console.log("RES", res)
 			if(res) {
 				dispatch(deleteFriendship(res.data[1]))
 			}
@@ -108,7 +105,6 @@ export const getProfileInfo = id => {
 	return dispatch => {
 		return axios.get(`/api/users/${id}`)
 		.then(res => {
-			console.log('PROFILEINFORESDATA', res.data)
 			dispatch(receiveUser(res.data))
 		})
 		.catch(err => console.log(err))

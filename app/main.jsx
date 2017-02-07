@@ -27,17 +27,6 @@ import {getMasterpieceDraft} from './reducers/drawings.jsx'
 import {whoami} from './reducers/auth'
 import { getFriendships } from './reducers/friendships'
 
-// const loadProfileOnEnter = function (nextRouterState) {
-//   const profileId = nextRouterState.params.id;
-//   store.dispatch(getUser(profileId));
-//   store.dispatch(getProfileInfo(profileId))
-// };
-
-// const loadGalleryOnEnter = function(nextRouterState){
-//   console.log('NEXTROUTERSTATE', nextRouterState)
-//   store.dispatch(getFriendships())
-// }
-
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -46,7 +35,7 @@ render (
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/gallery" component={PublicGalleryContainer} />
-        <Route path="/masterpiece" component={SingleMasterpieceViewContainer} />
+        <Route path="/masterpiece/:id" component={SingleMasterpieceViewContainer} />
         <Route path="/profile/:id" component={ProfileContainer} />
         <Route path="/create-masterpiece" component={MasterpieceContainer}/>
         <Route path="/edit-masterpiece/:id" component={EditMasterpieceDraft} />
