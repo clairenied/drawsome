@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import axios from 'axios'
 import { getUser, removeUserFromStore, addFriend, deleteFriend, getProfileInfo } from '../reducers/users'
 
-import BigDoodle from '../components/BigDoodle.jsx'
+import ProfileDoodle from '../components/ProfileDoodle.jsx'
 
 class ProfileContainer extends Component {
   constructor(props) {
@@ -27,9 +27,9 @@ class ProfileContainer extends Component {
         <h1>Art By: { this.props.profile.fullName }</h1>
 
         <div className="row">
-        { this.props.profile && this.props.isFriend && (this.props.profile.id !== this.props.user.id) ? 
-          ( <button 
-              className="btn btn-danger btn-sm" 
+        { this.props.profile && this.props.isFriend && (this.props.profile.id !== this.props.user.id) ?
+          ( <button
+              className="btn btn-danger btn-sm"
               onClick={this.props.deleteFriend.bind(this)}>unfollow
             </button> ) : null } 
         
@@ -44,12 +44,12 @@ class ProfileContainer extends Component {
               let commentsarr = this.props.comments.filter(comment => comment.parent_drawing_id === drawing.id);
 
               return (
-                <BigDoodle 
+                <ProfileDoodle
                   key={drawing.id}
                   masterpiece={drawing}
                   profile={this.props.profile} comments={commentsarr} />
               )
-            })}  
+            })}
           </div>
         </div>
       </div>
@@ -100,8 +100,9 @@ const dummyFriendships = () => {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {  
 
+const mapStateToProps = (state, ownProps) => {  
+  
   const versions = Object.values(state.versions)
     .filter(version => version.user_id === Number(ownProps.params.id));
 
@@ -122,7 +123,7 @@ const mapStateToProps = (state, ownProps) => {
     profile: state.users[Number(ownProps.params.id)] || dummyUser(), 
     friendships: state.friendships || dummyFriendships(),
     isFriend: Object.values(state.friendships)
-      .some(friendship => 
+      .some(friendship =>
       {
        return friendship.follower_id === state.auth.id && friendship.followee_id === Number(ownProps.params.id)
       })
