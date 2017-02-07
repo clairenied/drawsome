@@ -63,7 +63,7 @@ export const whoami = () =>
         dispatch(authenticated(user))
         dispatch(getFriendships())
         dispatch(receiveDrawings(user.drawings))
-          // dispatch(getDrawings())
+        //dispatch(getDrawings())
       })
       .catch(failed => {
         browserHistory.push('/login')

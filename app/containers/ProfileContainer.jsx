@@ -30,11 +30,12 @@ class ProfileContainer extends Component {
             </button> ) : null }
           <div>
             { this.props.drawings.map(drawing => {
+              let commentsarr = this.props.comments.filter(comment => comment.parent_drawing_id === drawing.id);
               return (
                 <BigDoodle 
                   key={drawing.id}
                   masterpiece={drawing}
-                  profile={this.props.profile} />
+                  profile={this.props.profile} comments={commentsarr} />
               )
             })}  
           </div>
@@ -88,6 +89,7 @@ const dummyFriendships = () => {
 }
 
 const mapStateToProps = (state, ownProps) => {  
+
   const versions = Object.values(state.versions)
     .filter(version => version.user_id === Number(ownProps.params.id));
 
@@ -95,10 +97,15 @@ const mapStateToProps = (state, ownProps) => {
     .filter(drawing => drawing.type === 'masterpiece' && drawing.versions
       .some(version_id => versions.some(version => version.id === version_id)))
 
+  const comments = Object.values(state.drawings)
+    .filter(drawing => drawing.parent_drawing_id)
+
+
   return {
     user: state.auth || dummyUser(),
     drawings,
     versions,
+    comments,
     profile: state.users[Number(ownProps.params.id)] || dummyUser(), 
     friendships: state.friendships || dummyFriendships(),
     isFriend: Object.values(state.friendships)
