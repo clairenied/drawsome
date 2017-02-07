@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import axios from 'axios'
 import { getUser, removeUserFromStore, addFriend, deleteFriend, getProfileInfo } from '../reducers/users'
 
-import ProfileDoodle from '../components/ProfileDoodle.jsx'
+import ProfileDoodle from '../components/profileDoodle.jsx'
 
 class ProfileContainer extends Component {
   constructor(props) {
