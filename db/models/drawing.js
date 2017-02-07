@@ -40,12 +40,12 @@ const Drawing = db.define('drawing', {
       getComments: function () {
         return Drawing.findAll({
           where: { parent_drawing_id: this.id },
-          include: [ Version.scope('recent'), User ]
+          include: [ Version.scope('recent')]
         })
-        .then((comments) => {
-          this.setDataValue("comments", comments)
-          return this;
-        })
+        // .then((comments) => {
+        //   this.setDataValue("comments", comments)
+        //   return this;
+        // })
       }
     }
 })
