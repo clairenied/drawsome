@@ -21,10 +21,10 @@ router.get('/', mustBeLoggedIn, async (req, res, next) => {
 router.post('/', mustBeLoggedIn, async (req, res, next) => {
   try {
     const newFriend = await User.findById(Number(req.body.id), {include: [{
-          model: Drawing,
-          include: [ Version ]
-        }]
-      })
+        model: Drawing,
+        include: [ Version ]
+      }]
+    })
     const newFriendship = await Friendship.create({
       follower_id: req.user.id,
       followee_id: newFriend.id,
@@ -32,6 +32,7 @@ router.post('/', mustBeLoggedIn, async (req, res, next) => {
     return res.json([newFriend, newFriendship])
   } catch(next){ console.error(next) }
 })
+
 
 router.delete('/:id', mustBeLoggedIn, async (req, res, next) => {
   try {

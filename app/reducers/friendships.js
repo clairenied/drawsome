@@ -4,8 +4,12 @@ import { setAllVersions } from './versions'
 import { receiveUser } from './users'
 
 const transformFriendship = friendObj => {
-  delete friendObj.follower
-  delete friendObj.followee
+  if(friendObj.follower){
+    delete friendObj.follower  
+  }
+  if(friendObj.followee){
+    delete friendObj.followee
+  }
   return friendObj
 }
 
@@ -28,6 +32,7 @@ const reducer = (state=initialState, action) => {
 
 export const ADD_FRIENDSHIP = 'ADD_FRIENDSHIP'
 export const receiveFriendship = friendship => {
+  console.log('GETTING TO RECEIVE F')
   return {
     type: 'ADD_FRIENDSHIP',
     friendship: transformFriendship(friendship),

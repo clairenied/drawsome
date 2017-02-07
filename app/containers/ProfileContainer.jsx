@@ -2,13 +2,23 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
 import axios from 'axios'
-import { getUser, removeUserFromStore, addFriend, deleteFriend } from '../reducers/users'
+import { getUser, removeUserFromStore, addFriend, deleteFriend, getProfileInfo } from '../reducers/users'
 
 import BigDoodle from '../components/BigDoodle.jsx'
 
 class ProfileContainer extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount(){
+    this.props.profile && this.props.getProfileInfo()
+  }
+
+  componentWillUnmount(){
+    if(this.props.profile && this.props.isFriend === false){
+      this.props.removeUserFromStore(this.props.profile)
+    }
   }
 
   render(){
@@ -26,7 +36,7 @@ class ProfileContainer extends Component {
         { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ? 
           ( <button 
               className="btn btn-primary btn-sm" 
-              onClick={this.props.addFriend}>follow
+              onClick={this.props.addFriend.bind(this)}>follow
             </button> ) : null }
           <div>
             { this.props.drawings && this.props.drawings.map(drawing => {
@@ -113,9 +123,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getUser: () => dispatch(getUser(Number(ownProps.params.id))), 
-    removeUserFromStore: () => dispatch(removeUserFromStore(Number(ownProps.params.id))), 
+    removeUserFromStore: (user) => dispatch(removeUserFromStore(user)), 
     addFriend: () => dispatch(addFriend(Number(ownProps.params.id))), 
     deleteFriend: () => dispatch(deleteFriend(Number(ownProps.params.id))),
+    getProfileInfo: () => dispatch(getProfileInfo(Number(ownProps.params.id)))
   }
 }
 
