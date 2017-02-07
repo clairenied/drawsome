@@ -39,9 +39,11 @@ const ProfileDoodle = (props) => {
           </div>
           <div className="col-xs-3">
             { comments && comments.map(comment => {
+              let name = "";
+              props.users[comment.version.user_id] ? name = props.users[comment.version.user_id].fullName : null;
                 return ( 
                   <div>
-                  <h4><Link to={`/profile/${comment.version.users_id}`}>{}</Link></h4>
+                  <h4><Link to={`/profile/${comment.version.user_id}`}>{name}</Link></h4>
                     <PaperCanvas json={comment.version.data} />
                   </div>
                 )
