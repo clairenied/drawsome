@@ -47,7 +47,6 @@ export const receiveFriendships = friendships => {
   return dispatch => {
     return friendships.forEach(friendship => {
       // if(friendship.follower) {
-      //   console.log('FRIENDSHIPFOLLOWER', friendship.follower)
       //   dispatch(receiveUser(friendship.follower));
       // } 
       if(friendship.followee) {
@@ -62,7 +61,6 @@ export const getFriendships = () =>
   dispatch =>
     axios.get('/api/friendships')
       .then(friendships => {
-        console.log('FRIENDDATA',friendships.data)
         dispatch(receiveFriendships(friendships.data))
       });
 
