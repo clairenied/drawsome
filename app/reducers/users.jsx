@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { setAllMasterpieces } from './drawings'
 import { receiveVersions } from './versions'
-import { receiveDrawings } from './drawings'
+import { receiveDrawings, removeDrawingsFromStore } from './drawings'
 import { deleteFriendship, receiveFriendship } from './friendships'
 
 const transformUser = userObj => {
@@ -25,6 +25,7 @@ const reducer = (state=initialState, action) => {
 			break;
 		case REMOVE_USER:
 			delete nextState[action.user.id]
+			break;
 		default: 
 			return state
 	}
@@ -49,6 +50,9 @@ export const receiveUser = user =>
 export const REMOVE_USER = 'REMOVE_USER'
 export const removeUserFromStore = user => 
 	dispatch => {
+		if(user.drawings){
+			dispatch(removeDrawingsFromStore(user.drawings))
+		}
 		return dispatch({
 			type: REMOVE_USER,
 			user,

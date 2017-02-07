@@ -35,7 +35,7 @@ router.post('/', mustBeLoggedIn, async (req, res, next) => {
 
 router.delete('/:id', mustBeLoggedIn, async (req, res, next) => {
   try {
-    const removeFriend = await User.findById(req.params.id)
+    const removeFriend = await User.findById(req.params.id, {include: [Drawing]})
     const friendship = await Friendship.findOne({
       where: {
           follower_id: req.user.id, 
