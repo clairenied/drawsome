@@ -17,6 +17,16 @@
   padding: 2rem;
 }
 
+.profile-card {
+  @include shadow;
+  height:350px;
+  width:300px;
+  background-color: #ffffff;
+  margin: 0 1rem 4rem 1rem;
+  padding:1rem;
+  display:inline-block;
+}
+
 .img-card-comment {
   margin: 0 0 4rem 0;
 }
@@ -37,4 +47,3 @@ hr.divider-rule {
 .doodle-header {
   position: inline;
 }
-

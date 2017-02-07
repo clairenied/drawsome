@@ -5,24 +5,23 @@ import PaperCanvas from './PaperCanvas.jsx'
 import { dateFormatted } from '../helperFunctions'
 import CommentComponent from './CommentComponent.jsx'
 import {connect} from 'react-redux'
+import CommentCanvas from './CommentCanvas.jsx'
+
 
 const ProfileDoodle = (props) => {
   const masterpiece = props.masterpiece;
   const profile = props.profile;
-  
+
   const masterpieceVersion = props.versions[masterpiece.versions[0]];
   const comments = props.comments
-  
+
   return (
    <div className="row big-doodle">
       <div className="big-doodle-border">
         <div className="col-xs-12">
-          <div className="col-xs-12 col-md-4">
+          <div className="col-md-4">
             <hr className="divider-rule"/>
             <h3>{ masterpiece && masterpiece.name }</h3>
-   {/*
-            <h3><Link to={`/profile/${profile.id}`}>{ profile.firstName } { profile.lastName }</Link></h3>
-    */}
           </div>
           <Link to="/masterpiece">
             <div className="col-xs-12 col-md-8">
@@ -33,20 +32,20 @@ const ProfileDoodle = (props) => {
             </div>
           </Link>
         </div>
-        <div className="col-xs-12">
-<CommentComponent masterpiece={props.masterpiece} profile={props.profile}/>
-          <div className="col-xs-12">
+        <div>
+          <CommentComponent masterpiece={props.masterpiece} profile={props.profile}/>
             <h3>Comments:</h3>
-          </div>
-          <div className="col-xs-3">
+
+          <div className="col-xs-12">
             { comments && comments.map(comment => {
               let name = "";
-              props.users[comment.version.user_id] ? name = props.users[comment.version.user_id].fullName : null;
-                return ( 
-                  <div>
+                props.users[comment.version.user_id] ? name = props.users[comment.version.user_id].fullName : null;
+                return (
+                  <div className="profile-card">
                   <h4><Link to={`/profile/${comment.version.user_id}`}>{name}</Link></h4>
-                    <PaperCanvas json={comment.version.data} key={comment.version.id}/>
+                    <CommentCanvas json={comment.version.data} key={comment.version.id}/>
                     <h4>{dateFormatted(comment.version.created_at)}</h4>
+
                   </div>
                 )
               })
@@ -59,9 +58,10 @@ const ProfileDoodle = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { 
+  return {
     versions: state.versions
   }
 }
+
 
 export default connect(mapStateToProps)(ProfileDoodle)
