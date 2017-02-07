@@ -12,11 +12,13 @@ class ProfileContainer extends Component {
   }
 
   componentDidMount(){
-    this.props.profile && this.props.getProfileInfo()
+    if(!this.props.isFriend && this.props.user.id !== Number(this.props.params.id)){
+      this.props.profile && this.props.getProfileInfo()
+    }
   }
 
   componentWillUnmount(){
-    if(this.props.profile && this.props.isFriend === false){
+    if(!this.props.isFriend && this.props.user.id !== Number(this.props.params.id)){
       this.props.removeUserFromStore(this.props.profile)
     }
   }
@@ -124,9 +126,7 @@ const mapStateToProps = (state, ownProps) => {
     comments,
     profile: state.users[Number(ownProps.params.id)] || dummyUser(), 
     friendships: state.friendships || dummyFriendships(),
-    isFriend: Object.values(state.friendships)
-      .some(friendship =>
-      {
+    isFriend: Object.values(state.friendships).some(friendship => {
        return friendship.follower_id === state.auth.id && friendship.followee_id === Number(ownProps.params.id)
       })
   }

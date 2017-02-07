@@ -6,7 +6,6 @@ import PaperCanvas from './PaperCanvas.jsx'
 import CommentComponent from './CommentComponent.jsx'
 import {connect} from 'react-redux'
 
-
 const profileDoodle = (props) => {
   const masterpiece = props.masterpiece;
   const profile = props.profile;
