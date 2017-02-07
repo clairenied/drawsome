@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router'
 import ProfileCanvas from './ProfileCanvas.jsx'
 import PaperCanvas from './PaperCanvas.jsx'
-import { dateFormatted } from '../helperFunctions'
+
 import CommentComponent from './CommentComponent.jsx'
 import {connect} from 'react-redux'
 
@@ -28,7 +28,6 @@ const ProfileDoodle = (props) => {
             <div className="col-xs-12 col-md-8">
               <div className="masterpiece-container">
                 <ProfileCanvas height="450" width="450" json={ masterpieceVersion && masterpieceVersion.data} />
-                <h4>{dateFormatted(masterpieceVersion.created_at)}</h4>
               </div>
             </div>
           </Link>
@@ -40,13 +39,10 @@ const ProfileDoodle = (props) => {
           </div>
           <div className="col-xs-3">
             { comments && comments.map(comment => {
-              let name = "";
-              props.users[comment.version.user_id] ? name = props.users[comment.version.user_id].fullName : null;
                 return ( 
                   <div>
-                  <h4><Link to={`/profile/${comment.version.user_id}`}>{name}</Link></h4>
-                    <PaperCanvas json={comment.version.data} key={comment.version.id}/>
-                    <h4>{dateFormatted(comment.version.created_at)}</h4>
+                  <h4><Link to={`/profile/${comment.version.users_id}`}>{}</Link></h4>
+                    <PaperCanvas json={comment.version.data} />
                   </div>
                 )
               })
