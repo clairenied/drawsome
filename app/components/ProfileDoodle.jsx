@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router'
 import ProfileCanvas from './ProfileCanvas.jsx'
 import PaperCanvas from './PaperCanvas.jsx'
-import { dateFormatted } from '../helperFunctions'
+
 import CommentComponent from './CommentComponent.jsx'
 import {connect} from 'react-redux'
 import CommentCanvas from './CommentCanvas.jsx'
@@ -23,14 +23,11 @@ const ProfileDoodle = (props) => {
             <hr className="divider-rule"/>
             <h3>{ masterpiece && masterpiece.name }</h3>
           </div>
-          <Link to="/masterpiece">
-            <div className="col-xs-12 col-md-8">
-              <div className="masterpiece-container">
-                <ProfileCanvas height="450" width="450" json={ masterpieceVersion && masterpieceVersion.data} />
-                <h4>{dateFormatted(masterpieceVersion.created_at)}</h4>
-              </div>
+          <div className="col-xs-12 col-md-8">
+            <div className="masterpiece-container">
+              <ProfileCanvas height="450" width="450" json={ masterpieceVersion && masterpieceVersion.data} />
             </div>
-          </Link>
+          </div>
         </div>
         <div>
           <CommentComponent masterpiece={props.masterpiece} profile={props.profile}/>
@@ -38,6 +35,7 @@ const ProfileDoodle = (props) => {
 
           <div className="col-xs-12">
             { comments && comments.map(comment => {
+
               let name = "";
                 props.users[comment.version.user_id] ? name = props.users[comment.version.user_id].fullName : null;
                 return (
@@ -45,7 +43,6 @@ const ProfileDoodle = (props) => {
                   <h4><Link to={`/profile/${comment.version.user_id}`}>{name}</Link></h4>
                     <CommentCanvas json={comment.version.data} key={comment.version.id}/>
                     <h4>{dateFormatted(comment.version.created_at)}</h4>
-
                   </div>
                 )
               })
