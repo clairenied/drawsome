@@ -83,20 +83,23 @@ export class CommentComponent extends React.Component {
   render(){
     return(
       <div>
-          <div>
-            {this.props.toggleComment ?
-            (<div className="palette">
-              <a onClick={() => this.changeColor('red')}><span className="little-red"></span></a>
-              <a onClick={() => this.changeColor('#ff5602')}><span className="little-orange"></span></a>
-              <a onClick={() => this.changeColor('yellow')}><span className="little-yellow"></span></a>
-              <a onClick={() => this.changeColor('#00ff00')}><span className="little-green"></span></a>
-              <a onClick={() => this.changeColor('blue')}><span className="little-blue"></span></a>
-              <a onClick={() => this.changeColor('#8500ff')}><span className="little-purple"></span></a>
-              <a onClick={() => this.changeColor('black')}><span className="little-black"></span></a>
-              <a onClick={() => this.changeColor('white')}><span className="little-white"></span></a>   
-            </div>) : null }
+        <div>
+        {this.props.toggleComment ?
+          (<div>
+            <div className="little-palette">
+              <a onClick={() => this.changeColor('red')}><div className="little-red"></div></a>
+              <a onClick={() => this.changeColor('#ff5602')}><div className="little-orange"></div></a>
+              <a onClick={() => this.changeColor('yellow')}><div className="little-yellow"></div></a>
+              <a onClick={() => this.changeColor('#00ff00')}><div className="little-green"></div></a>
+              <a onClick={() => this.changeColor('blue')}><div className="little-blue"></div></a>
+              <a onClick={() => this.changeColor('#8500ff')}><div className="little-purple"></div></a>
+              <a onClick={() => this.changeColor('black')}><div className="little-black"></div></a>
+              <a onClick={() => this.changeColor('white')}><div className="little-white"></div></a>   
+            </div>
+          </div>) : null }
           </div>
 
+          <div>
           {this.props.toggleComment ?
             (<div>
               <div className="create-comment-container">
@@ -111,12 +114,24 @@ export class CommentComponent extends React.Component {
                   height="300px"
                   />
                 <form id="master-buttons" className="form-inline">
-                  <button type="button" id="clear-button" className="btn btn-secondary" onClick={this.clearCanvas}>Clear</button>
-                  <button type="button" className="btn btn-secondary" onClick={this.undoDraw}>Undo</button>
-                  <button type="button" onClick={this.saveComment} className="btn btn-secondary" id="post-button">Post</button>
+                  <button 
+                    type="button" 
+                    id="clear-button" 
+                    className="btn btn-secondary" 
+                    onClick={this.clearCanvas}>Clear</button>
+                  <button 
+                    type="button" 
+                    className="btn btn-secondary" 
+                    onClick={this.undoDraw}>Undo</button>
+                  <button 
+                    type="button" 
+                    onClick={this.saveComment} 
+                    className="btn btn-secondary" 
+                    id="post-button">Post</button>
                 </form>
               </div>
             </div>) : null}
+            </div>
       </div>
     )
   }

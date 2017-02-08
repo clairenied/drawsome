@@ -6,7 +6,7 @@ class CommentCanvas extends React.Component {
     componentDidMount() {
         paper.setup(this.canvas);
         paper.project.importJSON(this.props.json);
-        paper.view.scale(0.7,[0,0]);
+        paper.view.scale(0.6,[0,0]);
 
     }
     render() {

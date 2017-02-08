@@ -13,6 +13,6 @@ body {
     cursor: pointer; }
   body .app-container {
     z-index: 50;
-    margin-top: 8rem; }
+    margin-top: 10rem; }
   body .hidden {
     display: none; }

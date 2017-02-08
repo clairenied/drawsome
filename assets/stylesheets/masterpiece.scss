@@ -9,7 +9,9 @@
 @mixin little-palettestyles {
   @include shadow;
   height: 30px;
-  margin: 5px 5px;
+  width: 12.5%;
+  display: inline-block;
+  margin: 0px 0px;
 }
 
 .masterpiece-container {
@@ -26,6 +28,10 @@
   height: 450px;
   margin: 20px 0;
   background-color: #ffffff;
+}
+
+.comment-pen {
+  margin-top: 5rem;
 }
 
 .create-comment-container {
@@ -107,7 +113,6 @@
 
 #master-buttons {
   margin-top: 10px;
-  float: right;
 }
 
 .draft-section {
@@ -152,6 +157,11 @@
     @include palettestyles;
     background-color: #ffffff;
   }
+}
+
+.little-palette {
+  margin: 20px 0;
+  height: 30px;
   .little-red {
     @include little-palettestyles;
     background-color: #ff0000;

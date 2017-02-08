@@ -13,7 +13,7 @@ body {
     cursor: pointer; }
   body .app-container {
     z-index: 50;
-    margin-top: 8rem; }
+    margin-top: 10rem; }
   body .hidden {
     display: none; }
 
@@ -252,6 +252,9 @@ hr.divider-rule {
   margin: 20px 0;
   background-color: #ffffff; }
 
+.comment-pen {
+  margin-top: 5rem; }
+
 .create-comment-container {
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
@@ -319,8 +322,7 @@ hr.divider-rule {
   color: white; }
 
 #master-buttons {
-  margin-top: 10px;
-  float: right; }
+  margin-top: 10px; }
 
 .draft-section {
   padding-top: 40px; }
@@ -386,61 +388,81 @@ hr.divider-rule {
     height: 36px;
     margin: 10px 0;
     background-color: #ffffff; }
-  .palette .little-red {
+
+.little-palette {
+  margin: 20px 0;
+  height: 30px; }
+  .little-palette .little-red {
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     height: 30px;
-    margin: 5px 5px;
+    width: 12.5%;
+    display: inline-block;
+    margin: 0px 0px;
     background-color: #ff0000; }
-  .palette .little-orange {
+  .little-palette .little-orange {
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     height: 30px;
-    margin: 5px 5px;
+    width: 12.5%;
+    display: inline-block;
+    margin: 0px 0px;
     background-color: #ff5602; }
-  .palette .little-yellow {
+  .little-palette .little-yellow {
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     height: 30px;
-    margin: 5px 5px;
+    width: 12.5%;
+    display: inline-block;
+    margin: 0px 0px;
     background-color: #ffff00; }
-  .palette .little-green {
+  .little-palette .little-green {
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     height: 30px;
-    margin: 5px 5px;
+    width: 12.5%;
+    display: inline-block;
+    margin: 0px 0px;
     background-color: #00ff00; }
-  .palette .little-blue {
+  .little-palette .little-blue {
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     height: 30px;
-    margin: 5px 5px;
+    width: 12.5%;
+    display: inline-block;
+    margin: 0px 0px;
     background-color: #0000ff; }
-  .palette .little-purple {
+  .little-palette .little-purple {
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     height: 30px;
-    margin: 5px 5px;
+    width: 12.5%;
+    display: inline-block;
+    margin: 0px 0px;
     background-color: #8500ff; }
-  .palette .little-black {
+  .little-palette .little-black {
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     height: 30px;
-    margin: 5px 5px;
+    width: 12.5%;
+    display: inline-block;
+    margin: 0px 0px;
     background-color: #000000; }
-  .palette .little-white {
+  .little-palette .little-white {
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
     height: 30px;
-    margin: 5px 5px;
+    width: 12.5%;
+    display: inline-block;
+    margin: 0px 0px;
     background-color: #ffffff; }
 
 .login-form {
