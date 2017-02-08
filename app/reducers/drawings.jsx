@@ -58,10 +58,10 @@ const ADD_DRAWING = "ADD_DRAWING";
 export const receiveDrawing = drawing => {
   return dispatch => {
     if(drawing.versions) dispatch(receiveVersions(drawing.versions))
-    return {
-      type: 'ADD_DRAWING',
-      drawing: transformDrawing(drawing)
-    }
+    return dispatch({
+          type: 'ADD_DRAWING',
+          drawing: transformDrawing(drawing)
+        })
   }
 }
 
