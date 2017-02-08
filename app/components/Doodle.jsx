@@ -19,10 +19,12 @@ const Doodle = (props) => {
           }
           </div>
         </Link>
-        {props.user && !props.artist ?
-          (<h3>{props.drawing.name}<br/><Link to={`/profile/${props.user.id}`}>{props.user.fullName}</Link></h3>) :
-          (<h3>{props.drawing.name}<br/><Link to={`/profile/${props.artist.id}`}>{props.artist.fullName}</Link></h3>)}
-        <h4>{dateFormatted(props.drawing.created_at)}</h4>
+        <div className="img-names">
+          {props.user && !props.artist ?
+            (<h3>{props.drawing.name}<br/><Link to={`/profile/${props.user.id}`}>{props.user.fullName}</Link></h3>) :
+            (<h3>{props.drawing.name}<br/><Link to={`/profile/${props.artist.id}`}>{props.artist.fullName}</Link></h3>)}
+          <h4>{dateFormatted(props.drawing.created_at)}</h4>
+        </div>
       </div>
 
     </div>

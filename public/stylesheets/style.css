@@ -147,6 +147,11 @@ hr.divider-rule {
 .doodle-header {
   position: inline; }
 
+.img-names {
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem; }
+
 .chat-app-container {
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.35);

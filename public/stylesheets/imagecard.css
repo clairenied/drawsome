@@ -52,3 +52,8 @@ hr.divider-rule {
 
 .doodle-header {
   position: inline; }
+
+.img-names {
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem; }
