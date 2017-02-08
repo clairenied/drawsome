@@ -39,13 +39,13 @@ module.exports = app
   }))
 
   // Body parsing middleware
-  .use(bodyParser.urlencoded({ extended: true }))
-  .use(bodyParser.json())
+  .use(bodyParser.urlencoded({ limit: '3mb', extended: true }))
+  .use(bodyParser.json({ limit: '3mb' }))
 
   // Authentication middleware
   .use(passport.initialize())
   .use(passport.session())
-  
+
   // Serve static files from ../public
   .use(express.static(resolve(__dirname, '..', 'public')))
 
@@ -69,12 +69,12 @@ module.exports = app
 
 if (module === require.main) {
   // Start listening only if we're the main module.
-  // 
+  //
   // https://nodejs.org/api/modules.html#modules_accessing_the_main_module
   const server = app.listen(
     process.env.PORT || 1337,
     () => {
-      console.log(`--- Started HTTP Server for ${pkg.name} ---`)      
+      console.log(`--- Started HTTP Server for ${pkg.name} ---`)
       console.log(`Listening on ${JSON.stringify(server.address())}`)
     }
   );
