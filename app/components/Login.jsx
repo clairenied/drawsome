@@ -31,53 +31,60 @@ export class Login extends React.Component {
   render(){
     return (
       <div className="container">
-        <div className="page-header">
-          <h1>Login</h1>
-        </div>
-        <form className="login-form" onSubmit={this.loginUser.bind(this)}>
-          <div className="buffer-oauth">
-            <p>
-              <a target="_self"
-                 href="/api/auth/google"
-                 className="btn btn-social btn-google">
-              <span className="fa fa-google"></span>
-              <span>Login with Google</span>
-              </a>
-            </p>
-          </div>
-          <div className="or buffer">
-            <div className="back-line">
-              <span>OR</span>
+        <div className="login-container">
+          <div className="login-form-container">
+            <div className="page-header">
+              <span className="login-logo-pink"><b>Draw</b></span><span className="login-logo-orange"><b>some</b></span>
+              <div className="login-subheader">
+                <h3>Welcome to Drawsome, the app where you talk to your friends through doodles!</h3>
+              </div>
             </div>
+            <form className="login-form" onSubmit={this.loginUser.bind(this)}>
+              <div>
+              { this.props.warnings.loginError ?
+                (<Alert bsStyle="warning">
+                  <strong>Oh no!</strong> Looks like your email or password is incorrect. Try again!
+                </Alert>) : null
+              }
+              </div>
+              <div className="form-group">
+                <label>Email Address</label>
+                <input className="form-control"
+                  name="email"
+                  placeholder="Email"
+                  value={this.state.email}
+                  onChange={this.updateInput.bind(this, 'email')}
+                />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input className="form-control"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  onChange={this.updateInput.bind(this, 'password')}
+                />
+              </div>
+              <button type="submit" className="btn btn-secondary" id="login-button">Login</button>
+              <div className="or buffer">
+                <div className="back-line">
+                  <span>OR</span>
+                </div>
+              </div>
+              <div className="buffer-oauth">
+                <p>
+                  <a target="_self"
+                     href="/api/auth/google"
+                     className="btn btn-social btn-google">
+                  <span className="fa fa-google"></span>
+                  <span>Login with Google</span>
+                  </a>
+                </p>
+              </div>
+            </form>
           </div>
-          <div>
-          { this.props.warnings.loginError ?
-            (<Alert bsStyle="warning">
-              <strong>Oh no!</strong> Looks like your email or password is incorrect. Try again!
-            </Alert>) : null
-          }
-          </div>
-          <div className="form-group">
-            <label>Email Address</label>
-            <input className="form-control"
-              name="email"
-              placeholder="Email"
-              value={this.state.email}
-              onChange={this.updateInput.bind(this, 'email')}
-            />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input className="form-control"
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.updateInput.bind(this, 'password')}
-            />
-          </div>
-          <button type="submit" className="btn btn-default">Login</button>
-        </form>
+        </div>
       </div>
     );
   }

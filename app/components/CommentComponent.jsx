@@ -19,7 +19,6 @@ export class CommentComponent extends React.Component {
       },
       currentPaper: null,
       name: '',
-      showComment: false
     }
 
     this.onMouseDown = this.onMouseDown.bind(this)
@@ -84,44 +83,40 @@ export class CommentComponent extends React.Component {
   render(){
     return(
       <div>
-              <div className="container">
-                <button type="button" id="post-button" className="btn btn=secondary" onClick={this.toggleComment}>{this.state.showComment ? "Discard" : "Add Comment"}</button>
-                <div className="col-xs-12 col-sm-4">
-                  {this.state.showComment ?
-                  (<div className="palette">
-                    <a onClick={() => this.changeColor('red')}><div className="red"></div></a>
-                    <a onClick={() => this.changeColor('#ff5602')}><div className="orange"></div></a>
-                    <a onClick={() => this.changeColor('yellow')}><div className="yellow"></div></a>
-                    <a onClick={() => this.changeColor('#00ff00')}><div className="green"></div></a>
-                    <a onClick={() => this.changeColor('blue')}><div className="blue"></div></a>
-                    <a onClick={() => this.changeColor('#8500ff')}><div className="purple"></div></a>
-                    <a onClick={() => this.changeColor('black')}><div className="black"></div></a>
-                    <a onClick={() => this.changeColor('white')}><div className="white"></div></a>
-                    <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>
-                    <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button>
-                  </div>) : null }
-                </div>
-
-              {this.state.showComment ?
-                (<div className="col-xs-12 col-sm-8">
-                  <div className="masterpiece-container">
-                    <ActivePaperCanvas
-                      getCurrentPaper={this.getCurrentPaper}
-                      onInitialize={this.onInitialize}
-                      onMouseDrag={this.onMouseDrag}
-                      onMouseDown={this.onMouseDown}
-                      clearCanvas={this.clearCanvas}
-                      undoDraw = {this.undoDraw}
-                      />
-
-                    <form id="master-buttons" className="form-inline">
-                      <button type="button" onClick={this.saveComment} className="btn btn-secondary" id="post-button">Post</button>
-                    </form>
-                  </div>
-                </div>) : null}
-              </div>
-              <div className="draft-section">
+          <div>
+            {this.props.toggleComment ?
+            (<div className="palette">
+              <a onClick={() => this.changeColor('red')}><span className="little-red"></span></a>
+              <a onClick={() => this.changeColor('#ff5602')}><span className="little-orange"></span></a>
+              <a onClick={() => this.changeColor('yellow')}><span className="little-yellow"></span></a>
+              <a onClick={() => this.changeColor('#00ff00')}><span className="little-green"></span></a>
+              <a onClick={() => this.changeColor('blue')}><span className="little-blue"></span></a>
+              <a onClick={() => this.changeColor('#8500ff')}><span className="little-purple"></span></a>
+              <a onClick={() => this.changeColor('black')}><span className="little-black"></span></a>
+              <a onClick={() => this.changeColor('white')}><span className="little-white"></span></a>   
+            </div>) : null }
           </div>
+
+          {this.props.toggleComment ?
+            (<div>
+              <div className="create-comment-container">
+                <ActivePaperCanvas
+                  getCurrentPaper={this.getCurrentPaper}
+                  onInitialize={this.onInitialize}
+                  onMouseDrag={this.onMouseDrag}
+                  onMouseDown={this.onMouseDown}
+                  clearCanvas={this.clearCanvas}
+                  undoDraw = {this.undoDraw}
+                  width="300px"
+                  height="300px"
+                  />
+                <form id="master-buttons" className="form-inline">
+                  <button type="button" id="clear-button" className="btn btn-secondary" onClick={this.clearCanvas}>Clear</button>
+                  <button type="button" className="btn btn-secondary" onClick={this.undoDraw}>Undo</button>
+                  <button type="button" onClick={this.saveComment} className="btn btn-secondary" id="post-button">Post</button>
+                </form>
+              </div>
+            </div>) : null}
       </div>
     )
   }
