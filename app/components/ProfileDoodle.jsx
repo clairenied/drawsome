@@ -34,16 +34,17 @@ class ProfileDoodle extends Component {
      <div className="row big-doodle">
         <div className="big-doodle-border">
           <div className="col-xs-12">
+            <div className="col-xs-12">
+              <hr className="divider-rule"/>
+            </div>
             <div className="col-xs-12 col-md-7">
               <div className="profile-masterpiece-container">
                 <ProfileCanvas height="450" width="450" json={ masterpieceVersion && masterpieceVersion.data} />
               </div>
             </div>
-            <div className="col-xs-12 col-md-5">
-             <hr className="divider-rule"/>
-            
+            <div className="col-xs-12 col-md-5">            
               <h2>{ masterpiece && masterpiece.name }</h2>
-              <button type="button" id="comment-button" className="btn btn-secondary" onClick={this.toggleComment}>{this.state.showComment ? "Discard" : "Add Comment"}</button>
+              <button type="button" id="comment-button" className="btn btn-secondary" onClick={this.toggleComment}>{this.state.toggleComment ? "Finish" : "Add Comment"}</button>
               <CommentComponent 
                 toggleComment={this.state.toggleComment}
                 masterpiece={this.props.masterpiece} 
@@ -51,8 +52,8 @@ class ProfileDoodle extends Component {
             </div>
           </div>
           <div>
-            <div className="col-xs-12">
-              <h3>Comments:</h3>
+            <div className="col-xs-12 comment-pen">
+              { comments && comments.length > 0 ? <div className="col-xs-12"><h3>Comments:</h3></div> : null }
               { comments && comments.map(comment => {
 
                 let name = "";
