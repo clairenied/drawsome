@@ -13,8 +13,7 @@
 .img-card {
   @include shadow;
   background-color: #ffffff;
-  margin: 0 0 4rem 0;
-  padding: 2rem;
+  width:300px;
 }
 
 .profile-card {
@@ -36,7 +35,8 @@ hr.divider-rule {
 }
 
 .doodle-container {
-  margin-right: 50rem;
+  width:300px !important;
+  height:300px;
 	height: auto;
 }
 
