@@ -18,6 +18,7 @@ class AppContainer extends React.Component {
     this.toggleShowChatSidebar = this.toggleShowChatSidebar.bind(this)
     this.toggleShowChat = this.toggleShowChat.bind(this)
     this.getFriendIds = this.getFriendIds.bind(this)
+    this.getChatVersionUnread = this.getChatVersionUnread.bind(this)
   }
 
   toggleShowChatSidebar(){
@@ -65,6 +66,21 @@ class AppContainer extends React.Component {
     })
   }
 
+  getChatVersionUnread(friendId){
+    let drawingId = Object.values(this.props.friendships).filter(friendship => {
+      if ( friendship.follower_id === this.props.friendId || friendship.followee_id === this.props.friendId ) {
+        return friendship.chat_drawing_id
+      }
+    })
+
+    console.log('DRAWING POOPS', this.props.drawings)
+    return true
+    // let drawingVersions = this.props.drawings[drawingId].versions
+    // let recentVersion = Math.max(...drawingVersions)
+
+    // return recentVersion.read
+  }
+
   render(){
     return (
       <div>
@@ -84,7 +100,10 @@ class AppContainer extends React.Component {
                       key={user.id}
                       className="online"
                       onClick={this.openChat.bind(this, user.id)}>
-                       { user.firstName } { user.lastName }
+                      { this.getChatVersionUnread(user.id) ? 
+                        <span>{ user.firstName } { user.lastName }</span> :
+                        <span><b>{ user.firstName } { user.lastName }</b></span>
+                      } 
                       </p>
                   })
                 }
@@ -135,7 +154,9 @@ const mapStateToProps = (state, ownProps) => {
   return {
     user: state.auth,
     users: state.users,
-    friendships: state.friendships
+    friendships: state.friendships,
+    versions: state.versions,
+    drawings: state.drawings,
   }
 }
 
