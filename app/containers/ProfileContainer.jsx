@@ -32,7 +32,6 @@ class ProfileContainer extends Component {
       <div className="container">
         <div className="master-header">
           <h1 className="master-h1">Art By: { this.props.profile.fullName }</h1>
-           <hr className="divider-rule"/>
             <div className="follow-btns">
               { this.props.profile && this.props.isFriend && (this.props.profile.id !== this.props.user.id) ?
                 ( <button
@@ -51,7 +50,6 @@ class ProfileContainer extends Component {
           <div>
             { this.props.drawings.map(drawing => {
               let commentsarr = this.props.comments.filter(comment => comment.parent_drawing_id === drawing.id);
-
               return (
                 <ProfileDoodle
                   key={drawing.id}

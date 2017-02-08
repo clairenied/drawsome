@@ -65,124 +65,128 @@ export class Signup extends React.Component {
   render(){
     return (
       <div className="container">
-        <div className="page-header">
-          <h1>Signup</h1>
-        </div>
-        <form className="login-form" onSubmit={this.signupUser.bind(this)}>
-          <div className="buffer-oauth">
-            <p>
-              <a target="_self"
-                 href="/api/auth/google"
-                 className="btn btn-social btn-google">
-              <span className="fa fa-google"></span>
-              <span>Signup with Google</span>
-              </a>
-            </p>
-          </div>
-          <div className="or buffer">
-            <div className="back-line">
-              <span>OR</span>
+        <div className="login-container">
+          <div className="login-form-container">
+            <div className="page-header">
+              <span className="login-logo-pink"><b>Draw</b></span><span className="login-logo-orange"><b>some</b></span>
             </div>
+            <form className="login-form" onSubmit={this.signupUser.bind(this)}>
+              { this.props.warnings.signinError ?
+                (<Alert bsStyle="warning">
+                  <strong>That email is already registered. Use a different one or login</strong>
+                </Alert>) : null
+              }
+              <div className="form-group">
+                <label>First Name</label>
+                <input className="form-control"
+                  name="firstName"
+                  placeholder="first name"
+                  value={this.state.firstName}
+                  onChange={this.updateInput.bind(this, 'firstName')}
+                />
+              </div>
+              { this.showRequiredMessage('firstName') ?
+                <p style={{color:'red'}}>First name required.</p>
+              :
+                null
+              }
+              <div className="form-group">
+                <label>Last Name</label>
+                <input className="form-control"
+                  name="lastName"
+                  placeholder="last name"
+                  value={this.state.lastName}
+                  onChange={this.updateInput.bind(this, 'lastName')}
+                />
+              </div>
+              { this.showRequiredMessage('lastName') ?
+                <p style={{color:'red'}}>Last name required.</p>
+              :
+                null
+              }
+              <div className="form-group">
+                <label>Birthday</label>
+                <input className="form-control"
+                  name="birthday"
+                  type="date"
+                  value={this.state.birthday}
+                  onChange={this.updateInput.bind(this, 'birthday')}
+                />
+              </div>
+              { this.showRequiredMessage('birthday') ?
+                <p style={{color:'red'}}>Birthday required.</p>
+              :
+                null
+              }
+              <div className="form-group">
+                <label>Email Address</label>
+                <input className="form-control"
+                  name="email"
+                  placeholder="email"
+                  value={this.state.email}
+                  onChange={this.updateInput.bind(this, 'email')}
+                />
+              </div>
+              { this.showRequiredMessage('email') ?
+                <p style={{color:'red'}}>Valid email required.</p>
+              :
+                null
+              }
+              <div className="form-group">
+                <label>Password</label>
+                <input className="form-control"
+                  name="password"
+                  type="password"
+                  placeholder="password"
+                  value={this.state.password}
+                  onChange={this.updateInput.bind(this, 'password')}
+                />
+              </div>
+              { this.showRequiredMessage('password') ?
+                <p style={{color:'red'}}>Password must be at least 8 characters.</p>
+              :
+                null
+              }
+              <div className="form-group">
+                <label>Confirm Password</label>
+                <input className="form-control"
+                  name="password"
+                  type="password"
+                  placeholder="confirm password"
+                  value={this.state.confirmPassword}
+                  onChange={this.updateInput.bind(this, 'confirmPassword')}
+                />
+              </div>
+              { this.showRequiredMessage('confirmPassword') & this.state.confirmPassword !== this.state.password ?
+                <p style={{color:'red'}}>Field must match Password.</p>
+              :
+                null
+              }
+                <button type="submit" className="btn btn-secondary" id="login-button">Signup & Login</button>
+                <div className="or buffer">
+                  <div className="back-line">
+                    <span>OR</span>
+                  </div>
+                </div>
+                <div className="buffer-oauth">
+                  <p>
+                    <a target="_self"
+                       href="/api/auth/google"
+                       className="btn btn-social btn-google">
+                    <span className="fa fa-google"></span>
+                    <span>Signup with Google</span>
+                    </a>
+                  </p>
+                </div>
+            </form>
+            {
+             !this.state.submit ?
+              <p style={{color:'red'}}>Please make sure all fields are filled, email is valid & passwords match.</p>
+            :
+              null
+            }
           </div>
-          { this.props.warnings.signinError ?
-            (<Alert bsStyle="warning">
-              <strong>That email is already registered. Use a different one or login</strong>
-            </Alert>) : null
-          }
-          <div className="form-group">
-            <label>First Name</label>
-            <input className="form-control"
-              name="firstName"
-              placeholder="first name"
-              value={this.state.firstName}
-              onChange={this.updateInput.bind(this, 'firstName')}
-            />
-          </div>
-          { this.showRequiredMessage('firstName') ?
-            <p style={{color:'red'}}>First name required.</p>
-          :
-            null
-          }
-          <div className="form-group">
-            <label>Last Name</label>
-            <input className="form-control"
-              name="lastName"
-              placeholder="last name"
-              value={this.state.lastName}
-              onChange={this.updateInput.bind(this, 'lastName')}
-            />
-          </div>
-          { this.showRequiredMessage('lastName') ?
-            <p style={{color:'red'}}>Last name required.</p>
-          :
-            null
-          }
-          <div className="form-group">
-            <label>Birthday</label>
-            <input className="form-control"
-              name="birthday"
-              type="date"
-              value={this.state.birthday}
-              onChange={this.updateInput.bind(this, 'birthday')}
-            />
-          </div>
-          { this.showRequiredMessage('birthday') ?
-            <p style={{color:'red'}}>Birthday required.</p>
-          :
-            null
-          }
-          <div className="form-group">
-            <label>Email Address</label>
-            <input className="form-control"
-              name="email"
-              placeholder="email"
-              value={this.state.email}
-              onChange={this.updateInput.bind(this, 'email')}
-            />
-          </div>
-          { this.showRequiredMessage('email') ?
-            <p style={{color:'red'}}>Valid email required.</p>
-          :
-            null
-          }
-          <div className="form-group">
-            <label>Password</label>
-            <input className="form-control"
-              name="password"
-              type="password"
-              placeholder="password"
-              value={this.state.password}
-              onChange={this.updateInput.bind(this, 'password')}
-            />
-          </div>
-          { this.showRequiredMessage('password') ?
-            <p style={{color:'red'}}>Password must be at least 8 characters.</p>
-          :
-            null
-          }
-          <div className="form-group">
-            <label>Confirm Password</label>
-            <input className="form-control"
-              name="password"
-              type="password"
-              placeholder="confirm password"
-              value={this.state.confirmPassword}
-              onChange={this.updateInput.bind(this, 'confirmPassword')}
-            />
-          </div>
-          { this.showRequiredMessage('confirmPassword') & this.state.confirmPassword !== this.state.password ?
-            <p style={{color:'red'}}>Field must match Password.</p>
-          :
-            null
-          }
-            <button type="submit" className="btn btn-default">Signup & Login</button>
-        </form>
-        {
-         !this.state.submit ?
-          <p style={{color:'red'}}>Please make sure all fields are filled, email is valid & passwords match.</p>
-        :
-          null
-        }
+        </div>
       </div>
     );
   }
