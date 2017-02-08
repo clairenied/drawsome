@@ -15,6 +15,19 @@ const transformDrawing = drawingObj => {
   return drawingObj
 }
 
+const transformCommentDrawing = drawingObj => {
+  if(drawingObj.versions) {
+    drawingObj.version = drawingObj.versions[0]
+    const versionsArr = drawingObj.versions.map(version => {
+      return version.id
+    })
+    drawingObj.versions = versionsArr
+  } else {
+    drawingObj.versions = []
+  }
+  return drawingObj
+}
+
 const initialState = {};
 
 const reducer  = (state = initialState, action) => {
@@ -60,6 +73,15 @@ export const receiveDrawing = drawing => {
     return dispatch({
           type: 'ADD_DRAWING',
           drawing: transformDrawing(drawing)
+        })
+  }
+}
+
+export const receiveCommentDrawing = drawing => {
+  return dispatch => {
+    return dispatch({
+          type: 'ADD_DRAWING',
+          drawing: transformCommentDrawing(drawing)
         })
   }
 }
@@ -110,9 +132,8 @@ export const postComment = (userId, masterpiece, profileId, json, canEdit, priv)
   return dispatch => {
     axios.post('/api/drawings/comment', {userId, masterpiece, json, canEdit, priv})
     .then(drawing => {
-      console.log("DRAWING?????", drawing)
-      dispatch(receiveVersions(drawing.data.versions))
-      dispatch(receiveDrawing(drawing.data))
+      dispatch(receiveCommentDrawing(drawing.data[1]))
+      dispatch(receiveVersions(drawing.data[1].versions))
       browserHistory.push(`/profile/${profileId}`)
     })
     .catch(err => console.log('there was an error posting the comment', err))

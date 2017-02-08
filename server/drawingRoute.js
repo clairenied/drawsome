@@ -51,26 +51,28 @@ router.post('/', (req, res, next) => {
 })
 
 router.post('/comment', (req, res, next) => {
-
   return Drawing.create({
     type: "comment",
     canEdit: req.body.canEdit,
     private: req.body.priv,
     likes: 0,
-    parent_drawing_id: req.body.masterpiece.id
+    parent_drawing_id: Number(req.body.masterpiece.id)
   })
   .then(drawing => {
-    return Promise.all([
-      Version.create({
-        drawing_id: drawing.id,
-        user_id: req.body.userId,
-        number: 1,
-        data: req.body.json
-      })
+    return Version.create({
+      drawing_id: drawing.id,
+      user_id: Number(req.body.userId),
+      number: 1,
+      data: req.body.json
+    })
+  })
+  .then(version => {
+    return Promise.all([version, Drawing.findById(version.drawing_id, {
+      include: [Version] })
     ])
   })
   .then(drawing => {
-    res.json(drawing)
+    res.send(drawing)
   })
   .catch(next);
 })
