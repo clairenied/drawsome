@@ -18,7 +18,6 @@ class AppContainer extends React.Component {
     this.toggleShowChatSidebar = this.toggleShowChatSidebar.bind(this)
     this.toggleShowChat = this.toggleShowChat.bind(this)
     this.getFriendIds = this.getFriendIds.bind(this)
-    // this.getChatVersionUnread = this.getChatVersionUnread.bind(this)
   }
 
   toggleShowChatSidebar(){

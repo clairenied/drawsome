@@ -6,7 +6,6 @@ import io from '../socket'
 const transformDrawing = drawingObj => {
   if(drawingObj.versions) {
     const versionsArr = drawingObj.versions.map(version => {
-      console.log('YOOOOOOO', version)
       return version.id
     })
     drawingObj.versions = versionsArr
