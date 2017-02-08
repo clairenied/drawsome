@@ -55,9 +55,12 @@ export const removeDrawingsFromStore = drawings =>
 
 const ADD_DRAWING = "ADD_DRAWING";
 export const receiveDrawing = drawing => {
-  return {
-    type: 'ADD_DRAWING',
-    drawing: transformDrawing(drawing)
+  return dispatch => {
+    if(drawing.versions) dispatch(receiveVersions(drawing.versions))
+    return dispatch({
+          type: 'ADD_DRAWING',
+          drawing: transformDrawing(drawing)
+        })
   }
 }
 
