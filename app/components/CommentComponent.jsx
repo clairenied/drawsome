@@ -84,8 +84,8 @@ export class CommentComponent extends React.Component {
   render(){
     return(
       <div>
-        <button type="button" id="post-button" className="btn btn=secondary" onClick={this.toggleComment}>{this.state.showComment ? "Discard" : "Add Comment"}</button>
               <div className="container">
+                <button type="button" id="post-button" className="btn btn=secondary" onClick={this.toggleComment}>{this.state.showComment ? "Discard" : "Add Comment"}</button>
                 <div className="col-xs-12 col-sm-4">
                   {this.state.showComment ?
                   (<div className="palette">

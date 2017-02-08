@@ -31,23 +31,22 @@ const ProfileDoodle = (props) => {
         </div>
         <div>
           <CommentComponent masterpiece={props.masterpiece} profile={props.profile}/>
-            <h3>Comments:</h3>
+            <div className="col-xs-12">
+              <h3>Comments:</h3>
+              { comments && comments.map(comment => {
 
-          <div className="col-xs-12">
-            { comments && comments.map(comment => {
-
-              let name = "";
-                props.users[comment.version.user_id] ? name = props.users[comment.version.user_id].fullName : null;
-                return (
-                  <div className="profile-card">
-                  <h4><Link to={`/profile/${comment.version.user_id}`}>{name}</Link></h4>
-                    <CommentCanvas json={comment.version.data} key={comment.version.id}/>
-                    <h4>{dateFormatted(comment.version.created_at)}</h4>
-                  </div>
-                )
-              })
-            }
-          </div>
+                let name = "";
+                  props.users[comment.version.user_id] ? name = props.users[comment.version.user_id].fullName : null;
+                  return (
+                    <div className="profile-card">
+                    <h4><Link to={`/profile/${comment.version.user_id}`}>{name}</Link></h4>
+                      <CommentCanvas json={comment.version.data} key={comment.version.id}/>
+                      <h4>{dateFormatted(comment.version.created_at)}</h4>
+                    </div>
+                  )
+                })
+              }
+            </div>
         </div>
       </div>
     </div>
