@@ -11,6 +11,10 @@ class ProfileContainer extends Component {
     super(props);
   }
 
+  componentDidUpdate() {
+    window.scrollTo(0,0);
+  }
+
   componentDidMount(){
     if(!this.props.isFriend && this.props.user.id !== Number(this.props.params.id)){
       this.props.profile && this.props.getProfileInfo()
@@ -26,22 +30,25 @@ class ProfileContainer extends Component {
   render(){
     return(
       <div className="container">
-        <h1>Art By: { this.props.profile.fullName }</h1>
+        <div className="master-header">
+          <h1 className="master-h1">Art By: { this.props.profile.fullName }</h1>
+          <div className="follow-btns">
+            { this.props.profile && this.props.isFriend && (this.props.profile.id !== this.props.user.id) ?
+              ( <button
+                  className="btn btn-secondary" id="unfollow-button"
+                  onClick={this.props.deleteFriend.bind(this)}>unfollow
+                </button> ) : null }
+
+            { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ?
+              ( <button
+                  className="btn btn-secondary"  id="follow-button"
+                  onClick={this.props.addFriend.bind(this)}>follow
+                </button> ) : null }
+          </div>
+        </div>
 
         <div className="row">
-        { this.props.profile && this.props.isFriend && (this.props.profile.id !== this.props.user.id) ?
-          ( <button
-              className="btn btn-danger btn-sm"
-              onClick={this.props.deleteFriend.bind(this)}>unfollow
-            </button> ) : null } 
-        
-        { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ? 
-          ( <button 
-              className="btn btn-primary btn-sm" 
-              onClick={this.props.addFriend.bind(this)}>follow
-            </button> ) : null }
           <div>
-
             { this.props.drawings.map(drawing => {
               let commentsarr = this.props.comments.filter(comment => comment.parent_drawing_id === drawing.id);
 
@@ -103,8 +110,8 @@ const dummyFriendships = () => {
 }
 
 
-const mapStateToProps = (state, ownProps) => {  
-  
+const mapStateToProps = (state, ownProps) => {
+
   const versions = Object.values(state.versions)
     .filter(version => version.user_id === Number(ownProps.params.id));
 
@@ -115,14 +122,14 @@ const mapStateToProps = (state, ownProps) => {
 
   const comments = Object.values(state.drawings)
     .filter(drawing => drawing.parent_drawing_id)
-  
+
   return {
     user: state.auth || dummyUser(),
     drawings,
     versions,
     comments,
     users: state.users,
-    profile: state.users[Number(ownProps.params.id)] || dummyUser(), 
+    profile: state.users[Number(ownProps.params.id)] || dummyUser(),
     friendships: state.friendships || dummyFriendships(),
     isFriend: Object.values(state.friendships).some(friendship => {
        return friendship.follower_id === state.auth.id && friendship.followee_id === Number(ownProps.params.id)
@@ -132,9 +139,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getUser: () => dispatch(getUser(Number(ownProps.params.id))), 
-    removeUserFromStore: (user) => dispatch(removeUserFromStore(user)), 
-    addFriend: () => dispatch(addFriend(Number(ownProps.params.id))), 
+    getUser: () => dispatch(getUser(Number(ownProps.params.id))),
+    removeUserFromStore: (user) => dispatch(removeUserFromStore(user)),
+    addFriend: () => dispatch(addFriend(Number(ownProps.params.id))),
     deleteFriend: () => dispatch(deleteFriend(Number(ownProps.params.id))),
     getProfileInfo: () => dispatch(getProfileInfo(Number(ownProps.params.id)))
   }

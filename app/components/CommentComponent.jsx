@@ -8,7 +8,7 @@ export class CommentComponent extends React.Component {
 
   constructor(props){
     super(props)
-    
+
     this.state = {
       paperSettings: {
         strokeWidth: 7,
@@ -30,8 +30,9 @@ export class CommentComponent extends React.Component {
     this.clearCanvas = this.clearCanvas.bind(this)
     this.undoDraw = this.undoDraw.bind(this)
     this.toggleComment=this.toggleComment.bind(this)
+    this.changeColor = this.changeColor.bind(this)
   }
-  
+
   onInitialize(paperScope) {
     paperScope.install(this);
     this.path = new this.Path(this.state.paperSettings);
@@ -57,13 +58,18 @@ export class CommentComponent extends React.Component {
   }
 
   getCurrentPaper(paper) {
-    this.setState({currentPaper: paper}) 
+    this.setState({currentPaper: paper})
   }
 
   clearCanvas(){
     return new Promise((resolve, reject) => resolve(this.state.currentPaper.project.clear())
       .then(()=> this.getCurrentPaper(paper))
     )
+  }
+
+  changeColor(color){
+    const currentSettings = this.state.paperSettings
+    this.setState(Object.assign(currentSettings, { strokeColor: color }))
   }
 
   undoDraw(){
@@ -78,12 +84,25 @@ export class CommentComponent extends React.Component {
   render(){
     return(
       <div>
-        <button type="button" id="post-button" className="btn btn=secondary" onClick={this.toggleComment}>Add Comment</button>
+        <button type="button" id="post-button" className="btn btn=secondary" onClick={this.toggleComment}>{this.state.showComment ? "Discard" : "Add Comment"}</button>
               <div className="container">
                 <div className="col-xs-12 col-sm-4">
-                </div>  
+                  {this.state.showComment ?
+                  (<div className="palette">
+                    <a onClick={() => this.changeColor('red')}><div className="red"></div></a>
+                    <a onClick={() => this.changeColor('#ff5602')}><div className="orange"></div></a>
+                    <a onClick={() => this.changeColor('yellow')}><div className="yellow"></div></a>
+                    <a onClick={() => this.changeColor('#00ff00')}><div className="green"></div></a>
+                    <a onClick={() => this.changeColor('blue')}><div className="blue"></div></a>
+                    <a onClick={() => this.changeColor('#8500ff')}><div className="purple"></div></a>
+                    <a onClick={() => this.changeColor('black')}><div className="black"></div></a>
+                    <a onClick={() => this.changeColor('white')}><div className="white"></div></a>
+                    <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>
+                    <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button>
+                  </div>) : null }
+                </div>
 
-              {this.state.showComment ? 
+              {this.state.showComment ?
                 (<div className="col-xs-12 col-sm-8">
                   <div className="masterpiece-container">
                     <ActivePaperCanvas
@@ -94,20 +113,15 @@ export class CommentComponent extends React.Component {
                       clearCanvas={this.clearCanvas}
                       undoDraw = {this.undoDraw}
                       />
-                  <div className="palette">
-                    <button type="button" id="clear-button" className="btn btn=secondary" onClick={this.clearCanvas}>Clear</button>  
-                    <button type="button" className="btn btn=secondary" onClick={this.undoDraw}>Undo</button> 
-                  </div>
+
                     <form id="master-buttons" className="form-inline">
                       <button type="button" onClick={this.saveComment} className="btn btn-secondary" id="post-button">Post</button>
                     </form>
                   </div>
                 </div>) : null}
-
-
               </div>
               <div className="draft-section">
-          </div> 
+          </div>
       </div>
     )
   }
