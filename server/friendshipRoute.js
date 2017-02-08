@@ -39,8 +39,6 @@ router.post('/', mustBeLoggedIn, async (req, res, next) => {
       }]
     })
     
-    console.log(newFriendship.chat_drawing_id)
-    
     return res.json([newFriend, friendshipWithInfo])
   } catch(next){ console.error(next) }
 })
