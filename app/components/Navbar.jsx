@@ -5,6 +5,7 @@ import {logout} from '../reducers/auth'
 import {DropdownButton, MenuItem} from 'react-bootstrap'
 import { DropSearch } from './DropSearch'
 
+
 export class Navbar extends Component {
 
   profileRedirect(){
