@@ -41,7 +41,7 @@ export class CommentComponent extends React.Component {
     this.path = new this.Path(this.state.paperSettings);
   }
 
-  toggleComment(event, currentPaper){
+  toggleComment(){
       let toggle = this.state.showComment;
       this.setState({showComment: !toggle})
     }

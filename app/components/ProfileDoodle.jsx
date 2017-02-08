@@ -59,9 +59,11 @@ class ProfileDoodle extends Component {
                   this.props.users[comment.version.user_id] ? name = this.props.users[comment.version.user_id].fullName : null;
                   return (
                     <div className="profile-card">
-                    <h4><Link to={`/profile/${comment.version.user_id}`}>{name}</Link></h4>
                       <CommentCanvas json={comment.version.data} key={comment.version.id}/>
-                      <h4>{dateFormatted(comment.version.created_at)}</h4>
+                      <div className="img-info">
+                        <h3 className="comment-name"><Link to={`/profile/${comment.version.user_id}`}>{name}</Link></h3>
+                        <h4 className="date-h4">{dateFormatted(comment.version.created_at)}</h4>
+                      </div>
                     </div>
                   )
                 })
