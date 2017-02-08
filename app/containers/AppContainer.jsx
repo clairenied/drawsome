@@ -66,20 +66,20 @@ class AppContainer extends React.Component {
     })
   }
 
-  getChatVersionUnread(friendId){
-    let drawingId = Object.values(this.props.friendships).filter(friendship => {
-      if ( friendship.follower_id === this.props.friendId || friendship.followee_id === this.props.friendId ) {
-        return friendship.chat_drawing_id
-      }
-    })
+  // getChatVersionUnread(friendId){
+  //   let drawingId = Object.values(this.props.friendships).filter(friendship => {
+  //     if ( friendship.follower_id === this.props.friendId || friendship.followee_id === this.props.friendId ) {
+  //       return friendship.chat_drawing_id
+  //     }
+  //   })
 
-    console.log('DRAWING POOPS', this.props.drawings)
-    return true
-    // let drawingVersions = this.props.drawings[drawingId].versions
-    // let recentVersion = Math.max(...drawingVersions)
+  //   console.log('DRAWING POOPS', this.props.drawings)
+  //   return true
+  //   // let drawingVersions = this.props.drawings[drawingId].versions
+  //   // let recentVersion = Math.max(...drawingVersions)
 
-    // return recentVersion.read
-  }
+  //   // return recentVersion.read
+  // }
 
   render(){
     return (
@@ -100,10 +100,7 @@ class AppContainer extends React.Component {
                       key={user.id}
                       className="online"
                       onClick={this.openChat.bind(this, user.id)}>
-                      { this.getChatVersionUnread(user.id) ? 
-                        <span>{ user.firstName } { user.lastName }</span> :
-                        <span><b>{ user.firstName } { user.lastName }</b></span>
-                      } 
+                        <span>{ user.firstName } { user.lastName }</span>
                       </p>
                   })
                 }
