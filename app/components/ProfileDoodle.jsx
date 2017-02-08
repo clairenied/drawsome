@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router'
 import ProfileCanvas from './ProfileCanvas.jsx'
 import PaperCanvas from './PaperCanvas.jsx'
-
+import {dateFormatted} from '../helperFunctions.js'
 import CommentComponent from './CommentComponent.jsx'
 import {connect} from 'react-redux'
 import CommentCanvas from './CommentCanvas.jsx'
