@@ -46,8 +46,8 @@ export class Navbar extends Component {
   renderLoginSignup(){
     return (
       <ul className="nav navbar-nav navbar-right">
-        <li><Link to="/login">Login</Link></li>
-        <li><Link to="/signup">Signup</Link></li>
+        <li><Link to="/login"><span>Login</span></Link></li>
+        <li><Link to="/signup"><span>Signup</span></Link></li>
       </ul>
     )
   }
@@ -62,8 +62,13 @@ export class Navbar extends Component {
                 <Link id="custom-navbar-brand" className="navbar-brand" to="/gallery">
                   <span className="custom-navbar-logo-pink"><b>Draw</b></span><span className="custom-navbar-logo-orange"><b>some</b></span>
                 </Link>
+                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span className="sr-only">Toggle navigation</span>
+                  <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
+                </button>
               </div>
-
               <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                {
                 this.props.user ?
