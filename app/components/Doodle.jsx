@@ -12,11 +12,13 @@ const Doodle = (props) => {
   return (
     <div className="col-xs-12 col-sm-6 col-md-4">
       <div className="img-card">
-        <div className="doodle-container">
-        { props.version &&
-          <PaperCanvas json={props.version.data} />
-        }
-        </div>
+        <Link to={`/masterpiece/${props.drawing.id}`}>
+          <div className="doodle-container">
+          { props.version &&
+            <PaperCanvas json={props.version.data} />
+          }
+          </div>
+        </Link>
         {props.user && !props.artist ? 
           (<h3>{props.drawing.name}<br/><Link to={`/profile/${props.user.id}`}>{props.user.fullName}</Link></h3>) : 
           (<h3>{props.drawing.name}<br/><Link to={`/profile/${props.artist.id}`}>{props.artist.fullName}</Link></h3>)}

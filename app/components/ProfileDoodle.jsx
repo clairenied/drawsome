@@ -12,15 +12,14 @@ const ProfileDoodle = (props) => {
   const masterpiece = props.masterpiece;
   const profile = props.profile;
 
-  const masterpieceVersion = props.versions[masterpiece.versions[0]];
+  const masterpieceVersion = props.versions[Math.max(...masterpiece.versions)];
   const comments = props.comments
 
   return (
    <div className="row big-doodle">
       <div className="big-doodle-border">
         <div className="col-xs-12">
-          <div className="col-md-4">
-            <hr className="divider-rule"/>
+          <div className="col-xs-12 col-md-4">
             <h3>{ masterpiece && masterpiece.name }</h3>
           </div>
           <div className="col-xs-12 col-md-8">

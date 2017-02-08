@@ -32,21 +32,21 @@ class ProfileContainer extends Component {
       <div className="container">
         <div className="master-header">
           <h1 className="master-h1">Art By: { this.props.profile.fullName }</h1>
-          <div className="follow-btns">
-            { this.props.profile && this.props.isFriend && (this.props.profile.id !== this.props.user.id) ?
-              ( <button
-                  className="btn btn-secondary" id="unfollow-button"
-                  onClick={this.props.deleteFriend.bind(this)}>unfollow
-                </button> ) : null }
-
-            { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ?
-              ( <button
-                  className="btn btn-secondary"  id="follow-button"
-                  onClick={this.props.addFriend.bind(this)}>follow
-                </button> ) : null }
-          </div>
+           <hr className="divider-rule"/>
+            <div className="follow-btns">
+              { this.props.profile && this.props.isFriend && (this.props.profile.id !== this.props.user.id) ?
+                ( <button
+                    className="btn btn-secondary" id="unfollow-button"
+                    onClick={this.props.deleteFriend.bind(this)}>unfollow
+                  </button> ) : null } 
+              
+              { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ? 
+                ( <button 
+                    className="btn btn-secondary"  id="follow-button"
+                    onClick={this.props.addFriend.bind(this)}>follow
+                  </button> ) : null }
+            </div>
         </div>
-
         <div className="row">
           <div>
             { this.props.drawings.map(drawing => {
