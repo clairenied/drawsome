@@ -3,16 +3,18 @@ import {connect} from 'react-redux'
 
 //components
 import BigDoodleSingleMasterpiece from '../components/BigDoodleSingleMasterpiece'
+import ProfileDoodle from '../components/ProfileDoodle'
 
 export class SingleMasterpieceViewContainer extends Component {
 
   render(){
     return(
       <div className="container">
-        <h1>{currrentMasterpiece.name}</h1>
-        <div className="row">
-          <BigDoodleSingleMasterpiece />
-        </div>
+        <ProfileDoodle
+          masterpiece={this.props.currrentMasterpiece}
+          comments={this.props.comments}
+          users={this.props.users}
+        />
       </div>
     )
   }
@@ -20,8 +22,10 @@ export class SingleMasterpieceViewContainer extends Component {
 
 function mapStateToProps(state, props){
   return {
-    currrentMasterpiece: state.drawings[Number(props.params.id)]
+    currrentMasterpiece: state.drawings[Number(props.params.id)],
+    comments: Object.values(state.drawings).filter(drawing => drawing.parent_drawing_id && drawing.parent_drawing_id === Number(props.params.id)),
+    users: state.users
   }
 }
 
-export default connect()(SingleMasterpieceViewContainer)
+export default connect(mapStateToProps)(SingleMasterpieceViewContainer)
