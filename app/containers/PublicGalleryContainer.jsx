@@ -22,19 +22,21 @@ class PublicGalleryContainer extends Component {
   render(){
     return(
       <div className="container">
-        <h1>Your Gallery</h1>
-        <hr className="divider-rule"/>
-        <div className="row">
-          <div>
-            {
-            this.props.drawings && this.props.drawings.map((drawing) =>{
-              let version = this.props.versions[Math.max(...drawing.versions)]
-              let artist = this.props.friends[version.user_id]
-              return (
-                <Doodle key={drawing.id} drawing={drawing} version={version} user={this.props.user} artist={artist} />
-              )
-            })
-            }
+        <div className="master-header">
+          <h1 className="master-h1">Your Gallery</h1>
+          <hr className="divider-rule"/>
+          <div className="row">
+            <div>
+              {
+              this.props.drawings && this.props.drawings.map((drawing) =>{
+                let version = this.props.versions[Math.max(...drawing.versions)]
+                let artist = this.props.friends[version.user_id]
+                return (
+                  <Doodle key={drawing.id} drawing={drawing} version={version} user={this.props.user} artist={artist} />
+                )
+              })
+              }
+            </div>
           </div>
         </div>
       </div>

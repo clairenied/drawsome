@@ -18,7 +18,6 @@ const ProfileDoodle = (props) => {
       <div className="big-doodle-border">
         <div className="col-xs-12">
           <div className="col-xs-12 col-md-4">
-            <hr className="divider-rule"/>
             <h3>{ masterpiece && masterpiece.name }</h3>
    {/*
             <h3><Link to={`/profile/${profile.id}`}>{ profile.firstName } { profile.lastName }</Link></h3>
