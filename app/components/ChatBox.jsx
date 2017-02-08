@@ -86,7 +86,7 @@ class ChatBox extends React.Component {
     const version = this.getVersion()
     return (
       <div> 
-        <div className="clear-title"><a onClick={this.clearCanvas}>Clear</a></div>
+        <div className={ this.props.showChat ? "clear-title" : "hidden" }><a onClick={this.clearCanvas}>Clear</a></div>
         <div className={ this.props.showChat ? "chat-box-container" : "hidden" }>  
           <ActivePaperCanvas
             onInitialize={this.onInitialize}
