@@ -12,7 +12,7 @@ const ProfileDoodle = (props) => {
   const masterpiece = props.masterpiece;
   const profile = props.profile;
 
-  const masterpieceVersion = props.versions[masterpiece.versions[0]];
+  const masterpieceVersion = props.versions[Math.max(...masterpiece.versions)];
   const comments = props.comments
 
   return (
