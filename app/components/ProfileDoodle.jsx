@@ -44,7 +44,7 @@ class ProfileDoodle extends Component {
             </div>
             <div className="col-xs-12 col-md-5">            
               <h2>{ masterpiece && masterpiece.name }</h2>
-              <button type="button" id="comment-button" className="btn btn-secondary" onClick={this.toggleComment}>{this.state.toggleComment ? "Finish" : "Add Comment"}</button>
+              <button type="button" id="comment-button" className="btn btn-secondary" onClick={this.toggleComment}>{this.state.toggleComment ? "Finish" : "Add Drawment"}</button>
               <CommentComponent 
                 toggleComment={this.state.toggleComment}
                 masterpiece={this.props.masterpiece} 
@@ -53,7 +53,7 @@ class ProfileDoodle extends Component {
           </div>
           <div>
             <div className="col-xs-12 comment-pen">
-              { comments && comments.length > 0 ? <div className="col-xs-12"><h3>Comments:</h3></div> : null }
+              { comments && comments.length > 0 ? <div className="col-xs-12"><h3>Drawments:</h3></div> : null }
               { comments && comments.map(comment => {
 
                 let name = "";
