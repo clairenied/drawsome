@@ -8,7 +8,6 @@ import ProfileDoodle from '../components/ProfileDoodle'
 export class SingleMasterpieceViewContainer extends Component {
 
   render(){
-    console.log('CURRENT MASTER',this.props.currrentMasterpiece)
     // let profile =  this.props.users[this.props.currrentMasterpiece.version.user_id] 
     return(
       <div className="container">

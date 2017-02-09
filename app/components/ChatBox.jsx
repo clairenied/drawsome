@@ -59,7 +59,6 @@ class ChatBox extends React.Component {
 
   onMouseUp(event, currentPaper){
     const version = this.getVersion()
-    console.log("VERSION!!!")
     this.props.postChat(currentPaper.project.exportJSON(), this.props.friendship.chat_drawing_id)
     return io.emit('new-chat', version)
   }

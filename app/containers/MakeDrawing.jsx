@@ -10,7 +10,6 @@ class MakeDrawing extends React.Component {
 
   constructor(props){
     super(props)
-console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',paper.view)
     this.state = {
       paperSettings: {
         strokeWidth: 10,

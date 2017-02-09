@@ -82,7 +82,6 @@ export const addFriend = id => {
 		return axios.post('/api/friendships/', { id })
 		.then(res => {
 			if(res) {
-				console.log("DANIELLE IS A FRIEND YES", res.data[1].chat_drawing)
 				dispatch(receiveFriendship(res.data[1]))
 				dispatch(receiveUser(res.data[0]))
 				dispatch(receiveDrawing(res.data[1].chat_drawing))
