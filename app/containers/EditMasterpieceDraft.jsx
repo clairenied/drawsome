@@ -15,7 +15,7 @@ class EditMasterpieceDraft extends Component{
           <MakeDrawing user={this.props.user} drawings={this.props.drawings} versions={this.props.versions} selectedMasterpiece={this.props.selectedMasterpiece} params={this.props.params}/>
         </div>
         <div className="draft-section">
-          <DraftContainer />
+          <DraftContainer versions={this.props.versions}/>
         </div>
       </div>
     )
