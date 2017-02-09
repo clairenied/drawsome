@@ -14,8 +14,10 @@ const DoodleDraft = (props) => {
           <PaperCanvas json={props.version.data} />
         }
         </div>
-        <h3>{props.drawing.name}</h3>
-        <h4>{dateFormatted(props.drawing.created_at)}</h4>
+        <div className="img-names">
+          <h3 className="draft-name">{props.drawing.name}</h3>
+          <h4 className="draft-date">{dateFormatted(props.drawing.created_at)}</h4>
+        </div>
       </div>
 
     </div>

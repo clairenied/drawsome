@@ -313,6 +313,15 @@ hr.divider-rule {
   box-sizing: border-box;
   border-bottom: 4px solid #ff0274; }
 
+.draft-name {
+  color: black;
+  padding-bottom: 0px;
+  margin-bottom: 0px; }
+
+.draft-date {
+  color: black;
+  margin-top: 2px; }
+
 .master-h1 {
   width: 40%;
   display: inline; }
