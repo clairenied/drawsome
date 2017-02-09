@@ -8,10 +8,6 @@ export class DraftContainer extends Component {
     super(props);
   }
 
-  componentDidUpdate() {
-    window.scrollTo(0,0);
-  }
-
 	render(){
 		return(
 			<div className="container">
@@ -38,7 +34,8 @@ function mapStateToProps(state, props){
   return {
     user: state.auth,
     drawings: state.drawings,
-    drafts: Object.values(state.drawings).filter(drawing => drawing.type === "masterpiece" && drawing.private === true)
+    drafts: Object.values(state.drawings).filter(drawing => drawing.type === "masterpiece" && drawing.private === true),
+    versions: state.versions
   }
 }
 
