@@ -27,7 +27,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   return Drawing.create({
-    name: req.body.name, 
+    name: req.body.name,
     type: "masterpiece",
     canEdit: req.body.canEdit,
     private: req.body.priv,
@@ -42,7 +42,7 @@ router.post('/', (req, res, next) => {
     })
   })
   .then(version => {
-    return Drawing.findById(version.dataValues.drawing_id, {include: [{model: Version}]}) 
+    return Drawing.findById(version.dataValues.drawing_id, {include: [{model: Version}]})
   })
   .then(drawing => {
     res.json(drawing)
@@ -91,7 +91,7 @@ router.put('/:id', (req, res, next) => {
       number: versionData[0].number + 1,
       data: req.body.json
     })
-  }) 
+  })
   .then(version => {
     return Drawing.findById(req.params.id)
   })
@@ -118,6 +118,22 @@ router.get('/:id', (req, res, next) => {
     })
     res.json(data[0])
   })
+})
+
+router.delete('/', (req, res, next) => {
+  console.log('************************************',req.body.drawingId);
+  return Version.destroy({
+    where: {drawing_id: req.body.drawingId}
+  })
+  .then(() => {
+    return Drawing.destroy({
+      where: {
+        id: req.body.drawingId
+      }
+    })
+    res.send()
+  })
+  .catch(next);
 })
 
 router.post('/:id', (req, res, next) => {
@@ -156,7 +172,7 @@ module.exports = router;
 // const User = db.model('users')
 
 
-// router.get('/:id', (req, res, next) => { 
+// router.get('/:id', (req, res, next) => {
 // 	let userprofile;
 //    return User.findById(req.params.id,{
 // 	include: [{model: Drawing, include:[Version.scope('recent')]}]
@@ -172,5 +188,5 @@ module.exports = router;
 // 		res.json(userprofile)
 // 	})
 // })
-	
+
 // module.exports = router;

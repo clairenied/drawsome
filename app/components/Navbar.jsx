@@ -7,7 +7,6 @@ import { DropSearch } from './DropSearch'
 
 
 export class Navbar extends Component {
-
   profileRedirect(){
     browserHistory.push(`/profile/${this.props.user.id}`)
   }

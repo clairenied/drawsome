@@ -3,21 +3,34 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router'
 import axios from 'axios'
 import { getUser, removeUserFromStore, addFriend, deleteFriend, getProfileInfo } from '../reducers/users'
-
+import { removeADrawing } from '../reducers/drawings.jsx'
 import ProfileDoodle from '../components/ProfileDoodle.jsx'
+
 
 class ProfileContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      ownProfile: false
+    }
+    console.log('THIS PROPS',this.props);
   }
-
   componentDidUpdate() {
     window.scrollTo(0,0);
   }
 
   componentDidMount(){
+    if (this.props.profile.id===this.props.user.id)this.setState({ownProfile:true});
     if(!this.props.isFriend && this.props.user.id !== Number(this.props.params.id)){
       this.props.profile && this.props.getProfileInfo()
+    }
+  }
+
+  deleteMasterpiece(drawing){
+    if (confirm("Are you sure you want to delete your masterpiece?")){
+      this.props.removeADrawing(drawing)
+      axios.delete('/api/drawings',{ data: {drawingId: drawing.id }})
+      .then(()=> console.log("Happening"))
     }
   }
 
@@ -37,10 +50,10 @@ class ProfileContainer extends Component {
                 ( <button
                     className="btn btn-secondary" id="unfollow-button"
                     onClick={this.props.deleteFriend.bind(this)}>unfollow
-                  </button> ) : null } 
-              
-              { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ? 
-                ( <button 
+                  </button> ) : null }
+
+              { this.props.profile && (this.props.isFriend === false) && (this.props.profile.id !== this.props.user.id) ?
+                ( <button
                     className="btn btn-secondary"  id="follow-button"
                     onClick={this.props.addFriend.bind(this)}>follow
                   </button> ) : null }
@@ -51,10 +64,16 @@ class ProfileContainer extends Component {
             { this.props.drawings.map(drawing => {
               let commentsarr = this.props.comments.filter(comment => comment.parent_drawing_id === drawing.id);
               return (
+                <div key={drawing.id}>
                 <ProfileDoodle
                   key={drawing.id}
                   masterpiece={drawing}
-                  profile={this.props.profile} comments={commentsarr} users={this.props.users}/>
+                  profile={this.props.profile}
+                  comments={commentsarr}
+                  users={this.props.users}/>
+                { this.state.ownProfile && <button className="btn btn-danger" id="follow-button"
+                onClick={this.deleteMasterpiece.bind(this, drawing)}>Delete Masterpiece </button> }
+               </div>
               )
             })}
           </div>
@@ -141,7 +160,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     removeUserFromStore: (user) => dispatch(removeUserFromStore(user)),
     addFriend: () => dispatch(addFriend(Number(ownProps.params.id))),
     deleteFriend: () => dispatch(deleteFriend(Number(ownProps.params.id))),
-    getProfileInfo: () => dispatch(getProfileInfo(Number(ownProps.params.id)))
+    getProfileInfo: () => dispatch(getProfileInfo(Number(ownProps.params.id))),
+    removeADrawing: (drawing) => dispatch(removeADrawing(drawing))
   }
 }
 
