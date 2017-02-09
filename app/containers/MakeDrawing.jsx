@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import paper from 'paper'
 import DraftContainer from './DraftContainer'
-import {createMasterpieceDraft, postMasterpieceDraft, saveNewMasterpieceDraft, postMasterpieceFromDraft} from '../reducers/drawings';
-import { browserHistory } from 'react-router'
+import {createMasterpieceDraft, postMasterpieceDraft, saveNewMasterpieceDraft, postMasterpieceFromDraft} from '../reducers/drawings'
 
 import ActivePaperCanvas from '../components/ActivePaperCanvas'
 
@@ -11,6 +10,7 @@ class MakeDrawing extends React.Component {
 
   constructor(props){
     super(props)
+console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',paper.view)
     this.state = {
       paperSettings: {
         strokeWidth: 10,
@@ -41,9 +41,7 @@ class MakeDrawing extends React.Component {
     this.postMasterpieceOfDraft = this.postMasterpieceOfDraft.bind(this)
   }
 
-  componentDidUpdate() {
-    window.scrollTo(0,0);
-  }
+
 
   onInitialize(paperScope) {
     paperScope.install(this);
@@ -124,7 +122,6 @@ class MakeDrawing extends React.Component {
   saveVersionDraft(e){
     e.preventDefault()
     this.props.saveNewMasterpieceDraft(this.props.params.id, this.props.user.id, this.state.currentPaper.project.exportJSON())
-    browserHistory.push(`/edit-masterpiece/${this.props.params.id}`)
   }
 
   postMasterpieceOfDraft(e){
