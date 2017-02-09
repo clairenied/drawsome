@@ -33,7 +33,7 @@ const initialState = {};
 const reducer  = (state = initialState, action) => {
   const nextState = Object.assign({}, state);
   switch (action.type) {
-    case ADD_DRAWING: 
+    case ADD_DRAWING:
       nextState[action.drawing.id] = action.drawing;
       break;
     case REMOVE_DRAWING:
@@ -50,21 +50,31 @@ const reducer  = (state = initialState, action) => {
 
 export const REMOVE_DRAWING = 'REMOVE_DRAWING'
 export const REMOVE_DRAWING_ID = 'REMOVE_DRAWING_ID'
-export const removeDrawingsFromStore = drawings => 
+export const removeDrawingsFromStore = drawings =>
   dispatch => {
     drawings.forEach(drawing => {
       if(!drawing.id) {
         return dispatch({
           type: REMOVE_DRAWING_ID,
           drawing,
-        }) 
+        })
       }
       return dispatch({
         type: REMOVE_DRAWING,
         drawing,
-      })  
+      })
     })
   }
+
+
+  export const removeADrawing = drawing => {
+  console.log('HERE IS DRAWINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG',drawing);
+        return {
+          type: REMOVE_DRAWING,
+          drawing,
+        }
+    }
+
 
 const ADD_DRAWING = "ADD_DRAWING";
 export const receiveDrawing = drawing => {
