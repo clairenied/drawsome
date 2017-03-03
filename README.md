@@ -7,3 +7,5 @@ Masterpieces allow users to choose colors, stroke size and opacity to make intri
 Comments are drawings in response to masterpieces. They can be seen by clicking on any image in the gallery or by going to a user's profile page.
 
 Messages in Drawsome use web sockets to allow users to talk to each other in real time. The messages component is accessible on all parts of Drawsome.
+
+Watch this video to see Drawsome in action: https://www.fullstackacademy.com/final-projects/drawsome
